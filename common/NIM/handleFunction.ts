@@ -1,4 +1,5 @@
-// 
+import store from '@/store/index'
+
 interface storeData {
 	commit: any;
 	state: any;
@@ -37,14 +38,14 @@ class NimHandle {
 
 	onMyInfo(data): void {
 		console.log(data);
+		store.commit('initNim/setNimUserNim', data)
+		store.commit('initNim/setNimId', data.account)
 	}
 	
 	onUpdateMyInfo(data): void {
 		console.log(data);
-	}
-	
-	onUpdateMyInfo(data): void {
-		console.log(data);
+		store.commit('initNim/setNimUserNim', data)
+		store.commit('initNim/setNimId', data.account)
 	}
 	
 	onError(data): void {
@@ -53,6 +54,10 @@ class NimHandle {
 	
 	onDisconnect(data): void {
 		console.log(data);
+	}
+	
+	error(data): void {
+		console.log(data)
 	}
 }
 

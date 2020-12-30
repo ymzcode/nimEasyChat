@@ -2,6 +2,8 @@ import config from '@/common/NIM/config.js'
 import errorTrapping from '@/common/NIM/errorTrapping.ts'
 import handleFunction from '@/common/NIM/handleFunction.ts'
 
+const SDK = require(`@/common/NIM/${config.NIMSDK}`)
+
 const ALLSTATE = {
 	// 全局nim， 唯一
 	nim: null,
@@ -9,7 +11,7 @@ const ALLSTATE = {
 	nimUserInfo: null,
 	// 我的nimId
 	userUID: null,
-	// 实例化错误处理方法
+	// 实例化错误处理方法, 单一实例
 	errCommon : new errorTrapping()
 }
 
@@ -41,12 +43,11 @@ export default {
 			console.log('清空state中的值', state)
 		},
 		initNimSDK(state, data) {
-			console.log('initnimSDK', data)
+			// console.log('initnimSDK', data)
 			state.nim = data.NIM
 		},
 		setNimUserNim(state, data) {
-			state.nimUserInfo = data.userInfo
-			state.userUID = data.userInfo.account
+			state.nimUserInfo = data
 			console.log('存储成功', data)
 		},
 		setNimId(state, data) {
@@ -67,10 +68,9 @@ export default {
 			
 			
 			try {
-				const SDK = require('@/common/NIM/' + config.NIMSDK)
 				
 				// 实例化nim处理方法
-				let nimHandle = new handleFunction({commit, state, dispatch, getters})
+				let nimHandle = new handleFunction({commit: commit, state: state, dispatch: dispatch, getters: getters})
 				
 				let nim = new SDK.NIM({
 					// 初始化SDK
@@ -83,10 +83,7 @@ export default {
 					// 用户名片
 					onmyinfo: nimHandle.onMyInfo,
 					onupdatemyinfo: nimHandle.onUpdateMyInfo,
-					// logFunc: config.ISDEBUG ? new NimLog.LoggerPlugin({
-					// 	level: 'error',
-					// 	url: '/getlogger'
-					// }) : null,
+					// logFunc: nimHandle.error,
 					onerror: nimHandle.onError,
 					// 断开连接后的回调
 					// 此时说明 SDK 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面

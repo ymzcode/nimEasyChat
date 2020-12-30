@@ -3,12 +3,19 @@
 		登录页面
 		<view class="">
 			<text @click="initNim">初始化NIM</text>
+			<text>{{nimUserInfo}}</text>
 		</view>
 	</div>
 </template>
 
 <script>
 	export default {
+		computed: {
+			nimUserInfo () {
+				console.log('nimUserInfo 改变', this.$store.getters['initNim/nimUserInfo'])
+				return this.$store.getters['initNim/nimUserInfo']
+			}
+		},
 		methods: {
 			initNim() {
 				this.$store.dispatch('initNim/initNimSDK')
