@@ -3,6 +3,7 @@
 		登录页面
 		<view class="">
 			<text @click="initNim">初始化NIM</text>
+			<text @click="loginOut">退出登录</text>
 			<text>{{nimUserInfo}}</text>
 		</view>
 	</div>
@@ -19,6 +20,9 @@
 		methods: {
 			initNim() {
 				this.$store.dispatch('initNim/initNimSDK')
+			},
+			loginOut() {
+				this.$store.dispatch('initNim/logOut')
 			}
 		}
 	}

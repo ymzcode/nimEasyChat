@@ -136,8 +136,6 @@ export default {
 			state.nim && state.nim.destroy({
 				done: function(err) {
 					console.log('实例已被完全清除', err)
-					uni.removeStorageSync('appInfo')
-					uni.removeStorageSync('accessToken')
 					commit('clearInitNimState')
 					uni.reLaunch({
 						url: '/pages/login/login'

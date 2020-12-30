@@ -146,7 +146,7 @@ class NimErrorTrap {
 			return;
 		}
 		let color = level >= 4 ? '#fa3534' : level === 3 ? '#f90' : level === 2 ? '#19be6b' : '#909399'
-		plus.nativeUI.toast(`ImErr：${this.tipInfo}`, {
+		plus.nativeUI.toast(`IMTip：${this.tipInfo}`, {
 			type: 'text',
 			verticalAlign: 'bottom',
 			duration: 'short',
