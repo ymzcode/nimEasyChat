@@ -70,7 +70,7 @@ export default {
 			try {
 				
 				// 实例化nim处理方法
-				let nimHandle = new handleFunction({commit: commit, state: state, dispatch: dispatch, getters: getters})
+				let nimHandle = new handleFunction()
 				
 				let nim = new SDK.NIM({
 					// 初始化SDK
@@ -83,6 +83,20 @@ export default {
 					// 用户名片
 					onmyinfo: nimHandle.onMyInfo,
 					onupdatemyinfo: nimHandle.onUpdateMyInfo,
+					// 是否同步好友对应的用户名片列表, 默认true, 如果传false就收不到onusers回调.
+					syncFriendUsers: true,
+					onusers: nimHandle.onusers,
+					onupdateuser: nimHandle.onupdateuser,
+					// 是否同步群列表, 默认true. 如果传false就收不到群列表, 即不会收到onteams回调, 开发者后续可以调用获取群列表来获取群列表.
+					syncTeams: true,
+					// 是否同步额外的群信息, 默认true会同步额外的群信息, 目前包括
+
+					// 当前登录用户是否开启某个群的消息提醒 (SDK 只是存储了此信息, 具体用此信息来做什么事情完全由开发者控制)
+					// 调用接口NIM#updateInfoInTeam来关闭/开启某个群的消息提醒
+					// 调用接口NIM#notifyForNewTeamMsg来查询是否需要群消息通知
+					syncExtraTeamInfo: true,
+					onteams: nimHandle.onteams,
+					
 					// logFunc: nimHandle.error,
 					onerror: nimHandle.onError,
 					// 断开连接后的回调

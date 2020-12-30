@@ -1,23 +1,12 @@
 import store from '@/store/index';
 
-interface storeData {
-	commit: any;
-	state: any;
-	dispatch: any;
-	getters: any;
-}
-
 class NimHandle {
 	private commit: any;
 	private state: any;
 	private dispatch: any;
 	private getters: any;
 
-	constructor(option: storeData) {
-		this.commit = option.commit;
-		this.state = option.state;
-		this.dispatch = option.dispatch;
-		this.getters = option.getters;
+	constructor() {
 	}
 
 	/*
@@ -41,11 +30,36 @@ class NimHandle {
 		store.commit('initNim/setNimUserNim', data);
 		store.commit('initNim/setNimId', data.account);
 	}
+	/*
+	*
+	* 同步好友用户名片的回调, 会传入用户名片数组
+	*/
+	onusers(data): void {
+		console.log(data);
+	}
 
 	onUpdateMyInfo(data): void {
 		console.log(data);
 		store.commit('initNim/setNimUserNim', data);
 		store.commit('initNim/setNimId', data.account);
+	}
+	
+	/*
+	*
+	* 用户名片更新后的回调, 会传入用户名片
+	*/
+	onupdateuser(data): void {
+		console.log(data);
+	}
+	
+	/*
+	*
+	* 	
+		同步群列表的回调, 会传入群数组teams
+		teams的属性invalid包含退出的群
+	*/
+	onteams(data): void {
+		console.log('onteams', data);
 	}
 
 	onError(data): void {
