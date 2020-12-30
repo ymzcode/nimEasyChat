@@ -1,12 +1,19 @@
 <template>
 	<div>
 		登录页面
+		<view class="">
+			<text @click="initNim">初始化NIM</text>
+		</view>
 	</div>
 </template>
 
 <script>
 	export default {
-		
+		methods: {
+			initNim() {
+				this.$store.dispatch('initNim/initNimSDK')
+			}
+		}
 	}
 </script>
 

@@ -28,8 +28,10 @@ class NimErrorTrap {
 	 *
 	 * @memberof NimErrorTrap
 	 */
-	async uploadInfo(info: string | number = '') : void {
-		let _info : errInfo = await this.formatInfo(info)
+	async uploadInfo(info: any = '') : void {
+		// console.log(info.toString())
+		let json_info = JSON.stringify(info.toString())
+		let _info : errInfo = await this.formatInfo(json_info)
 		this.logCache.push(_info)
 		this.logNum++
 		

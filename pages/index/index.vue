@@ -5,6 +5,9 @@
 			<text class="title" @click="ready">{{title}}</text>
 			<text @click="addError">一个错误</text>
 		</view>
+		<navigator url="/pages/login/login">
+			<text>前往登录</text>
+		</navigator>
 	</view>
 </template>
 

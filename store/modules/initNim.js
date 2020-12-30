@@ -1,4 +1,6 @@
 import config from '@/common/NIM/config.js'
+import errorTrapping from '@/common/NIM/errorTrapping.ts'
+import handleFunction from '@/common/NIM/handleFunction.ts'
 
 const ALLSTATE = {
 	// 全局nim， 唯一
@@ -6,8 +8,11 @@ const ALLSTATE = {
 	// 从nim返回的用户信息， 之后网页的用户信息都用这个信息。
 	nimUserInfo: null,
 	// 我的nimId
-	userUID: null
+	userUID: null,
+	// 实例化错误处理方法
+	errCommon : new errorTrapping()
 }
+
 
 export default {
 	namespaced: true,
@@ -21,7 +26,11 @@ export default {
 		},
 		nim: state => {
 			return state.nim
-		}
+		},
+		// 这样用会有问题
+		// getters: state => {
+		// 	return state.errCommon
+		// }
 	},
 	mutations: {
 		// 清空Nim state中的值
@@ -47,42 +56,50 @@ export default {
 	actions: {
 		initNimSDK({
 			state,
-			commit
+			commit,
+			dispatch,
+			getters
 		}, data) {
 			if (state.nim) {
 				console.log('当前已经登陆')
 				return;
 			}
-			// commit('optionLoading', {
-			// 	lock: true,
-			// 	text: '正在登陆通讯，请稍后···'
-			// })
-			const SDK = require('@/common/NIM/' + config.NIMSDK)
-			// const loginInfo = uni.getStorageSync('loginNimInfo')
-			let nim = SDK.NIM.getInstance({
-				// 初始化SDK
-				debug: config.ISDEBUG,
-				db: config.USEDb,
-				appKey: config.APPKEY,
-				account: data.uid,
-				token: data.userSig,
-				onconnect: onConnect,
-				// 用户名片
-				onmyinfo: onMyInfo,
-				onupdatemyinfo: onUpdateMyInfo,
-				// logFunc: config.ISDEBUG ? new NimLog.LoggerPlugin({
-				// 	level: 'error',
-				// 	url: '/getlogger'
-				// }) : null,
-				onerror: onError,
-				// 断开连接后的回调
-				// 此时说明 SDK 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面
-				ondisconnect: onDisconnect
-			})
-			commit('initNimSDK', {
-				NIM: nim
-			})
-			// uni.setStorageSync('loginNimInfo', data)
+			
+			
+			try {
+				const SDK = require('@/common/NIM/' + config.NIMSDK)
+				
+				// 实例化nim处理方法
+				let nimHandle = new handleFunction({commit, state, dispatch, getters})
+				
+				let nim = new SDK.NIM({
+					// 初始化SDK
+					debug: config.ISDEBUG,
+					db: config.USEDb,
+					appKey: config.APPKEY,
+					account: '122',
+					token: 'e10adc3949ba59abbe56e057f20f883e',
+					onconnect: nimHandle.onConnect,
+					// 用户名片
+					onmyinfo: nimHandle.onMyInfo,
+					onupdatemyinfo: nimHandle.onUpdateMyInfo,
+					// logFunc: config.ISDEBUG ? new NimLog.LoggerPlugin({
+					// 	level: 'error',
+					// 	url: '/getlogger'
+					// }) : null,
+					onerror: nimHandle.onError,
+					// 断开连接后的回调
+					// 此时说明 SDK 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面
+					ondisconnect: nimHandle.onDisconnect
+				})
+				commit('initNimSDK', {
+					NIM: nim
+				})
+			} catch (e) {
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+			
 		},
 		/*
 		 * 代理nim sdk中对NIM的操作方法
@@ -100,12 +117,12 @@ export default {
 				try {
 					return nim[functionName](options).catch(err => {
 						console.error('delegateNimFunction', err)
-						log.appErrorLog.get(err)
+						// log.appErrorLog.get(err)
 						throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
 					})
 				} catch (e) {
 					console.error(e)
-					log.appErrorLog.get(e)
+					// log.appErrorLog.get(e)
 					throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
 				}
 			} else {

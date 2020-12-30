@@ -1,17 +1,64 @@
-import store from "@/store";
-
-// 连接建立后的回调, 会传入一个对象, 包含登录的信息, 有以下字段
-// lastLoginDeviceId: 上次登录的设备的设备号
-// customTag: 客户端自定义tag,登录时多端同步改字段，最大32个字符
-// connectionId: 本次登录的连接号
-// ip: 客户端IP
-// port: 客户端端口
-// country: 本次登录的国家
-export function onConnect(data) {
-    console.log(data)
-    store.commit('optionLoading', null)
+// 
+interface storeData {
+	commit: any;
+	state: any;
+	dispatch: any;
+	getters: any;
 }
 
+class NimHandle {
+	private commit: any;
+	private state: any;
+	private dispatch: any;
+	private getters: any;
+	
+	constructor(option: storeData) {
+		this.commit = option.commit
+		this.state = option.state
+		this.dispatch = option.dispatch
+		this.getters = option.getters
+	}
+
+	/*
+	*
+	* 	
+		连接建立后的回调, 会传入一个对象, 包含登录的信息, 有以下字段
+
+		lastLoginDeviceId: 上次登录的设备的设备号
+		customTag: 客户端自定义tag,登录时多端同步改字段，最大32个字符
+		connectionId: 本次登录的连接号
+		ip: 客户端IP
+		port: 客户端端口
+		country: 本次登录的国家
+	*/
+	onConnect(data): void {
+		console.log(data);
+	}
+
+	onMyInfo(data): void {
+		console.log(data);
+	}
+	
+	onUpdateMyInfo(data): void {
+		console.log(data);
+	}
+	
+	onUpdateMyInfo(data): void {
+		console.log(data);
+	}
+	
+	onError(data): void {
+		console.log(data);
+	}
+	
+	onDisconnect(data): void {
+		console.log(data);
+	}
+}
+
+export default NimHandle;
+
+/*
 // 同步登录用户名片的回调, 会传入用户名片
 export function onMyInfo(data) {
     console.log('同步我的信息', data)
@@ -30,6 +77,7 @@ export function onError(error, obj) {
     store.commit('optionLoading', null)
     console.log('发生错误', error, obj);
 }
+
 
 // 断开连接后的回调
 // 此时说明 SDK 处于断开状态, 开发者此时应该根据错误码提示相应的错误信息, 并且跳转到登录页面
@@ -79,3 +127,4 @@ export function onDisconnect(error) {
             break
     }
 }
+*/
