@@ -5,6 +5,7 @@ interface errInfo {
 	info: string;
 	appInfo: object;
 	appVersion: string;
+	level: number;
 }
 
 class NimErrorTrap {
@@ -28,10 +29,10 @@ class NimErrorTrap {
 	 *
 	 * @memberof NimErrorTrap
 	 */
-	async uploadInfo(info: any = '') : void {
+	async uploadInfo(info: any = '', level?: number = 4) : void {
 		// console.log(info.toString())
-		let json_info = JSON.stringify(info.toString())
-		let _info : errInfo = await this.formatInfo(json_info)
+		let json_info = info.toString()
+		let _info : errInfo = await this.formatInfo(json_info, level)
 		this.logCache.push(_info)
 		this.logNum++
 		
@@ -48,13 +49,14 @@ class NimErrorTrap {
 		if (!this.errTimeout) {
 			if (this.logCache.length <= 0) { // 没有数据 执行完成
 				this.logNum = 0
+				this.logCache = []
 				console.log('执行完了')
 				return;
 			}
 			
 			// console.log('处理', this.logCache)
 			let firstInfo: errInfo = this.logCache[0]
-			this.showTips(firstInfo.info)
+			this.showTips(firstInfo.info, firstInfo.level)
 			this.logCache.shift()
 			this.logNum--
 			
@@ -70,12 +72,13 @@ class NimErrorTrap {
 	 *
 	 * @memberof NimErrorTrap
 	 */
-	formatInfo(info: string = '') : errInfo {
+	formatInfo(info: string = '', level?: number = 4) : errInfo {
 		this.getAppInfo()
 		let obj = {
 			info: info,
 			appInfo: this.appInfo,
-			appVersion: this.appVersion
+			appVersion: this.appVersion,
+			level: level
 		}
 		return obj
 	}
@@ -93,20 +96,61 @@ class NimErrorTrap {
 		// console.log('获取用户信息', res)
 	}
 	/**
-	 * 展示错误的信息
+	 * 展示成功的提示信息
 	 *
 	 * @memberof NimErrorTrap
 	 */
-	showTips(info: string = ''): void {
+	async successInfo(info: any = ''): void {
+		let json_info = info.toString()
+		let _info : errInfo = await this.formatInfo(json_info, 2)
+		this.logCache.push(_info)
+		this.logNum++
+		this.timeOut()
+	}
+	/**
+	 * 展示警告的提示信息
+	 *
+	 * @memberof NimErrorTrap
+	 */
+	async warningInfo(info: any = ''): void {
+		let json_info = info.toString()
+		let _info : errInfo = await this.formatInfo(json_info, 3)
+		this.logCache.push(_info)
+		this.logNum++
+		this.timeOut()
+	}
+	/**
+	 * 展示默认的提示信息
+	 *
+	 * @memberof NimErrorTrap
+	 */
+	async primaryInfo(info: any = ''): void {
+		let json_info = info.toString()
+		let _info : errInfo = await this.formatInfo(json_info, 1)
+		this.logCache.push(_info)
+		this.logNum++
+		this.timeOut()
+	}
+	/**
+	 * 展示最终的信息
+	 * level 
+	 * 1 : 提示
+	 * 2 : 成功
+	 * 3 ： 警告
+	 * 4: ： 错误
+	 * @memberof NimErrorTrap
+	 */
+	showTips(info: string = '', level?: number = 4): void {
 		this.tipInfo = info;
 		if (!this.isShowTips) {
 			return;
 		}
+		let color = level >= 4 ? '#fa3534' : level === 3 ? '#f90' : level === 2 ? '#19be6b' : '#909399'
 		plus.nativeUI.toast(`ImErr：${this.tipInfo}`, {
 			type: 'text',
-			verticalAlign: 'center',
+			verticalAlign: 'bottom',
 			duration: 'short',
-			background: '#fa3534'
+			background: color
 		});
 		// uni.showToast({
 		// 	title: `ImErr：${this.tipInfo}`,
