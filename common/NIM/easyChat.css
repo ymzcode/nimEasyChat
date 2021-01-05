@@ -8,6 +8,9 @@
 	flex-direction:row;
 }
 
+/* 宽度 */
+.im-w-100{ width: 750rpx; }
+
 .im-flex-row {
 	/* #ifndef APP-PLUS-NVUE */
 	display:flex;
@@ -178,4 +181,9 @@
 	lines: 1;
 	text-overflow: ellipsis;
 	/* #endif */
+}
+
+/* 全局颜色 */
+.im-bg-white {
+	background-color: #FFFFFF;
 }
