@@ -1,0 +1,17 @@
+<template>
+	<view>
+		聊天页面
+	</view>
+</template>
+
+<script>
+	export default {
+		onLoad(event) {
+			console.log('页面接受的参数', event);
+		}
+	}
+</script>
+
+<style>
+
+</style>

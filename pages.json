@@ -23,6 +23,12 @@
 			"style": {
 				"navigationBarTitleText": "群组列表"
 			}
+		},
+		{
+			"path": "pages/easy-chat/chat",
+			"style": {
+				"navigationBarTitleText": "聊天页面"
+			}
 		}
 	],
 	"globalStyle": {
