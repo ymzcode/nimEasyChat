@@ -3,6 +3,9 @@
 		会话列表
 		<session-item></session-item>
 		{{teamObj}}
+		<navigator url="/pages/easy-chat/chat">
+			<text>聊天页面</text>
+		</navigator>
 	</div>
 </template>
 
