@@ -9,7 +9,11 @@ const config = {
 	// 是否使用数据库
 	USEDb: false,
 	// 默认用户头像
-	defaultUserIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-icon.png'
+	defaultUserIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-icon.png',
+	// 默认普通群头像
+	defaultGroupIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-group.png',
+	// 默认高级群头像
+	defaultAdvancedIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-advanced.png',
 }
 
 export default config
