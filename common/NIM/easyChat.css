@@ -8,8 +8,18 @@
 	flex-direction:row;
 }
 
-.im-flex-row{ flex-direction:row!important; }
-.im-flex-column{ flex-direction:column!important; }
+.im-flex-row {
+	/* #ifndef APP-PLUS-NVUE */
+	display:flex;
+	/* #endif */
+	flex-direction:row!important;
+}
+.im-flex-column{ 
+	/* #ifndef APP-PLUS-NVUE */
+	display:flex;
+	/* #endif */
+	flex-direction:column!important;
+}
 .im-flex-row-reverse{ flex-direction:row-reverse!important; }
 .im-flex-column-reverse{ flex-direction:column-reverse!important; }
 .im-flex-wrap{ flex-wrap:wrap;}
