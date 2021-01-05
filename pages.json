@@ -11,6 +11,12 @@
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
+		},
+		{
+			"path": "pages/easy-chat/session-list",
+			"style": {
+				"navigationBarTitleText": "会话列表"
+			}
 		}
 	],
 	"globalStyle": {
@@ -18,5 +24,21 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"text": "首页"
+		},{
+			"pagePath": "pages/easy-chat/session-list",
+			"text": "消息"
+		}, {
+			"pagePath": "pages/login/login",
+			"text": "我的"
+		}]
 	}
 }

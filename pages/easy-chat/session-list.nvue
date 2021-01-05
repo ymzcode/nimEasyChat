@@ -1,0 +1,19 @@
+<template>
+	<div>
+		会话列表
+		<session-item></session-item>
+	</div>
+</template>
+
+<script>
+	import sessionItem from '@/components/easy-chat/session-item.vue'
+	export default {
+		components: {
+			sessionItem
+		}
+	}
+</script>
+
+<style>
+
+</style>
