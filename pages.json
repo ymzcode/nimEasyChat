@@ -17,6 +17,12 @@
 			"style": {
 				"navigationBarTitleText": "会话列表"
 			}
+		},
+		{
+			"path": "pages/easy-chat/team-list",
+			"style": {
+				"navigationBarTitleText": "群组列表"
+			}
 		}
 	],
 	"globalStyle": {
@@ -36,6 +42,9 @@
 		},{
 			"pagePath": "pages/easy-chat/session-list",
 			"text": "消息"
+		},{
+			"pagePath": "pages/easy-chat/team-list",
+			"text": "群组"
 		}, {
 			"pagePath": "pages/login/login",
 			"text": "我的"

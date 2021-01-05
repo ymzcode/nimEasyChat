@@ -2,6 +2,7 @@
 	<div>
 		会话列表
 		<session-item></session-item>
+		{{teamObj}}
 	</div>
 </template>
 
@@ -10,7 +11,14 @@
 	export default {
 		components: {
 			sessionItem
-		}
+		},
+		computed: {
+			teamObj() {
+				console.log(this.$store.getters['initNim/teamObj'])
+				return this.$store.getters['initNim/teamObj']
+			}
+		},
+		
 	}
 </script>
 

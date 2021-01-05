@@ -64,6 +64,7 @@ class NimHandle {
 	*/
 	onteams(data): void {
 		console.log('------- onteams', data);
+		store.commit('initNim/saveTeamData', data)
 	}
 	
 	/*

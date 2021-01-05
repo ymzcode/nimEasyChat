@@ -18,10 +18,10 @@ const ALLSTATE = {
 	userObj: {},
 	// 当前好友的数组结构
 	userArr: [],
-	
-	
+
+
 	// 实例化错误处理方法, 单一实例
-	errCommon : new errorTrapping()
+	errCommon: new errorTrapping()
 }
 
 
@@ -42,7 +42,7 @@ export default {
 			let obj = {}
 			if (state.teamArr.length > 0) {
 				state.teamArr.map(item => {
-					
+					obj[item.teamId] = item
 				})
 			}
 			return obj
@@ -80,7 +80,22 @@ export default {
 		setNimId(state, data) {
 			state.userUID = data.id
 		},
-		// 过滤处理群组的数据 将群组的arr数据分别生成 对应的
+		// 保存群数组的数据
+		saveTeamData(state, data) {
+			try {
+				const nim = state.nim
+				let arr = []
+				if (!Array.isArray(data)) {
+					arr = [data]
+				}
+				state.teamArr = nim.mergeTeams(state.teamArr, data)
+				console.log('合并群数据完成', state.teamArr)
+			} catch (e) {
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		}
 	},
 	actions: {
 		initNimSDK({
@@ -93,11 +108,11 @@ export default {
 				console.log('当前已经登陆')
 				return;
 			}
-			
+
 			try {
 				// 实例化nim处理方法
 				let nimHandle = new handleFunction()
-				
+
 				let nim = new SDK.NIM({
 					// 初始化SDK
 					debug: config.ISDEBUG,
@@ -193,7 +208,7 @@ export default {
 					// 'rejected': 已拒绝
 					onupdatesysmsg: nimHandle.onupdatesysmsg,
 					// 收到系统通知未读数的回调
-					
+
 					// SDK 会管理内建系统通知的未读数, 此回调接收的对象包括以下字段
 					// total: 总共的未读数
 					// friend: 所有跟好友相关的系统通知的未读数
@@ -221,7 +236,7 @@ export default {
 					// 当上面各个同步（不包括下面的同步群成员）完成后, 会调用此回调；注意, SDK保证在onsyncdone调用的时候上面的同步肯定完成了, 但是不保证各个同步回调的顺序。
 					onsyncdone: nimHandle.onsyncdone,
 					// 是否自动标记消息为已收到
-					
+
 					// 默认情况下SDK在收到服务器推送过来的消息后, 会在将消息推给开发者时将消息标记为已读状态, 下次登录后就不会收到标记为已读的消息。
 					// SDK通过onofflinemsgs、onofflinesysmsgs、onofflinecustomsysmsgs等回调将离线消息推送给开发者
 					// SDK通过onmsg、onsysmsg、oncustomsysmsg等回调将在线消息推送给开发者
@@ -233,7 +248,7 @@ export default {
 					// 是否开启快速自动重连，只有当needReconnect=true时该配置才有效
 					quickReconnect: true,
 					// 是否将动态图片缩略为静态图片，默认将动态图片缩略为静态图片
-					
+
 					// 仅在cover和contain缩略模式下，才支持将动态图片缩略为动态图片，其他模式下只能缩略为静态图片
 					// 可以调用SDK的thumbnailImage，processImage等API生成图片的缩略图
 					thumbnailToStatic: true,
@@ -246,7 +261,7 @@ export default {
 					logReport: true,
 					// 重置会话未读数时，若同步至服务器失败，是否仅重置本地会话未读数。当同步至服务器失败时，若为true，则本地未读数会被重置，服务器和其他端的未读数不会；若为false，则本地、服务器和其他端都不会被重置（重置失败），各端未读数会保持一致
 					resetUnreadMode: false,
-					
+
 					// logFunc: nimHandle.error,
 					onerror: nimHandle.onError,
 					// 断开连接后的回调
@@ -260,7 +275,7 @@ export default {
 				console.error(e);
 				state.errCommon.uploadInfo(e)
 			}
-			
+
 		},
 		/*
 		 * 代理nim sdk中对NIM的操作方法
