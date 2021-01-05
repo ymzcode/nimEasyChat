@@ -265,7 +265,7 @@ export default {
 					// SDK通过onmsg、onsysmsg、oncustomsysmsg等回调将在线消息推送给开发者
 					// 如果开发者想控制标记消息为已收到的时机, 那么可以传false, 这样SDK就不会自动标记消息已读, 此时需要开发者在适当的时机调用相关的方法来标记消息为已读, 否则下次登录后还会收到未标记为已读的消息。
 					// 调用标记系统通知已读来标记系统通知和自定义系统通知为已读状态
-					autoMarkRead: true,
+					autoMarkRead: false,
 					// SDK尝试重连的最大次数，超过后则不再尝试重连，并触发ondisconnect回调
 					reconnectionAttempts: 3,
 					// 是否开启快速自动重连，只有当needReconnect=true时该配置才有效
