@@ -1,12 +1,48 @@
 <template>
-	<view class="">
-		群组
+	<view class="im-flex-column im-flex-1">
+		<list>
+			<cell v-for="item in teamArr" :key="item.teamId">
+				<view class="im-flex im-py-4 im-px-2">
+					<team-avatar :teamId="item.teamId"></team-avatar>
+					<view class="im-flex-column im-flex-1 im-justify-between im-ml-2">
+						<text class="im-font-30 im-text-ellipsis">{{item.name}}</text>
+						<view class="im-flex">
+							<text class="im-font-28">群类型：{{item.type | filterType}}</text>
+							<text class="im-font-28 im-ml-1">群创建者： {{ item.owner }}</text>
+							<text class="im-font-28 im-ml-1">群人数： {{ item.memberNum }}</text>
+						</view>
+					</view>
+					
+				</view>
+			</cell>
+		</list>
 	</view>
 </template>
 
 <script>
-export default {
-	
+import teamAvatar from '@/components/easy-chat/team-avatar.vue'
+export default {	
+	components: {
+		teamAvatar
+	},
+	filters: {
+		filterType(e) {
+			if (e === 'advanced') {
+				return '高级群'
+			}
+			if (e === 'normal') {
+				return '普通群'
+			}
+		}
+	},
+	computed: {
+		teamArr() {
+			return this.$store.getters['initNim/teamArr']
+		},
+		userObj() {
+			
+		}
+	}
 };
 </script>
 
