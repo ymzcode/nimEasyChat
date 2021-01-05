@@ -1,17 +1,113 @@
 <template>
-	<view>
-		聊天页面
+	<view class="im-flex-column im-flex-1">
+		<nim-scroll-view></nim-scroll-view>
+		<view class="im-flex im-py-3 im-align-center im-bg-white">
+			<text>语音</text>
+			<text>输入框</text>
+		</view>
 	</view>
 </template>
 
 <script>
-	export default {
-		onLoad(event) {
-			console.log('页面接受的参数', event);
+import nimScrollView from '@/components/easy-chat/nim-scroll-view.vue'
+export default {
+	data() {
+		return {
+			listData: []
+		};
+	},
+	components: {
+		nimScrollView
+	},
+	onLoad(event) {
+		console.log('页面接受的参数', event);
+		// 添加模拟数据
+		let arr = [];
+		for (let i = 0; i < 20; i++) {
+			let json = {
+				content: '你好' + i,
+				id: i,
+				is_sender: false
+			};
+			arr.push(json);
+		}
+		this.listData = arr;
+	},
+	methods: {
+		loadMore() {
+			// 添加模拟数据
+			let arr = [];
+			for (let i = 20; i < 30; i++) {
+				let json = {
+					content: '我好' + i,
+					id: i,
+					is_sender: true
+				};
+				arr.push(json);
+			}
+			setTimeout(() => {
+				this.listData = [...this.listData, ...arr];
+			}, 1500);
 		}
 	}
+};
 </script>
 
-<style>
+<style scoped>
+.cell {
+	margin-top: 40rpx;
+	padding: 0 20rpx;
+}
 
+.leftMsg,
+.rightMsg {
+	padding: 20rpx;
+	border-radius: 10rpx;
+	margin-top: 10rpx;
+	flex: 1;
+}
+
+.leftMsg {
+	background-color: #fff;
+	margin-left: -15rpx;
+}
+
+.rightMsg {
+	background-color: #96eb6a;
+	margin-right: -15rpx;
+}
+
+.text {
+	font-size: 30rpx;
+	flex: 1;
+	line-height: 42rpx;
+}
+
+.leftDate,
+.rightDate {
+	font-size: 24rpx;
+	color: #999;
+	margin-top: 10rpx;
+}
+
+.leftDate {
+	margin-left: 40rpx;
+}
+
+.rightDate {
+	margin-left: 20rpx;
+}
+
+.errMsg {
+	background-color: rgba(0, 0, 0, 0.1);
+	padding: 10rpx 40rpx;
+	border-radius: 5px;
+	color: #fff;
+	font-size: 30rpx;
+	margin: 40rpx 0;
+}
+
+.round {
+	border-radius: 100;
+}
 </style>
