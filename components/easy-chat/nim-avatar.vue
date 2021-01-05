@@ -42,7 +42,9 @@ export default {
 	},
 	mounted() {
 		console.log('当前传入的账号id', this.account);
-		this.searchUser();
+		if (this.account != '' && !this.userObj[this.account]) {
+			this.searchUser();
+		}
 	},
 	methods: {
 		imageError(e) {
