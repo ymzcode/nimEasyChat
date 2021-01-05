@@ -1,6 +1,7 @@
 import config from '@/common/NIM/config.js'
 import errorTrapping from '@/common/NIM/errorTrapping.ts'
 import handleFunction from '@/common/NIM/handleFunction.ts'
+import Vue from 'vue'
 
 const SDK = require(`@/common/NIM/${config.NIMSDK}`)
 
@@ -8,13 +9,16 @@ const ALLSTATE = {
 	// 全局nim， 唯一
 	nim: null,
 	// 从nim返回的用户信息， 之后网页的用户信息都用这个信息。
-	nimUserInfo: null,
+	nimUserInfo: {},
 	// 我的nimId
 	userUID: null,
-	// 当前群列表的对象数据结构{teamId: {}, teamId: {}}
-	teamObj: {},
 	// 群列表的数组数据结构
 	teamArr: [],
+	// 当前好友的对象数据结构{account: {}, account: {}}
+	userObj: {},
+	// 当前好友的数组结构
+	userArr: [],
+	
 	
 	// 实例化错误处理方法, 单一实例
 	errCommon : new errorTrapping()
@@ -35,10 +39,22 @@ export default {
 			return state.nim
 		},
 		teamObj: state => {
-			return state.teamObj
+			let obj = {}
+			if (state.teamArr.length > 0) {
+				state.teamArr.map(item => {
+					
+				})
+			}
+			return obj
 		},
 		teamArr: state => {
 			return state.teamArr
+		},
+		userArr: state => {
+			return state.userArr
+		},
+		userObj: state => {
+			return state.userObj
 		}
 		// 这样用会有问题
 		// getters: state => {
@@ -63,7 +79,8 @@ export default {
 		},
 		setNimId(state, data) {
 			state.userUID = data.id
-		}
+		},
+		// 过滤处理群组的数据 将群组的arr数据分别生成 对应的
 	},
 	actions: {
 		initNimSDK({

@@ -4,13 +4,19 @@
 		<view class="">
 			<text @click="initNim">初始化NIM</text>
 			<text @click="loginOut">退出登录</text>
-			<text>{{nimUserInfo}}</text>
+			<text>用户名：{{nimUserInfo.nick || ''}}</text>
+			<text>手机号：{{nimUserInfo.tel || ''}}</text>
+			<nim-avatar account="122" ></nim-avatar>
 		</view>
 	</div>
 </template>
 
 <script>
+	import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
 	export default {
+		components: {
+			nimAvatar
+		},
 		computed: {
 			nimUserInfo () {
 				console.log('nimUserInfo 改变', this.$store.getters['initNim/nimUserInfo'])
