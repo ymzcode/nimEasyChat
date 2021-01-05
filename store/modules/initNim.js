@@ -328,7 +328,7 @@ export default {
 					// })
 				} catch (e) {
 					console.error('delegateNimFunction', e)
-					state.errCommon.uploadInfo(`调用NIM集成的函数 '${functionName}' 时出错`)
+					state.errCommon.uploadInfo(`调用NIM集成的函数 ${functionName} 出错：${e.message}`)
 					throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
 				}
 			} else {
