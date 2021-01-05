@@ -14,11 +14,8 @@ const ALLSTATE = {
 	userUID: null,
 	// 群列表的数组数据结构
 	teamArr: [],
-	// 当前好友的对象数据结构{account: {}, account: {}}
-	userObj: {},
-	// 当前好友的数组结构
+	// 当前用户名片的数组结构
 	userArr: [],
-
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -38,6 +35,7 @@ export default {
 		nim: state => {
 			return state.nim
 		},
+		// 群聊的obj数据结构  以teamid作为key
 		teamObj: state => {
 			let obj = {}
 			if (state.teamArr.length > 0) {
@@ -53,8 +51,15 @@ export default {
 		userArr: state => {
 			return state.userArr
 		},
+		// 用户名片的obj数据结构， 以accid作为key
 		userObj: state => {
-			return state.userObj
+			let obj = {}
+			if (state.userArr.length > 0) {
+				state.userArr.map(item => {
+					obj[item.account] = item
+				})
+			}
+			return obj
 		}
 		// 这样用会有问题
 		// getters: state => {
@@ -75,6 +80,7 @@ export default {
 		},
 		setNimUserNim(state, data) {
 			state.nimUserInfo = data
+			state.userArr = state.nim.mergeUsers(state.userArr, data)
 			console.log('存储成功', data)
 		},
 		setNimId(state, data) {
@@ -90,6 +96,23 @@ export default {
 				}
 				state.teamArr = nim.mergeTeams(state.teamArr, data)
 				console.log('合并群数据完成', state.teamArr)
+			} catch (e) {
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		},
+		// 保存好友的数据
+		saveUserData(state, data) {
+			try {
+				const nim = state.nim
+				let arr = []
+				if (!Array.isArray(data)) {
+					arr = [data]
+				}
+				state.userArr = nim.mergeUsers(state.userArr, data)
+				console.log('合并用户卡片数据完成', state.userArr)
+
 			} catch (e) {
 				//TODO handle the exception
 				console.error(e);
@@ -289,20 +312,29 @@ export default {
 			options
 		}) {
 			const nim = state.nim
+
+			if (!nim) {
+				state.errCommon.uploadInfo('通讯还未初始化')
+				throw Error(`NIM还未初始化`)
+			}
+
 			if (functionName && nim[functionName] && typeof nim[functionName] === 'function') {
 				try {
-					return nim[functionName](options).catch(err => {
-						console.error('delegateNimFunction', err)
-						// log.appErrorLog.get(err)
-						throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
-					})
+					return nim[functionName](options)
+					// .catch(err => {
+					// 	console.error('delegateNimFunction', err)
+					// 	state.errCommon.uploadInfo(`调用NIM集成的函数 '${functionName}' 时出错`)
+					// 	throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
+					// })
 				} catch (e) {
-					console.error(e)
-					// log.appErrorLog.get(e)
+					console.error('delegateNimFunction', e)
+					state.errCommon.uploadInfo(`调用NIM集成的函数 '${functionName}' 时出错`)
 					throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
 				}
 			} else {
-				throw (`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
+				state.errCommon.uploadInfo(
+					`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
+				throw Error(`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
 			}
 		},
 		// 登出app

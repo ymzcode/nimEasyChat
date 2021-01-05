@@ -6,7 +6,7 @@
 			<text @click="loginOut">退出登录</text>
 			<text>用户名：{{nimUserInfo.nick || ''}}</text>
 			<text>手机号：{{nimUserInfo.tel || ''}}</text>
-			<nim-avatar account="122" ></nim-avatar>
+			<nim-avatar :account="nimUserInfo.account" ></nim-avatar>
 		</view>
 	</div>
 </template>

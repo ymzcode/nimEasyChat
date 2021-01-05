@@ -8,6 +8,8 @@ const config = {
 	APPKEY: 'fa52793da28cb2cedf86577c46a022de',
 	// 是否使用数据库
 	USEDb: false,
+	// 默认用户头像
+	defaultUserIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-icon.png'
 }
 
 export default config
