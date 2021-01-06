@@ -21,7 +21,6 @@ const ALLSTATE = {
 	// 所有消息的数组
 	msgArr: [],
 
-
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
 }
@@ -425,6 +424,34 @@ export default {
 			})
 			
 		},
+		
+		// 获取云端的历史纪录
+		nimGetHistoryMsgs({state,dispatch, commit}, data) {
+			return new Promise((resolve, reject) => {
+				console.log('拉取云端的历史消息');
+				dispatch('delegateNimFunction', {
+					functionName: 'getHistoryMsgs',
+					options: {
+						scene: data.scene,
+						to: data.to,
+						lastMsgId: data.lastMsgId,
+						endTime: data.endTime,
+						limit: 15,
+						done: (error, allData) => {
+							console.log('获取完成', error, allData)
+							if (error) {
+								reject(error)
+							} else {
+								commit('saveMsg', allData.msgs)
+								resolve(allData.msgs)
+							}
+						}
+					}
+				})
+			})
+		},
+		
+		
 		// 登出app
 		logOut({
 			state,

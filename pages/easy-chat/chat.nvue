@@ -1,6 +1,6 @@
 <template>
 	<view class="im-flex-column im-flex-1 im-bg-grey-1">
-		<nim-scroll-view @clickScrollView="clickScrollView"></nim-scroll-view>
+		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" @clickScrollView="clickScrollView"></nim-scroll-view>
 		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 80rpx;max-height: 150rpx">
 			<image src="/static/easy-chat/chat/voice@2x.png" mode="aspectFill" class="im-icon-5"></image>
 			<textarea
@@ -32,8 +32,6 @@ import nimScrollView from '@/components/easy-chat/nim-scroll-view.vue';
 export default {
 	data() {
 		return {
-			listData: [],
-
 			// textarea相关
 			textareaValue: '',
 			inputFocus: false,
@@ -58,17 +56,6 @@ export default {
 			this.to = event.sessionId.split('-')[1]
 		}
 		
-		// 添加模拟数据
-		let arr = [];
-		for (let i = 0; i < 20; i++) {
-			let json = {
-				content: '你好' + i,
-				id: i,
-				is_sender: false
-			};
-			arr.push(json);
-		}
-		this.listData = arr;
 	},
 	methods: {
 		clickScrollView() {
@@ -99,21 +86,6 @@ export default {
 			}).catch(err => {
 				console.error('error', err);
 			})
-		},
-		loadMore() {
-			// 添加模拟数据
-			let arr = [];
-			for (let i = 20; i < 30; i++) {
-				let json = {
-					content: '我好' + i,
-					id: i,
-					is_sender: true
-				};
-				arr.push(json);
-			}
-			setTimeout(() => {
-				this.listData = [...this.listData, ...arr];
-			}, 1500);
 		}
 	}
 };
