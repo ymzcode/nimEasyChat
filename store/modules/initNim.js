@@ -16,6 +16,11 @@ const ALLSTATE = {
 	teamArr: [],
 	// 当前用户名片的数组结构
 	userArr: [],
+	// 当前使用的会话id
+	currentSessionId: '',
+	// 所有消息的数组
+	msgArr: [],
+
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -60,7 +65,35 @@ export default {
 				})
 			}
 			return obj
+		},
+		// 根据消息数据生成的消息对象数据结构, 以icClient作为消息的key
+		msgObj: state => {
+			let obj = {}
+			if (state.msgArr.length > 0) {
+				state.msgArr.map(item => {
+					obj[item.idClient] = item
+				})
+			}
+			return obj
+		},
+		// 根据会话生成的消息对象数据数组结构， 以sessionId作为key
+		currentSessionMsg: state => {
+			let obj = {}
+			if (state.msgArr.length > 0) {
+				state.msgArr.map(item => {
+					if (!obj[item.sessionId]) {
+						obj[item.sessionId] = []
+					}
+					obj[item.sessionId].push(item)
+				})
+			}
+			return obj
+		},
+		currentSessionId: state => {
+			return state.currentSessionId
 		}
+
+
 		// 这样用会有问题
 		// getters: state => {
 		// 	return state.errCommon
@@ -118,6 +151,26 @@ export default {
 				console.error(e);
 				state.errCommon.uploadInfo(e)
 			}
+		},
+		// 保存消息数据
+		saveMsg(state, data) {
+			try {
+				const nim = state.nim
+				let arr = []
+				if (!Array.isArray(data)) {
+					arr = [data]
+				}
+				state.msgArr = nim.mergeMsgs(state.msgArr, data)
+				console.log('合并消息数据完成', state.msgArr)
+			} catch (e) {
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		},
+		// 设置当前会话的id
+		setSessionId(state, data) {
+			state.currentSessionId = data
 		}
 	},
 	actions: {
@@ -185,6 +238,7 @@ export default {
 					// 那么在一个端读过的会话在其它端也会被标记为已读
 					// 在调用NIM#setCurrSession的时候 SDK 会自动同步一次未读数, 此后如果收到当前会话的消息, 需要手动调用NIM#resetSessionUnread来同步未读数
 					syncSessionUnread: true,
+					onsessions: nimHandle.onsessions,
 					// 批量更新会话的回调, 传出会话列表数组。此函数优先级高于上面的 onupdatesession，若定义了此函数，会话更新回调只会走这个函数。
 
 					// 收到消息
@@ -336,6 +390,40 @@ export default {
 					`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
 				throw Error(`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
 			}
+		},
+		// 设置当前会话id
+		setCurrentSessionId({dispatch,commit}, data) {
+			console.log('设置当前会话', data);
+			dispatch('delegateNimFunction', {
+				functionName: 'setCurrSession',
+				options: data
+			})
+			commit('setSessionId', data)
+		},
+		// 发送消息
+		nimSendMsg({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'sendText',
+					options: {
+						scene: options.scene,
+						to: options.to,
+						text: options.text,
+						resend: false,
+						cc: true,
+						done: (error, msg) => {
+							console.log('发送完成', error, msg)
+							if (error) {
+								reject(error)
+							} else {
+								commit('saveMsg', msg)
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
 		},
 		// 登出app
 		logOut({

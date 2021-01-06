@@ -162,6 +162,14 @@ class NimHandle {
 	
 	/*
 	*
+	* 接收会话列表
+	*/
+	onsessions(data) :void {
+		console.log('------- onsessions', data)
+	}
+	
+	/*
+	*
 	* 	
 		同步置顶会话列表, 会传入会话列表
 	*/
