@@ -1,5 +1,5 @@
 <template>
-	<view class="im-flex-column im-flex-1">
+	<view class="im-flex-column im-flex-1" @touchend="clickScrollView">
 		<scroll-view
 			scroll-y="true"
 			scroll-with-animation
@@ -84,6 +84,10 @@ export default {
 		this.listData = arr;
 	},
 	methods: {
+		clickScrollView(e) {
+			this.$emit('clickScrollView')
+			e.stopPropagation()
+		},
 		loadMore() {
 			// 添加模拟数据
 			let arr = [];

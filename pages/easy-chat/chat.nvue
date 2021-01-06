@@ -1,24 +1,49 @@
 <template>
-	<view class="im-flex-column im-flex-1">
-		<nim-scroll-view></nim-scroll-view>
-		<view class="im-flex im-py-3 im-align-center im-bg-white">
-			<text>语音</text>
-			<text>输入框</text>
+	<view class="im-flex-column im-flex-1 im-bg-grey-1">
+		<nim-scroll-view @clickScrollView="clickScrollView"></nim-scroll-view>
+		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 80rpx;max-height: 150rpx">
+			<image src="/static/easy-chat/chat/voice@2x.png" mode="aspectFill" class="im-icon-5"></image>
+			<textarea
+				class="im-flex im-bg-white im-round-3 im-px-2 im-py-2 im-font-28"
+				style="min-height: 70rpx;width: 480rpx;max-height: 120rpx"
+				:auto-height="true"
+				:cursor-spacing="10"
+				confirm-type="send"
+				:maxlength="200"
+				:focus="inputFocus"
+				:show-confirm-bar="false"
+				:hold-keyboard="false"
+				:value="textareaValue"
+				@focus="textareaFocus"
+				@keyboardheightchange="keyboardheightchange"
+				@input="textareaInput"
+			/>
+			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5"></image>
+			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5"></image>
+			<view v-if="textareaValue.length > 0" class="im-bg-red-1 im-px-2 im-py-2 im-round-2">
+				<text class="im-font-30 im-font-white">发送</text>
+			</view>
 		</view>
 	</view>
 </template>
 
 <script>
-import nimScrollView from '@/components/easy-chat/nim-scroll-view.vue'
+import nimScrollView from '@/components/easy-chat/nim-scroll-view.vue';
 export default {
 	data() {
 		return {
-			listData: []
+			listData: [],
+
+			// textarea相关
+			textareaValue: '',
+			inputFocus: false
 		};
 	},
 	components: {
 		nimScrollView
 	},
+	computed: {},
+	watch: {},
 	onLoad(event) {
 		console.log('页面接受的参数', event);
 		// 添加模拟数据
@@ -34,6 +59,23 @@ export default {
 		this.listData = arr;
 	},
 	methods: {
+		clickScrollView() {
+			console.log('点击滚动区域');
+			this.inputFocus = false
+		},
+		textareaInput(e) {
+			console.log(e);
+			this.textareaValue = e.detail.value;
+		},
+		keyboardheightchange(e) {
+			console.log(e);
+			if (e.detail.height > 0) {
+				this.inputFocus = true
+			}
+		},
+		textareaFocus(e) {
+			console.log(e);
+		},
 		loadMore() {
 			// 添加模拟数据
 			let arr = [];
@@ -53,61 +95,4 @@ export default {
 };
 </script>
 
-<style scoped>
-.cell {
-	margin-top: 40rpx;
-	padding: 0 20rpx;
-}
-
-.leftMsg,
-.rightMsg {
-	padding: 20rpx;
-	border-radius: 10rpx;
-	margin-top: 10rpx;
-	flex: 1;
-}
-
-.leftMsg {
-	background-color: #fff;
-	margin-left: -15rpx;
-}
-
-.rightMsg {
-	background-color: #96eb6a;
-	margin-right: -15rpx;
-}
-
-.text {
-	font-size: 30rpx;
-	flex: 1;
-	line-height: 42rpx;
-}
-
-.leftDate,
-.rightDate {
-	font-size: 24rpx;
-	color: #999;
-	margin-top: 10rpx;
-}
-
-.leftDate {
-	margin-left: 40rpx;
-}
-
-.rightDate {
-	margin-left: 20rpx;
-}
-
-.errMsg {
-	background-color: rgba(0, 0, 0, 0.1);
-	padding: 10rpx 40rpx;
-	border-radius: 5px;
-	color: #fff;
-	font-size: 30rpx;
-	margin: 40rpx 0;
-}
-
-.round {
-	border-radius: 100;
-}
-</style>
+<style scoped></style>
