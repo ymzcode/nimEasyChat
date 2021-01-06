@@ -187,3 +187,73 @@
 .im-bg-white {
 	background-color: #FFFFFF;
 }
+.im-bg-grey-1 {
+	background-color: #F4F5FB;
+}
+.im-bg-blue-1 {
+	background-color: #487CF1;
+}
+.im-bg-red-1 {
+	background-color: #F75252;
+}
+
+/* 字体颜色 */
+.im-font-white {
+	color: #FFFFFF;
+}
+
+/* 圆角 */
+.im-round-1 {
+	border-radius: 10rpx;
+}
+.im-round-2 {
+	border-radius: 20rpx;
+}
+.im-round-3 {
+	border-radius: 30rpx;
+}
+
+/* 边框 */
+.im-border { border-width: 1rpx;border-style: solid;border-color: #dee2e6;}
+.im-border-top {
+  border-top-width: 1rpx;
+  border-top-style: solid;
+  border-top-color: #dee2e6;
+}
+.im-border-right {
+  border-right-width: 1rpx;
+  border-right-style: solid;
+  border-right-color: #dee2e6;
+}
+.im-border-bottom {
+  border-bottom-width: 1rpx;
+  border-bottom-style: solid;
+  border-bottom-color: #dee2e6;
+}
+.im-border-left {
+  border-left-width: 1rpx;
+  border-left-style: solid;
+  border-left-color: #dee2e6;
+}
+
+/* 图标大小 */
+.im-icon-1 {
+	width: 10rpx;
+	height: 10rpx;
+}
+.im-icon-2 {
+	width: 20rpx;
+	height: 20rpx;
+}
+.im-icon-3 {
+	width: 30rpx;
+	height: 30rpx;
+}
+.im-icon-4 {
+	width: 40rpx;
+	height: 40rpx;
+}
+.im-icon-5 {
+	width: 50rpx;
+	height: 50rpx;
+}
