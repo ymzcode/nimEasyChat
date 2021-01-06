@@ -20,8 +20,8 @@
 			/>
 			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5"></image>
 			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5"></image>
-			<view v-if="textareaValue.length > 0" class="im-bg-red-1 im-px-2 im-py-2 im-round-2">
-				<text class="im-font-30 im-font-white">发送</text>
+			<view v-if="textareaValue.length > 0" class="im-bg-red-1 im-px-2 im-py-2 im-round-2" @tap="sendMsg">
+				<text class="im-font-28 im-font-white">发送</text>
 			</view>
 		</view>
 	</view>
@@ -36,16 +36,28 @@ export default {
 
 			// textarea相关
 			textareaValue: '',
-			inputFocus: false
+			inputFocus: false,
+			
+			// 页面相关的数据
+			scene: '',
+			to: ''
 		};
 	},
 	components: {
 		nimScrollView
 	},
-	computed: {},
+	computed: {
+	},
 	watch: {},
 	onLoad(event) {
 		console.log('页面接受的参数', event);
+		
+		if (event.sessionId) {
+			this.$store.dispatch('initNim/setCurrentSessionId', event.sessionId)
+			this.scene = event.sessionId.split('-')[0]
+			this.to = event.sessionId.split('-')[1]
+		}
+		
 		// 添加模拟数据
 		let arr = [];
 		for (let i = 0; i < 20; i++) {
@@ -75,6 +87,18 @@ export default {
 		},
 		textareaFocus(e) {
 			console.log(e);
+		},
+		sendMsg() {
+			console.log('msg', this.textareaValue)
+			this.$store.dispatch('initNim/nimSendMsg', {
+				scene: this.scene,
+				to: this.to,
+				text: this.textareaValue
+			}).then(res => {
+				this.textareaValue = ''
+			}).catch(err => {
+				console.error('error', err);
+			})
 		},
 		loadMore() {
 			// 添加模拟数据

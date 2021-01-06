@@ -10,11 +10,11 @@
 			
 			<view>
 				<view
-					v-for="(item, index) in listData"
-					:key="index"
+					v-for="(item, index) in msgList"
+					:key="item.idClient"
 					style="direction: ltr;transform:rotate(180deg);-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);-o-transform:rotate(180deg);">
 					<!-- 左侧消息 -->
-					<view class="im-flex cell" v-if="!item.is_sender">
+					<view class="im-flex cell" v-if="false">
 						<image
 							src="https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1141259048,554497535&fm=26&gp=0.jpg"
 							style="width: 90rpx;height: 90rpx;"
@@ -25,7 +25,7 @@
 							<view class="im-flex">
 								<image src="/static/easy-chat/chat/leftarrow.png" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
 								<view class="leftMsg">
-									<text class="text" style="max-width: 450rpx;min-width:210rpx;">{{ item.content }}</text>
+									<text class="text" style="max-width: 450rpx;min-width:210rpx;">{{ item.text }}</text>
 								</view>
 							</view>
 							<text class="leftDate">2020-07-07 12:12:{{ index }}</text>
@@ -36,7 +36,7 @@
 						<view>
 							<view class="im-flex">
 								<view class="rightMsg">
-									<text class="text" style="max-width: 450rpx;min-width:210rpx;">{{ item.content }}</text>
+									<text class="text" style="max-width: 450rpx;min-width:210rpx;">{{ item.text }}</text>
 								</view>
 								<image src="/static/easy-chat/chat/rightarrow.png" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
 							</view>
@@ -51,7 +51,7 @@
 					</view>
 				</view>
 				<!-- loading加载 -->
-				<view class="im-flex im-justify-center im-py-2 im-align-center im-w-100">
+				<view v-if="isLoadMore" class="im-flex im-justify-center im-py-2 im-align-center im-w-100">
 					<text
 						class="im-font-28"
 						style="transform:rotate(180deg);-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);-o-transform:rotate(180deg);"
@@ -67,8 +67,19 @@
 export default {
 	data() {
 		return {
-			listData: []
+			isLoadMore: false
 		};
+	},
+	computed: {
+		currentSessionMsg() {
+			return this.$store.getters['initNim/currentSessionMsg'] || {}
+		},
+		currentSessionId() {
+			return this.$store.getters['initNim/currentSessionId']
+		},
+		msgList() {
+			return this.currentSessionMsg[this.currentSessionId]
+		}
 	},
 	mounted() {
 		// 添加模拟数据
@@ -89,19 +100,8 @@ export default {
 			e.stopPropagation()
 		},
 		loadMore() {
-			// 添加模拟数据
-			let arr = [];
-			for (let i = 20; i < 30; i++) {
-				let json = {
-					content: '我好' + i,
-					id: i,
-					is_sender: true
-				};
-				arr.push(json);
-			}
-			setTimeout(() => {
-				this.listData = [...this.listData, ...arr];
-			}, 1500);
+			console.log('加载更多··········');
+			this.isLoadMore = true
 		}
 	}
 };

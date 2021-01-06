@@ -3,7 +3,7 @@
 		会话列表
 		<session-item></session-item>
 		{{teamObj}}
-		<navigator url="/pages/easy-chat/chat">
+		<navigator url="/pages/easy-chat/chat?sessionId=p2p-137">
 			<text>聊天页面</text>
 		</navigator>
 	</div>
