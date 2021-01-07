@@ -12,8 +12,8 @@
 				</view>
 				<view class="im-flex im-flex-1 im-justify-between im-align-center">
 					<text class="im-font-28 im-text-ellipsis im-font-light" style="max-width: 540rpx;">{{lastMsgText}}</text>
-					<view class="im-bg-red-2 im-round-full im-flex im-justify-center im-align-center im-p-1">
-						<text class="im-font-23 im-font-white">9</text>
+					<view v-if="session.unread > 0" class="im-bg-red-2 im-round-full im-flex im-justify-center im-align-center" style="width: 35rpx;height: 35rpx;">
+						<text class="im-font-23 im-font-white">{{ session.unread >= 99 ? 99 : session.unread}}</text>
 					</view>
 				</view>
 			</view>
