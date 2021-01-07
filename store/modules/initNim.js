@@ -20,6 +20,8 @@ const ALLSTATE = {
 	currentSessionId: '',
 	// 所有消息的数组
 	msgArr: [],
+	// 会话列表的数组
+	sessionArr: [],
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -49,9 +51,11 @@ export default {
 			}
 			return obj
 		},
+		// 我的群组 数组数据
 		teamArr: state => {
 			return state.teamArr
 		},
+		// 用户资料 数组数据
 		userArr: state => {
 			return state.userArr
 		},
@@ -88,15 +92,25 @@ export default {
 			}
 			return obj
 		},
+		// 当前会话的id
 		currentSessionId: state => {
 			return state.currentSessionId
+		},
+		// 所有会话的对象数据 以会话id作为key
+		sessionObj: state => {
+			let obj = {}
+			if (state.sessionArr.length > 0) {
+				state.sessionArr.map(item => {
+					obj[item.id] = item
+				})
+			}
+			return obj
+		},
+		// 所有会话的 数组数据
+		sessionArr: state => {
+			return state.sessionArr
 		}
 
-
-		// 这样用会有问题
-		// getters: state => {
-		// 	return state.errCommon
-		// }
 	},
 	mutations: {
 		// 清空Nim state中的值
@@ -161,6 +175,22 @@ export default {
 				}
 				state.msgArr = nim.mergeMsgs(state.msgArr, data)
 				console.log('合并消息数据完成', state.msgArr)
+			} catch (e) {
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		},
+		// 保存会话数据
+		saveSessionData(state, data) {
+			try {
+				const nim = state.nim
+				let arr = []
+				if (!Array.isArray(data)) {
+					arr = [data]
+				}
+				state.sessionArr = nim.mergeSessions(state.sessionArr, data)
+				console.log('合并会话数据完成', state.sessionArr)
 			} catch (e) {
 				//TODO handle the exception
 				console.error(e);
@@ -454,7 +484,7 @@ export default {
 		// 搜索用户
 		nimGetUser({state,getters,dispatch,commit}, account) {
 			return new Promise((resolve, reject) => {
-				if (account == '' || getters.userObj[account]) {
+				if (!account || getters.userObj[account]) {
 					resolve(null)
 				}
 				dispatch('delegateNimFunction', {

@@ -1,30 +1,30 @@
 <template>
-	<div>
-		会话列表
-		<session-item></session-item>
-		{{teamObj}}
-		<navigator url="/pages/easy-chat/chat?sessionId=p2p-137">
-			<text>聊天页面</text>
-		</navigator>
+	<div class="im-flex-column im-flex-1">
+		<list class="im-flex-1">
+			<cell v-for="item in sessionArr" :key="item.id"><session-item :session="item"></session-item></cell>
+
+			<cell>
+				<navigator url="/pages/easy-chat/chat?sessionId=p2p-137"><text>聊天页面</text></navigator>
+			</cell>
+		</list>
 	</div>
 </template>
 
 <script>
-	import sessionItem from '@/components/easy-chat/session-item.vue'
-	export default {
-		components: {
-			sessionItem
-		},
-		computed: {
-			teamObj() {
-				console.log(this.$store.getters['initNim/teamObj'])
-				return this.$store.getters['initNim/teamObj']
-			}
-		},
-		
+import sessionItem from '@/components/easy-chat/session-item.vue'
+
+export default {
+	components: {
+		sessionItem
+	},
+	computed: {
+		sessionArr() {
+			return this.$store.getters['initNim/sessionArr']
+		}
+	},
+	methods: {
 	}
+}
 </script>
 
-<style>
-
-</style>
+<style></style>
