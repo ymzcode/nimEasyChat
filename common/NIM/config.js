@@ -14,6 +14,10 @@ const config = {
 	defaultGroupIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-group.png',
 	// 默认高级群头像
 	defaultAdvancedIcon: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-advanced.png',
+	// 是否需要tabBar 显示会话中所有的未读消息计数
+	isShowtabBarUnread: true,
+	// tabBar计数的位置
+	tabBarUnreadIndex: 1
 }
 
 export default config
