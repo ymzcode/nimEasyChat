@@ -150,14 +150,14 @@ class NimHandle {
 	
 	/*
 	*
-	* 批量更新会话的回调, 传出会话列表数组。此函数优先级高于上面的 onupdatesession，若定义了此函数，会话更新回调只会走这个函数。
+	* 更新会话的回调, 会传入会话, 以下情况会收到此回调
 	收到消息
 	发送消息
 	设置当前会话
 	重置会话未读数
 	*/
-	onupdatesessions(data) :void {
-		console.log('------- onupdatesessions', data)
+	onupdatesession(data) :void {
+		console.log('------- onupdatesession', data)
 	}
 	
 	/*

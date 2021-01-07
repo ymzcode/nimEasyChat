@@ -244,7 +244,7 @@ export default {
 					// 发送消息
 					// 设置当前会话
 					// 重置会话未读数
-					onupdatesessions: nimHandle.onupdatesessions,
+					onupdatesession: nimHandle.onupdatesession,
 					// 是否同步置顶会话，默认false，如果传true，则在有置顶会话时，可以收到onStickTopSessions回调，传false则不会
 					syncStickTopSessions: true,
 					// 同步置顶会话列表, 会传入会话列表
