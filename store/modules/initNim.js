@@ -190,6 +190,23 @@ export default {
 					arr = [data]
 				}
 				state.sessionArr = nim.mergeSessions(state.sessionArr, data)
+				
+				// 计算所有会话的未读数
+				if (config.isShowtabBarUnread) {
+					let allUnreadNum = 0
+					state.sessionArr.map(item => {
+						allUnreadNum = allUnreadNum + (item.unread || 0)
+					})
+					if (allUnreadNum > 0) {
+						// 设置消息的未读数
+						uni.setTabBarBadge({
+						  index: config.tabBarUnreadIndex,
+						  text: allUnreadNum >= 99 ? '99+' : allUnreadNum
+						})
+					}
+				}
+				
+				
 				console.log('合并会话数据完成', state.sessionArr)
 			} catch (e) {
 				//TODO handle the exception

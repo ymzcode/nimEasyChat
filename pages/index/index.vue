@@ -24,11 +24,6 @@
 		},
 		onLoad() {
 			// this.ready()
-			// 设置消息的未读数
-			uni.setTabBarBadge({
-			  index: 1,
-			  text: '4'
-			})
 		},
 		methods: {
 			ready() {
