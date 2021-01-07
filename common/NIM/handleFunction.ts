@@ -158,6 +158,12 @@ class NimHandle {
 	*/
 	onupdatesession(data) :void {
 		console.log('------- onupdatesession', data)
+		// 开始查询这个人
+		if (data.scene === 'p2p') {
+			store.dispatch('initNim/nimGetUser', data.to)
+		}
+		store.commit('initNim/saveSessionData', data)
+		
 	}
 	
 	/*
