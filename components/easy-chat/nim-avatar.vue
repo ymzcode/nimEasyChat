@@ -43,7 +43,7 @@ export default {
 	mounted() {
 		console.log('当前传入的账号id', this.account);
 		if (this.account != '' && !this.userObj[this.account]) {
-			this.searchUser();
+			this.searchUser()
 		}
 	},
 	methods: {
@@ -53,26 +53,7 @@ export default {
 		},
 		// 搜索用户
 		searchUser() {
-			this.$store.dispatch('initNim/delegateNimFunction', {
-				functionName: 'getUser',
-				options: {
-					account: String(this.account),
-					done: (error, user) => {
-						try {
-							if (error) {
-								this.$store.state.initNim.errCommon.uploadInfo(error);
-							} else if (user) {
-								this.$store.commit('initNim/saveUserData', user);
-								console.log('获取用户名片', error, user);
-							}
-						} catch (e) {
-							//TODO handle the exception
-							console.error('getUser', e);
-							this.$store.state.initNim.errCommon.uploadInfo(e);
-						}
-					}
-				}
-			});
+			this.$store.dispatch('initNim/nimGetUser', this.account)
 		}
 	}
 };
@@ -80,7 +61,7 @@ export default {
 
 <style scoped>
 .easy-chat-img {
-	width: 80rpx;
-	height: 80rpx;
+	width: 90rpx;
+	height: 90rpx;
 }
 </style>

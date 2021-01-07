@@ -451,6 +451,30 @@ export default {
 			})
 		},
 		
+		// 搜索用户
+		nimGetUser({state,getters,dispatch,commit}, account) {
+			return new Promise((resolve, reject) => {
+				if (account == '' || getters.userObj[account]) {
+					resolve(null)
+				}
+				dispatch('delegateNimFunction', {
+					functionName: 'getUser',
+					options: {
+						account: String(account),
+						done: (error, user) => {
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else if (user) {
+								commit('saveUserData', user);
+								console.log('获取用户名片', error, user);
+								resolve(user)
+							}
+						}
+					}
+				});
+			})
+		},
 		
 		// 登出app
 		logOut({
