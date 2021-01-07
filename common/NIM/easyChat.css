@@ -196,10 +196,16 @@
 .im-bg-red-1 {
 	background-color: #F75252;
 }
+.im-bg-red-2 {
+	background-color: #F25643;
+}
 
 /* 字体颜色 */
 .im-font-white {
 	color: #FFFFFF;
+}
+.im-font-light {
+	color: #949599;
 }
 
 /* 圆角 */
@@ -211,6 +217,9 @@
 }
 .im-round-3 {
 	border-radius: 30rpx;
+}
+.im-round-full {
+	border-radius: 99999px;
 }
 
 /* 边框 */
