@@ -1,21 +1,70 @@
 <script>
-	export default {
-		onLaunch: function() {
-			console.log('App Launch')
+export default {
+	globalData: {
+		// 节流函数
+		throttle: function throttle(fn, wait = 500, isImmediate = false) {
+			let flag = true;
+			if (isImmediate) {
+				return function() {
+					if (flag) {
+						fn.apply(this, arguments);
+						flag = false;
+						setTimeout(() => {
+							flag = true;
+						}, wait);
+					}
+				};
+			}
+			return function() {
+				if (flag == true) {
+					flag = false;
+					setTimeout(() => {
+						fn.apply(this, arguments);
+						flag = true;
+					}, wait);
+				}
+			};
 		},
-		onShow: function() {
-			console.log('App Show')
-		},
-		onHide: function() {
-			console.log('App Hide')
-		},
-		onError(e) {
-			console.log('应用报错', e);
+		// 防抖函数
+		debounce: function debounce(fn, wait = 500, isImmediate = false) {
+			let timerId = null;
+			let flag = true;
+			if (isImmediate) {
+				return function() {
+					clearTimeout(timerId);
+					if (flag) {
+						fn.apply(this, arguments);
+						flag = false;
+					}
+					timerId = setTimeout(() => {
+						flag = true;
+					}, wait);
+				};
+			}
+			return function() {
+				clearTimeout(timerId);
+				timerId = setTimeout(() => {
+					fn.apply(this, arguments);
+				}, wait);
+			};
 		}
+	},
+	onLaunch: function() {
+		console.log('App Launch');
+	},
+	onShow: function() {
+		console.log('App Show');
+	},
+	onHide: function() {
+		console.log('App Hide');
+	},
+	onError(e) {
+		console.log('应用报错', e);
 	}
+};
 </script>
 
 <style>
-	/*每个页面公共css */
-	@import "./common/NIM/easyChat.css";
+/*每个页面公共css */
+@import './common/NIM/easyChat.css';
 </style>
