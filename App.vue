@@ -2,7 +2,7 @@
 export default {
 	globalData: {
 		// 节流函数
-		throttle: function throttle(fn, wait = 500, isImmediate = false) {
+		throttle: function(fn, wait = 500, isImmediate = false) {
 			let flag = true;
 			if (isImmediate) {
 				return function() {
@@ -26,7 +26,7 @@ export default {
 			};
 		},
 		// 防抖函数
-		debounce: function debounce(fn, wait = 500, isImmediate = false) {
+		debounce: function(fn, wait = 500, isImmediate = false) {
 			let timerId = null;
 			let flag = true;
 			if (isImmediate) {
