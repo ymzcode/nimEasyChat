@@ -191,17 +191,20 @@ export default {
 				}
 				state.sessionArr = nim.mergeSessions(state.sessionArr, data)
 				
+				// console.log(config.isShowtabBarUnread, config.tabBarUnreadIndex)
+				
 				// 计算所有会话的未读数
 				if (config.isShowtabBarUnread) {
 					let allUnreadNum = 0
 					state.sessionArr.map(item => {
-						allUnreadNum = allUnreadNum + (item.unread || 0)
+						allUnreadNum = allUnreadNum + item.unread
 					})
 					if (allUnreadNum > 0) {
+						// console.log('设置未读数', allUnreadNum)
 						// 设置消息的未读数
 						uni.setTabBarBadge({
 						  index: config.tabBarUnreadIndex,
-						  text: allUnreadNum >= 99 ? '99+' : allUnreadNum
+						  text: allUnreadNum >= 99 ? '99+' : String(allUnreadNum)
 						})
 					}
 				}
@@ -225,7 +228,7 @@ export default {
 			commit,
 			dispatch,
 			getters
-		}, data) {
+		}, loginData) {
 			if (state.nim) {
 				console.log('当前已经登陆')
 				return;
@@ -240,7 +243,7 @@ export default {
 					debug: config.ISDEBUG,
 					db: config.USEDb,
 					appKey: config.APPKEY,
-					account: '122',
+					account: loginData.account,
 					token: 'e10adc3949ba59abbe56e057f20f883e',
 					onconnect: nimHandle.onConnect,
 					// 用户名片
