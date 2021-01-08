@@ -66,6 +66,9 @@ export default {
 			this.to = event.sessionId.split('-')[1];
 		}
 	},
+	onUnload() {
+		this.$store.dispatch('initNim/resetCurrentSession')
+	},
 	methods: {
 		// 打开扩展菜单
 		opemMenu() {
