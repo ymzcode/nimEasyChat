@@ -41,7 +41,7 @@ export default {
 		}
 	},
 	mounted() {
-		console.log('当前传入的账号id', this.account);
+		// console.log('当前传入的账号id', this.account);
 		if (this.account != '' && !this.userObj[this.account]) {
 			this.searchUser()
 		}
