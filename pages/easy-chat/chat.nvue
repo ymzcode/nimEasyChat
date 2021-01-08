@@ -20,7 +20,7 @@
 				@keyboardheightchange="keyboardheightchange"
 				@input="textareaInput"
 			/>
-			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5"></image>
+			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5" @tap="openEmoji"></image>
 			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5" @tap="opemMenu"></image>
 			<view v-if="textareaValue.length > 0" class="im-bg-red-1 im-px-2 im-py-2 im-round-2" @tap="sendMsg"><text class="im-font-28 im-font-white">发送</text></view>
 		</view>
@@ -69,12 +69,23 @@ export default {
 	methods: {
 		// 打开扩展菜单
 		opemMenu() {
-			this.clickScrollView()
-			this.$nextTick(() => {
-				this.menuType = 'extend'
-				this.menuShow = true
-			})
-			console.log(this.menuShow, this.menuType);
+			this.menuType = 'extend'
+			if (!this.menuShow) {
+				this.clickScrollView()
+				this.$nextTick(() => {
+					this.menuShow = true
+				})
+			}
+		},
+		// 打开表情菜单
+		openEmoji() {
+			this.menuType = 'emoji'
+			if (!this.menuShow) {
+				this.clickScrollView()
+				this.$nextTick(() => {
+					this.menuShow = true
+				})
+			}
 		},
 		// 点击滚动区域， 取消聚焦 初始化页面状态
 		clickScrollView() {

@@ -1,11 +1,14 @@
 <template>
 	<view v-if="$attrs.show" class="im-flex-column im-border-top">
 		<chat-extend-item-page v-if="$attrs.type === 'extend'"></chat-extend-item-page>
+		<chat-emoji-item-page v-else-if="$attrs.type === 'emoji'"></chat-emoji-item-page>
 	</view>
 </template>
 
 <script>
 import chatExtendItemPage from '@/components/easy-chat/chat-extend-item-page.vue'
+import chatEmojiItemPage from '@/components/easy-chat/chat-emoji-item-page.vue'
+
 export default {
 	data() {
 		return {
@@ -14,7 +17,8 @@ export default {
 		}
 	},
 	components: {
-		chatExtendItemPage
+		chatExtendItemPage,
+		chatEmojiItemPage
 	}
 }
 </script>
