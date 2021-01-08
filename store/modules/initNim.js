@@ -220,6 +220,10 @@ export default {
 		// 设置当前会话的id
 		setSessionId(state, data) {
 			state.currentSessionId = data
+		},
+		// 重置当前会话id
+		resetSessionId(state, data) {
+			state.currentSessionId = ''
 		}
 	},
 	actions: {
@@ -449,6 +453,16 @@ export default {
 			})
 			commit('setSessionId', data)
 		},
+		// 重置当前会话
+		resetCurrentSession({dispatch,commit}) {
+			console.log('重置当前会话');
+			dispatch('delegateNimFunction', {
+				functionName: 'resetCurrSession',
+				options: {}
+			})
+			commit('resetSessionId')
+		},
+		
 		// 发送消息
 		nimSendMsg({dispatch, commit}, options) {
 			return new Promise((resolve, reject) => {
@@ -527,6 +541,7 @@ export default {
 				});
 			})
 		},
+		
 		
 		// 登出app
 		logOut({
