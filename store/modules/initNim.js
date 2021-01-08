@@ -504,8 +504,10 @@ export default {
 		// 搜索用户
 		nimGetUser({state,getters,dispatch,commit}, account) {
 			return new Promise((resolve, reject) => {
-				if (!account || getters.userObj[account]) {
+				// console.log('判断这个人是否已经存在', getters.userObj);
+				if (!account || getters.userObj[String(account)]) {
 					resolve(null)
+					return ;
 				}
 				dispatch('delegateNimFunction', {
 					functionName: 'getUser',
