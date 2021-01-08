@@ -1,6 +1,8 @@
 <template>
 	<view class="im-flex-column im-flex-1 im-bg-grey-1">
+		<!-- 聊天滚动区域 -->
 		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" @clickScrollView="clickScrollView"></nim-scroll-view>
+		<!-- 底部聊天框 -->
 		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 80rpx;max-height: 150rpx">
 			<image src="/static/easy-chat/chat/voice@2x.png" mode="aspectFill" class="im-icon-5"></image>
 			<textarea
@@ -19,49 +21,79 @@
 				@input="textareaInput"
 			/>
 			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5"></image>
-			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5"></image>
-			<view v-if="textareaValue.length > 0" class="im-bg-red-1 im-px-2 im-py-2 im-round-2" @tap="sendMsg">
-				<text class="im-font-28 im-font-white">发送</text>
-			</view>
+			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5" @tap="opemMenu"></image>
+			<view v-if="textareaValue.length > 0" class="im-bg-red-1 im-px-2 im-py-2 im-round-2" @tap="sendMsg"><text class="im-font-28 im-font-white">发送</text></view>
 		</view>
+
+		<!-- 扩展菜单 -->
+		<nim-chat-extend-menu :type="menuType" :show="menuShow"></nim-chat-extend-menu>
 	</view>
 </template>
 
 <script>
 import nimScrollView from '@/components/easy-chat/nim-scroll-view.vue';
+import nimChatExtendMenu from '@/components/easy-chat/nim-chat-extend-menu.vue'
+
 export default {
 	data() {
 		return {
 			// textarea相关
 			textareaValue: '',
 			inputFocus: false,
-			
-			// 页面相关的数据
+
+			// nim相关数据
 			scene: '',
-			to: ''
+			to: '',
+			
+			// 菜单相关数据
+			menuShow: false,
+			// 展示menu的类型，
+			menuType: ''
 		};
 	},
 	components: {
-		nimScrollView
+		nimScrollView,
+		nimChatExtendMenu
 	},
-	computed: {
-	},
+	computed: {},
 	watch: {},
 	onLoad(event) {
 		console.log('页面接受的参数', event);
-		
+
 		if (event.sessionId) {
-			this.$store.dispatch('initNim/setCurrentSessionId', event.sessionId)
-			this.scene = event.sessionId.split('-')[0]
-			this.to = event.sessionId.split('-')[1]
+			this.$store.dispatch('initNim/setCurrentSessionId', event.sessionId);
+			this.scene = event.sessionId.split('-')[0];
+			this.to = event.sessionId.split('-')[1];
 		}
-		
 	},
 	methods: {
+		// 打开扩展菜单
+		opemMenu() {
+			this.clickScrollView()
+			this.$nextTick(() => {
+				this.menuType = 'extend'
+				this.menuShow = true
+			})
+			console.log(this.menuShow, this.menuType);
+		},
+		// 点击滚动区域， 取消聚焦 初始化页面状态
 		clickScrollView() {
 			console.log('点击滚动区域');
-			this.inputFocus = false
+			this.hideKeyWord()
+			this.$nextTick(() => {
+				this.inputFocus = false;
+				if (this.menuShow) {
+					this.menuShow = false;
+					this.menuType = ''
+				}
+			})
+			
 		},
+		// 收起键盘
+		hideKeyWord() {
+			uni.hideKeyboard()
+		},
+		// 输入框写入内容
 		textareaInput(e) {
 			console.log(e);
 			this.textareaValue = e.detail.value;
@@ -69,23 +101,29 @@ export default {
 		keyboardheightchange(e) {
 			console.log(e);
 			if (e.detail.height > 0) {
-				this.inputFocus = true
+				this.$nextTick(() => {
+					this.inputFocus = true;
+				})
 			}
 		},
 		textareaFocus(e) {
 			console.log(e);
+			this.menuShow = false;
 		},
 		sendMsg() {
-			console.log('msg', this.textareaValue)
-			this.$store.dispatch('initNim/nimSendMsg', {
-				scene: this.scene,
-				to: this.to,
-				text: this.textareaValue
-			}).then(res => {
-				this.textareaValue = ''
-			}).catch(err => {
-				console.error('error', err);
-			})
+			console.log('msg', this.textareaValue);
+			this.$store
+				.dispatch('initNim/nimSendMsg', {
+					scene: this.scene,
+					to: this.to,
+					text: this.textareaValue
+				})
+				.then(res => {
+					this.textareaValue = '';
+				})
+				.catch(err => {
+					console.error('error', err);
+				});
 		}
 	}
 };
