@@ -217,6 +217,7 @@ class NimHandle {
 	*/
 	onmsg(data): void {
 		console.log('------- onmsg', data);
+		store.commit('initNim/saveMsg', data)
 	}
 	
 	/*
