@@ -171,7 +171,15 @@ class NimHandle {
 	* 接收会话列表
 	*/
 	onsessions(data) :void {
-		console.log('------- onsessions', data)
+		console.log('------- onsessions', data);
+		// 开始查询这个人
+		data.map(item => {
+			if (item.scene === 'p2p') {
+				store.dispatch('initNim/nimGetUser', item.to)
+			}
+		})
+		
+		store.commit('initNim/saveSessionData', data)
 	}
 	
 	/*
