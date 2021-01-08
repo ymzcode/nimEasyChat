@@ -6,6 +6,7 @@
 			<text @click="loginOut">退出登录</text>
 			<text>用户名：{{nimUserInfo.nick || ''}}</text>
 			<text>手机号：{{nimUserInfo.tel || ''}}</text>
+			<input class="im-border" type="text" @input="inputText" :value="account" />
 			<nim-avatar :account="nimUserInfo.account" ></nim-avatar>
 		</view>
 	</div>
@@ -17,6 +18,11 @@
 		components: {
 			nimAvatar
 		},
+		data() {
+			return {
+				account: ''
+			}
+		},
 		computed: {
 			nimUserInfo () {
 				console.log('nimUserInfo 改变', this.$store.getters['initNim/nimUserInfo'])
@@ -24,8 +30,13 @@
 			}
 		},
 		methods: {
+			inputText(event) {
+				this.account = event.detail.value
+			},
 			initNim() {
-				this.$store.dispatch('initNim/initNimSDK')
+				this.$store.dispatch('initNim/initNimSDK', {
+					account: this.account
+				})
 			},
 			loginOut() {
 				this.$store.dispatch('initNim/logOut')
