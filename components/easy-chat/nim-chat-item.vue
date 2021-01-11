@@ -13,8 +13,9 @@
 					<!-- 自定义消息 -->
 					<template v-else-if="msg.type === 'custom'">
 						<!-- 跳转消息类型 -->
-						<chat-item-navigate v-if="customType === 'navigateTo'" :msg="msg"></chat-item-navigate>
+						<chat-item-navigate v-if="customType === 'votes'" :msg="msg"></chat-item-navigate>
 						<chat-item-msgcard v-else-if="customType === 'msgCard'" :msg="msg"></chat-item-msgcard>
+						<text v-else class="im-font-28">未定义的类型</text>
 					</template>
 					
 				</nim-chat-wrapper>

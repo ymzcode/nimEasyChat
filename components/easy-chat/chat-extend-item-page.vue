@@ -98,13 +98,13 @@ export default {
 							type: 'votes',
 							data: {
 								// 跳转的地址
-								url: '/pageBook?id=1001',
+								url: '/pageBook?id=1002',
 								// 标题
 								title: '# 孙晓华发起投票',
 								// 详细内容
 								detail: '针对四川凉山处理结果的投票',
 								// 封面
-								cover: 'https://ae01.alicdn.com/kf/U7482037424dc45a18efd2a798f8a4c665.jpg'
+								cover: '/static/easy-chat/other/votes@2x.png'
 							}
 						}
 						_self.$store.dispatch('initNim/nimSendCustomMsg', {
