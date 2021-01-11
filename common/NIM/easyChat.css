@@ -221,6 +221,14 @@
 	color: #F07A4E;
 }
 
+/* 行高 */
+.im-line-height-45 {
+	line-height: 45rpx;
+}
+.im-line-height-40 {
+	line-height: 40rpx;
+}
+
 /* 圆角 */
 .im-round-1 {
 	border-radius: 10rpx;
