@@ -190,6 +190,9 @@
 .im-bg-grey-1 {
 	background-color: #F4F5FB;
 }
+.im-bg-grey-2 {
+	background-color: #dfe3e6;
+}
 .im-bg-blue-1 {
 	background-color: #487CF1;
 }
@@ -199,6 +202,7 @@
 .im-bg-red-2 {
 	background-color: #F25643;
 }
+
 
 /* 字体颜色 */
 .im-font-white {
