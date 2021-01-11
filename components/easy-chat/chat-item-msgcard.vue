@@ -1,18 +1,16 @@
 <template>
 	<view class="im-flex-column" style="width: 450rpx;" @tap="onClick">
-		<text class="im-font-red im-font-28">{{ title }}</text>
-		<text class="im-font-32 im-font-black im-my-2">{{ detail }}</text>
-		<image v-if="cover" :src="cover" mode="aspectFill" style="width: 450rpx;height: 300rpx;"></image>
+		<text class="im-font-32 im-font-black im-line-height-45">{{ title }}</text>
+		<text class="im-font-28 im-font-light im-my-3 im-line-height-40">{{ detail }}</text>
+		<view class="im-border-top im-flex im-pt-1">
+			<image src="/static/easy-chat/chat/app-logo@2x.png" mode="aspectFill" style="width: 30rpx;height: 30rpx;"></image>
+			<text class="im-font-28 im-font-light im-ml-2">{{ appName }}</text>
+		</view>
 	</view>
 </template>
 
 <script>
 	export default {
-		data() {
-			return {
-				
-			}
-		},
 		computed: {
 			// 读取传入的自定义消息的内容
 			msgContent() {
@@ -39,12 +37,12 @@
 				}
 				return '未知详情'
 			},
-			// 封面
-			cover() {
+			// 应用名称
+			appName() {
 				if (this.msgContent.data) {
-					return this.msgContent.data.cover
+					return this.msgContent.data.appName
 				}
-				return ''
+				return '未知应用'
 			}
 		},
 		methods: {
@@ -59,6 +57,5 @@
 	}
 </script>
 
-<style scoped>
-	
+<style>
 </style>
