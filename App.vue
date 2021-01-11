@@ -42,6 +42,7 @@ export default {
 				};
 			}
 			return function() {
+				// console.log(timerId);
 				clearTimeout(timerId);
 				timerId = setTimeout(() => {
 					fn.apply(this, arguments);
