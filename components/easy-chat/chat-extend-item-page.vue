@@ -8,10 +8,10 @@
 		 >
 			<swiper-item v-for="(swiper, index) in main_menuList" :key="index" class="im-flex im-flex-wrap im-align-start im-py-2">
 				<view class="im-flex-column im-align-center im-ml-3 im-mb-2" v-for="(item, index2) in swiper" :key="item.id">
-					<view class="im-bg-white im-p-4 im-round-2" hover-class="im-bg-grey-3">
+					<view @tap="clickMenu(item)" class="im-bg-white im-p-4 im-round-2" hover-class="im-bg-grey-3">
 						<image src="/static/logo.png" mode="aspectFill" style="width: 70rpx;height: 70rpx;"></image>
 					</view>
-					<text class="im-font-28 im-mt-1 im-font-black">{{item.name}}</text>
+					<text @tap="clickMenu(item)" class="im-font-28 im-mt-1 im-font-black">{{item.name}}</text>
 				</view>
 			</swiper-item>
 		</swiper>
@@ -25,48 +25,66 @@
 				menuList: [{
 					id: 1,
 					name: '照片',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
 					id: 2,
 					name: '视频',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
 					id: 3,
 					name: '语音通话',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
 					id: 4,
 					name: '视频通话',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
 					id: 5,
 					name: '文件',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
 					id: 6,
 					name: '阅后即焚',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
 					id: 7,
 					name: '投票消息',
-					icon: ''
+					icon: '',
+					identity: 'votes'
 				}, {
 					id: 8,
 					name: '投票消息',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
-					id: 8,
+					id: 9,
 					name: '投票消息',
-					icon: ''
+					icon: '',
+					identity: ''
 				}, {
-					id: 8,
+					id: 10,
 					name: '投票消息',
-					icon: ''
+					icon: '',
+					identity: ''
 				}]
 			}
 		},
 		methods: {
-			
+			clickMenu(item) {
+				console.log(item);
+				let type = item.identity || ''
+				switch (type) {
+					case 'votes':
+						console.log('点击投票');
+						break;
+				}
+			}
 		},
 		computed: {
 			main_menuList() {
