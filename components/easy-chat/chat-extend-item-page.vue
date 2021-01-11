@@ -63,9 +63,9 @@ export default {
 				},
 				{
 					id: 8,
-					name: '投票消息',
+					name: '卡片消息',
 					icon: '',
-					identity: ''
+					identity: 'msgCard'
 				},
 				{
 					id: 9,
@@ -93,14 +93,14 @@ export default {
 				switch (type) {
 					case 'votes':
 						console.log('点击投票');
-						// 发送一个跳转消息
-						let content = {
-							type: 'navigateTo',
+						// 发送一个投票消息
+						let votes_content = {
+							type: 'votes',
 							data: {
 								// 跳转的地址
-								url: '',
+								url: '/pageBook?id=1001',
 								// 标题
-								title: '孙晓华发起投票',
+								title: '# 孙晓华发起投票',
 								// 详细内容
 								detail: '针对四川凉山处理结果的投票',
 								// 封面
@@ -110,7 +110,28 @@ export default {
 						_self.$store.dispatch('initNim/nimSendCustomMsg', {
 							scene: 'p2p',
 							to: '137',
-							content: JSON.stringify(content)
+							content: JSON.stringify(votes_content)
+						})
+						break;
+					case 'msgCard':
+						// 发送一个投票消息
+						let msgCard_content = {
+							type: 'msgCard',
+							data: {
+								// 跳转的地址
+								url: '/pageBook?id=1001',
+								// 标题
+								title: '四川凉山西昌发生森林大火是什么原因引起的呢？',
+								// 详细内容
+								detail: '一大早就看到弹出新闻一大早就看到弹 出新闻一大早就看到弹出新闻一大早就 看到弹出新闻…',
+								// 封面
+								appName: '防火码'
+							}
+						}
+						_self.$store.dispatch('initNim/nimSendCustomMsg', {
+							scene: 'p2p',
+							to: '137',
+							content: JSON.stringify(msgCard_content)
 						})
 						break;
 				}

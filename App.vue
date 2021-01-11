@@ -2,9 +2,20 @@
 // 当前自定义消息的类型
 /*
 *
+* type: 'msgCard'
+* 格式： type: 'msgCard',
+		data: {
+			// 跳转的地址
+			url: '/pageBook?id=1001',
+			// 标题
+			title: '四川凉山西昌发生森林大火是什么原因引起的呢？',
+			// 详细内容
+			detail: '一大早就看到弹出新闻一大早就看到弹 出新闻一大早就看到弹出新闻一大早就 看到弹出新闻…',
+			// 封面
+			appName: '防火码'
+		}
 * type: 'votes' 投票消息
-* type: 'navigateTo' 跳转消息
-* 格式： type: 'navigateTo',
+* 格式： type: 'votes',
 		data: {
 			// 跳转的地址
 			url: '',
