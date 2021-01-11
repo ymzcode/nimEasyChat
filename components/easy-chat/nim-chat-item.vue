@@ -8,7 +8,14 @@
 			<view class="im-flex-column im-align-start">
 				<!-- 消息体 -->
 				<nim-chat-wrapper :flow="msg.flow">
-					<text class="text" style="max-width: 450rpx;min-width:210rpx;">{{ msg.text }}</text>
+					<!-- 普通文本消息 -->
+					<text v-if="msg.type === 'text'" class="text">{{ msg.text }}</text>
+					<!-- 自定义消息 -->
+					<template v-else-if="msg.type === 'custom'">
+						<!-- 跳转消息类型 -->
+						<chat-item-navigate v-if="customType === 'navigateTo'" :msg="msg"></chat-item-navigate>
+					</template>
+					
 				</nim-chat-wrapper>
 				<!-- 消息的时间 -->
 				<text :class="msg.flow === 'in' ? 'leftDate' : 'rightDate' ">{{msg.time | formatTime}}</text>
@@ -28,6 +35,7 @@ require('dayjs/locale/zh-cn')
 
 import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
 import nimChatWrapper from '@/components/easy-chat/nim-chat-wrapper.vue'
+import chatItemNavigate from '@/components/easy-chat/chat-item-navigate.vue'
 
 export default {
 	props: {
@@ -40,7 +48,8 @@ export default {
 	},
 	components: {
 		nimAvatar,
-		nimChatWrapper
+		nimChatWrapper,
+		chatItemNavigate
 	},
 	computed: {
 		// 控制消息左右显示
@@ -50,6 +59,15 @@ export default {
 				style += 'justify-content: flex-end;'
 			}
 			return style
+		},
+		// 过滤自定义消息类型
+		customType() {
+			let type = ''
+			let contentObj = JSON.parse(this.msg.content)
+			if (contentObj && contentObj.type) {
+				type = contentObj.type
+			}
+			return type
 		}
 	},
 	filters: {
@@ -71,9 +89,16 @@ export default {
 }
 
 .text {
+	flex-direction: row;
 	font-size: 30rpx;
 	flex: 1;
 	line-height: 42rpx;
+	flex-wrap: wrap;
+	max-width: 450rpx;
+	min-width:210rpx;
+	word-wrap: break-word;
+	word-break: break-all;
+	overflow: hidden;
 }
 
 .leftDate,
