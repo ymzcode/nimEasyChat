@@ -1,13 +1,13 @@
 <template>
 	<view class="im-flex">
 		<!-- 左箭头 -->
-		<image v-if="flow === 'in'" src="/static/easy-chat/chat/leftarrow.png" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
+		<image v-if="flow === 'in'" :src="arrowImg" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
 		<!-- 插入的消息主体 -->
 		<view :class="msgWrapperClass">
 			<slot></slot>
 		</view>
 		<!-- 右箭头 -->
-		<image v-if="flow === 'out'" src="/static/easy-chat/chat/rightarrow.png" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
+		<image v-if="flow === 'out'" :src="arrowImg" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
 	</view>
 </template>
 
@@ -34,6 +34,22 @@
 					this.type === 'text' ? style += ' blue' : style += ' im-bg-white'
 				}
 				return style
+			},
+			// 箭头图标
+			arrowImg() {
+				if (this.flow === 'out') {
+					switch (this.type) {
+						case 'text':
+							return '/static/easy-chat/chat/rightarrow-blue.png'
+							break;
+						default:
+							return '/static/easy-chat/chat/rightarrow.png'
+							break;
+					}
+				} else {
+					return '/static/easy-chat/chat/leftarrow.png'
+				}
+				return ''
 			}
 		}
 	}
