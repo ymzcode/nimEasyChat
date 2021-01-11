@@ -10,8 +10,13 @@
 				<view style="height: 60rpx;"></view>
 			</cell>
 		</list>
-		<view class="im-bg-blue-1" style="width: 200rpx;">
-			<text>占位</text>
+		<view class="im-border-left im-flex-column im-align-center im-justify-around" style="width: 200rpx;">
+			<view class="im-round-2 im-bg-grey-2 im-flex im-justify-center im-align-center" style="width: 150rpx;height: 150rpx;">
+				<text class="im-font-28">删除</text>
+			</view>
+			<view class="im-round-2 im-bg-grey-2 im-flex im-justify-center im-align-center" style="width: 150rpx;height: 250rpx;">
+				<text class="im-font-28">发送</text>
+			</view>
 		</view>
 	</view>
 	
