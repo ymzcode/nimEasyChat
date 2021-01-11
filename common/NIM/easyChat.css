@@ -211,6 +211,9 @@
 .im-font-light {
 	color: #949599;
 }
+.im-font-black {
+	color: #323234;
+}
 
 /* 圆角 */
 .im-round-1 {
@@ -269,4 +272,9 @@
 .im-icon-5 {
 	width: 50rpx;
 	height: 50rpx;
+}
+
+/* 底部菜单栏的大小 */
+.im-bottom-menu-box {
+	height: 480rpx;
 }
