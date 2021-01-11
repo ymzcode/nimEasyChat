@@ -8,7 +8,7 @@
 		 >
 			<swiper-item v-for="(swiper, index) in main_menuList" :key="index" class="im-flex im-flex-wrap im-align-start im-py-2">
 				<view class="im-flex-column im-align-center im-ml-3 im-mb-2" v-for="(item, index2) in swiper" :key="item.id">
-					<view class="im-bg-white im-p-4 im-round-2">
+					<view class="im-bg-white im-p-4 im-round-2" hover-class="im-bg-grey-3">
 						<image src="/static/logo.png" mode="aspectFill" style="width: 70rpx;height: 70rpx;"></image>
 					</view>
 					<text class="im-font-28 im-mt-1 im-font-black">{{item.name}}</text>
