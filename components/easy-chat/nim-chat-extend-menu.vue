@@ -12,8 +12,6 @@ import chatEmojiItemPage from '@/components/easy-chat/chat-emoji-item-page.vue'
 export default {
 	data() {
 		return {
-			type: this.$attrs.type,
-			show: this.$attrs.show
 		}
 	},
 	components: {
