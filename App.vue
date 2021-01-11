@@ -1,4 +1,22 @@
 <script>
+// 当前自定义消息的类型
+/*
+*
+* type: 'votes' 投票消息
+* type: 'navigateTo' 跳转消息
+* 格式： type: 'navigateTo',
+		data: {
+			// 跳转的地址
+			url: '',
+			// 标题
+			title: '',
+			// 详细内容
+			detail: '',
+			// 封面
+			cover: ''
+		}
+*/
+
 export default {
 	globalData: {
 		// 节流函数
