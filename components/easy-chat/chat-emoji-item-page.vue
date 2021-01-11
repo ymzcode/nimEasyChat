@@ -1,5 +1,5 @@
 <template>
-	<view class="im-flex" style="height: 450rpx;">
+	<view class="im-flex im-bottom-menu-box im-bottom-menu-box">
 		<list class="im-flex-1">
 			<cell v-for="(item, index) in emojiList" :key="index">
 				<view class="im-flex im-align-center im-justify-around im-mt-2">

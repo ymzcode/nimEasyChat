@@ -1,5 +1,5 @@
 <template>
-	<view v-if="$attrs.show" class="im-flex-column im-border-top" style="height: 450rpx;">
+	<view v-if="$attrs.show" class="im-flex-column im-border-top im-bottom-menu-box">
 		<chat-extend-item-page v-if="$attrs.type === 'extend'"></chat-extend-item-page>
 		<chat-emoji-item-page v-else-if="$attrs.type === 'emoji'"></chat-emoji-item-page>
 	</view>
