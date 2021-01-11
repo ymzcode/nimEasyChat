@@ -14,29 +14,7 @@
 </template>
 
 <script>
-let debounce = function(fn, wait = 500, isImmediate = false) {
-	let timerId = null;
-	let flag = true;
-	if (isImmediate) {
-		return function() {
-			clearTimeout(timerId);
-			if (flag) {
-				fn.apply(this, arguments);
-				flag = false;
-			}
-			timerId = setTimeout(() => {
-				flag = true;
-			}, wait);
-		};
-	}
-	return function() {
-		console.log(timerId);
-		clearTimeout(timerId);
-		timerId = setTimeout(() => {
-			fn.apply(this, arguments);
-		}, wait);
-	};
-};
+let _self = null
 export default {
 	data() {
 		return {
@@ -104,6 +82,9 @@ export default {
 			]
 		};
 	},
+	mounted() {
+		_self = this
+	},
 	methods: {
 		clickMenu: getApp().globalData.debounce(
 			(item) => {
@@ -112,6 +93,25 @@ export default {
 				switch (type) {
 					case 'votes':
 						console.log('点击投票');
+						// 发送一个跳转消息
+						let content = {
+							type: 'navigateTo',
+							data: {
+								// 跳转的地址
+								url: '',
+								// 标题
+								title: '孙晓华发起投票',
+								// 详细内容
+								detail: '针对四川凉山处理结果的投票',
+								// 封面
+								cover: 'https://ae01.alicdn.com/kf/U7482037424dc45a18efd2a798f8a4c665.jpg'
+							}
+						}
+						_self.$store.dispatch('initNim/nimSendCustomMsg', {
+							scene: 'p2p',
+							to: '137',
+							content: JSON.stringify(content)
+						})
 						break;
 				}
 			},500),
@@ -131,7 +131,7 @@ export default {
 			for (let i = 0; i < this.menuList.length; i += 8) {
 				newArr.push(this.menuList.slice(i, i + 8));
 			}
-			console.log(newArr);
+			// console.log(newArr);
 			return newArr;
 		}
 	}
