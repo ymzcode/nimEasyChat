@@ -18,15 +18,22 @@
 			flow: {
 				type: String,
 				default: 'in'
+			},
+			// 消息的类型
+			type: {
+				type: String,
+				default: ''
 			}
 		},
 		computed: {
 			msgWrapperClass() {
-				if (this.flow === 'in') {
-					return 'leftMsg'
-				} else {
-					return 'rightMsg'
+				let style = 'leftMsg im-bg-white'
+				// 对自己发出的消息 单独做样式处理
+				if (this.flow === 'out') {
+					style = 'rightMsg'
+					this.type === 'text' ? style += ' blue' : style += ' im-bg-white'
 				}
+				return style
 			}
 		}
 	}
@@ -47,7 +54,9 @@
 }
 
 .rightMsg {
-	background-color: #96eb6a;
 	margin-right: -15rpx;
+}
+.blue {
+	background-color: #BAE3FE;
 }
 </style>
