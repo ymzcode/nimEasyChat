@@ -489,6 +489,32 @@ export default {
 			
 		},
 		
+		// 发送自定义消息
+		nimSendCustomMsg({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'sendCustomMsg',
+					options: {
+						scene: options.scene,
+						to: options.to,
+						content: options.content,
+						resend: false,
+						cc: true,
+						done: (error, msg) => {
+							console.log('发送完成', error, msg)
+							if (error) {
+								reject(error)
+							} else {
+								commit('saveMsg', msg)
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 获取云端的历史纪录
 		nimGetHistoryMsgs({state,dispatch, commit}, data) {
 			return new Promise((resolve, reject) => {
