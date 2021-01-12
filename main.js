@@ -11,7 +11,8 @@ Vue.prototype.$store = store
 
 // 尝试捕获vue中的错误
 Vue.config.errorHandler = function (err, vm, info) {
-	console.log('尝试捕获vue中的错误', err, vm, info);
+	console.error('尝试捕获vue中的错误', err, vm, info);
+	store.state.initNim.errCommon.uploadInfo(`${err.toString()} ||||||| ${info.toString()} |||||||`)
 }
 
 const app = new Vue({
