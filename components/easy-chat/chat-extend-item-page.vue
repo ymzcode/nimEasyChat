@@ -107,8 +107,8 @@ export default {
 						}
 					};
 					_self.$store.dispatch('initNim/nimSendCustomMsg', {
-						scene: 'p2p',
-						to: '137',
+						scene: _self.currentSessionId.split('-')[0],
+						to: _self.currentSessionId.split('-')[1],
 						content: JSON.stringify(votes_content)
 					});
 					break;
@@ -128,8 +128,8 @@ export default {
 						}
 					};
 					_self.$store.dispatch('initNim/nimSendCustomMsg', {
-						scene: 'p2p',
-						to: '137',
+						scene: _self.currentSessionId.split('-')[0],
+						to: _self.currentSessionId.split('-')[1],
 						content: JSON.stringify(msgCard_content)
 					});
 					break;
