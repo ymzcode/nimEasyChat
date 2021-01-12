@@ -3,7 +3,7 @@
 		<!-- 聊天滚动区域 -->
 		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" @clickScrollView="clickScrollView"></nim-scroll-view>
 		<!-- 底部聊天框 -->
-		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 80rpx;max-height: 150rpx">
+		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 85rpx;max-height: 150rpx">
 			<image @tap="changeMode" :src="modeIcon" mode="aspectFill" class="im-icon-5"></image>
 			<textarea
 				v-if="mode === 'input'"
@@ -21,9 +21,7 @@
 				@keyboardheightchange="keyboardheightchange"
 				@input="textareaInput"
 			/>
-			<view v-if="mode === 'audio'" class="im-flex" style="min-height: 70rpx;width: 480rpx;max-height: 120rpx">
-				<text>按住 说话</text>
-			</view>
+			<nim-chat-recording v-if="mode === 'audio'" style="height: 70rpx;width: 480rpx;"></nim-chat-recording>
 			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5" @tap="openEmoji"></image>
 			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5" @tap="opemMenu"></image>
 			<view v-if="textareaValue.length > 0" hover-class="im-bg-grey-3" class="im-bg-red-1 im-px-2 im-py-2 im-round-2" @tap="sendMsg"><text class="im-font-28 im-font-white">发送</text></view>
@@ -37,6 +35,7 @@
 <script>
 import nimScrollView from '@/components/easy-chat/nim-scroll-view.vue';
 import nimChatExtendMenu from '@/components/easy-chat/nim-chat-extend-menu.vue'
+import nimChatRecording from '@/components/easy-chat/nim-chat-recording.vue'
 
 export default {
 	data() {
@@ -60,7 +59,8 @@ export default {
 	},
 	components: {
 		nimScrollView,
-		nimChatExtendMenu
+		nimChatExtendMenu,
+		nimChatRecording
 	},
 	computed: {
 		modeIcon() {
