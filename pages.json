@@ -29,6 +29,15 @@
 			"style": {
 				"navigationBarTitleText": "聊天页面"
 			}
+		},
+		{
+			"path": "pages/easy-chat/video",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
 		}
 	],
 	"globalStyle": {

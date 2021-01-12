@@ -1,7 +1,7 @@
 <template>
 	<view class="im-flex-column im-position-relative im-justify-center im-align-center" @tap="gotoVideoPage" style="width: 400rpx;height: 400rpx;">
 		<image :src="coverImg" mode="aspectFill" style="width: 400rpx;height: 400rpx;"></image>
-		<view class="im-bg-grey-3 im-flex-1 im-position-absolute" style="opacity: 0.6;top: 0;left: 0;right: 0;bottom: 0;"></view>
+		<view class="im-bg-grey-3 im-flex-1 im-position-absolute im-top-0 im-left-0 im-right-0 im-bottom-0" style="opacity: 0.6;"></view>
 		<image class="im-position-absolute" src="/static/easy-chat/chat/play-video.png" mode="aspectFill" style="width: 80rpx;height: 80rpx;"></image>
 	</view>
 </template>
@@ -23,6 +23,9 @@
 		methods: {
 			gotoVideoPage() {
 				console.log('前往视频页', this.$attrs.msg.file.url);
+				uni.navigateTo({
+					url: '/pages/easy-chat/video?url=' + this.$attrs.msg.file.url
+				})
 			}
 		}
 	}

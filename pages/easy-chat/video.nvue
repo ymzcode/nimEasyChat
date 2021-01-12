@@ -1,0 +1,134 @@
+<template>
+	<view class="im-flex im-flex-1 im-position-relative video-transition">
+		<video
+			class="im-flex-1 im-position-absolute im-top-0 im-left-0 im-bottom-0 im-right-0"
+			id="myVideo"
+			:poster="url + '&vframe'"
+			:src="url"
+			@error="videoErrorCallback"
+			@play="play"
+			@pause="pause"
+			@ended="ended"
+			@controlstoggle="controlstoggle"
+			controls
+			show-mute-btn
+		></video>
+
+		<template v-if="!isPlay">
+			<view class="im-bg-overlay im-position-absolute im-top-0 im-right-0 im-left-0 im-bottom-0" style="opacity: 0.6;"></view>
+			<view
+				class="im-position-absolute im-w-100 im-top-0 im-bg-white im-flex im-align-center im-px-2"
+				:style="{ paddingTop: statusBarHeight }"
+				style="height: 150rpx;opacity: 0.7;"
+				@tap="back"
+			>
+				<text class="im-font-30 im-font-black">返回</text>
+			</view>
+			<view class="im-position-absolute im-top-0 im-right-0 im-left-0 im-bottom-0 im-flex im-align-center im-justify-center">
+				<image src="/static/easy-chat/chat/play-video.png" mode="aspectFill" style="width: 80rpx;height: 80rpx;"></image>
+			</view>
+
+			<view v-if="!isControl" ref="bottomTool" class="im-position-absolute im-w-100 im-bg-white im-flex im-align-center im-px-2" style="height: 150rpx;opacity: 0.7;bottom: -150rpx;">
+				<text class="im-font-30 im-font-black">zhuangtia</text>
+			</view>
+		</template>
+	</view>
+</template>
+
+<script>
+let statusBarHeight = uni.getSystemInfoSync().statusBarHeight + 'px';
+
+const animation = uni.requireNativePlugin('animation');
+
+export default {
+	data() {
+		return {
+			url: '',
+			statusBarHeight: statusBarHeight,
+			isPlay: false,
+			isControl: false
+		};
+	},
+	onLoad(option) {
+		console.log('页面接受的参数', option);
+		this.url = option.url;
+	},
+	mounted() {
+		this.bottomToolAnShow()
+	},
+	methods: {
+		back() {
+			uni.navigateBack({});
+		},
+		play(e) {
+			console.log('开始播放', e);
+			this.isPlay = true;
+		},
+		pause(e) {
+			console.log('暂停播放', e);
+			this.isPlay = false;
+		},
+		ended(e) {
+			console.log('播放完成', e);
+			uni.showToast({
+				title: '播放完成',
+				icon: 'none'
+			});
+			this.isPlay = false;
+		},
+		controlstoggle(e) {
+			console.log('控制菜单的显示与隐藏', e);
+			e.detail.show ? this.bottomToolAnHide() : this.bottomToolAnShow();
+		},
+		// 底部菜单栏的动画1 显示
+		bottomToolAnShow() {
+			let _self = this
+			_self.isControl = false
+			this.$nextTick(function(){
+				animation.transition(
+					this.$refs.bottomTool,
+					{
+						styles: {
+							transform: 'translateY(-75)'
+						},
+						duration: 800, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						console.log('动画走完了');
+					}
+				);
+			})
+		},
+		bottomToolAnHide() {
+			let _self = this
+			animation.transition(
+				this.$refs.bottomTool,
+				{
+					styles: {
+						transform: 'translateY(0)'
+					},
+					duration: 800, //ms
+					timingFunction: 'ease',
+					needLayout: false,
+					delay: 0 //ms
+				},
+				function() {
+					console.log('动画走完了');
+					_self.isControl = true
+				}
+			);
+		}
+	}
+};
+</script>
+
+<style scoped>
+.video-transition {
+	transition-timing-function: ease;
+	transition-duration: 0.3s;
+	transition-property: transform, opacity;
+}
+</style>

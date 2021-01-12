@@ -205,6 +205,9 @@
 .im-bg-red-2 {
 	background-color: #F25643;
 }
+.im-bg-overlay {
+	background-color: rgba(0, 0, 0, 0.7);
+}
 
 
 /* 字体颜色 */
@@ -302,4 +305,16 @@
 }
 .im-position-fixed {
 	position: fixed;
+}
+.im-top-0 {
+	top: 0;
+}
+.im-bottom-0 {
+	bottom: 0;
+}
+.im-left-0 {
+	left: 0;
+}
+.im-right-0 {
+	right: 0;
 }
