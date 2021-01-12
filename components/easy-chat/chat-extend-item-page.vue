@@ -165,6 +165,14 @@ export default {
 						sourceType: ['camera', 'album'],
 						success: function(res) {
 							console.log('视频选择', res);
+							if (res.tempFilePath) {
+								_self.$store.dispatch('initNim/nimSendFile', {
+									type: 'video',
+									filePath: res.tempFilePath,
+									scene: _self.currentSessionId.split('-')[0],
+									to: _self.currentSessionId.split('-')[1]
+								})
+							}
 						},
 						fail: err => {
 							console.log('选择视频失败', err);
