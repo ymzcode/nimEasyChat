@@ -1,5 +1,5 @@
 <template>
-	<view class="im-flex-column"><image :style="`width: ${imgSize.width}rpx; height: ${imgSize.height}rpx`" :src="mainImg" mode="aspectFit" style="max-width: 450rpx;" lazy-load></image></view>
+	<view class="im-flex-column" @tap="onClick"><image :style="`width: ${imgSize.width}rpx; height: ${imgSize.height}rpx`" :src="mainImg" mode="aspectFit" style="max-width: 450rpx;" lazy-load></image></view>
 </template>
 
 <script>
@@ -33,6 +33,11 @@ export default {
 		}
 	},
 	methods: {
+		onClick() {
+			uni.previewImage({
+				urls: [this.$attrs.msg.file.url]
+			});
+		},
 		setImageSize() {
 			let imgSize = {
 				width: 100,
