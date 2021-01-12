@@ -25,11 +25,11 @@
 				<text class="im-font-30 im-font-black">返回</text>
 			</view>
 			<view class="im-position-absolute im-top-0 im-right-0 im-left-0 im-bottom-0 im-flex im-align-center im-justify-center">
-				<image src="/static/easy-chat/chat/play-video.png" mode="aspectFill" style="width: 80rpx;height: 80rpx;"></image>
+				<image @tap="clickPlay" src="/static/easy-chat/chat/play-video.png" mode="aspectFill" style="width: 80rpx;height: 80rpx;"></image>
 			</view>
 
 			<view v-if="!isControl" ref="bottomTool" class="im-position-absolute im-w-100 im-bg-white im-flex im-align-center im-px-2" style="height: 150rpx;opacity: 0.7;bottom: -150rpx;">
-				<text class="im-font-30 im-font-black">zhuangtia</text>
+				<text class="im-font-30 im-font-black">下载视频</text>
 			</view>
 		</template>
 	</view>
@@ -53,10 +53,16 @@ export default {
 		console.log('页面接受的参数', option);
 		this.url = option.url;
 	},
+	onReady() {
+		this.videoContext = uni.createVideoContext('myVideo')
+	},
 	mounted() {
 		this.bottomToolAnShow()
 	},
 	methods: {
+		clickPlay() {
+			this.videoContext.play()
+		},
 		back() {
 			uni.navigateBack({});
 		},
