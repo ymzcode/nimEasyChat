@@ -14,22 +14,22 @@
 </template>
 
 <script>
-let _self = null
+let _self = null;
 export default {
 	data() {
 		return {
 			menuList: [
 				{
 					id: 1,
-					name: '照片',
+					name: '图片',
 					icon: '',
-					identity: ''
+					identity: 'album'
 				},
 				{
 					id: 2,
 					name: '视频',
 					icon: '',
-					identity: ''
+					identity: 'shooting'
 				},
 				{
 					id: 3,
@@ -83,68 +83,86 @@ export default {
 		};
 	},
 	mounted() {
-		_self = this
+		_self = this;
 	},
 	methods: {
-		clickMenu: getApp().globalData.debounce(
-			(item) => {
-				console.log(item);
-				let type = item.identity || '';
-				switch (type) {
-					case 'votes':
-						console.log('点击投票');
-						// 发送一个投票消息
-						let votes_content = {
-							type: 'votes',
-							data: {
-								// 跳转的地址
-								url: '/pageBook?id=1002',
-								// 标题
-								title: '# 孙晓华发起投票',
-								// 详细内容
-								detail: '针对四川凉山处理结果的投票',
-								// 封面
-								cover: '/static/easy-chat/other/votes@2x.png'
-							}
-						}
-						_self.$store.dispatch('initNim/nimSendCustomMsg', {
-							scene: 'p2p',
-							to: '137',
-							content: JSON.stringify(votes_content)
-						})
-						break;
-					case 'msgCard':
-						// 发送一个投票消息
-						let msgCard_content = {
-							type: 'msgCard',
-							data: {
-								// 跳转的地址
-								url: '/pageBook?id=1001',
-								// 标题
-								title: '四川凉山西昌发生森林大火是什么原因引起的呢？',
-								// 详细内容
-								detail: '一大早就看到弹出新闻一大早就看到弹 出新闻一大早就看到弹出新闻一大早就 看到弹出新闻…',
-								// 封面
-								appName: '防火码'
-							}
-						}
-						_self.$store.dispatch('initNim/nimSendCustomMsg', {
-							scene: 'p2p',
-							to: '137',
-							content: JSON.stringify(msgCard_content)
-						})
-						break;
-				}
-			},500),
-		handleItem(item) {
+		clickMenu: getApp().globalData.debounce(item => {
 			console.log(item);
 			let type = item.identity || '';
 			switch (type) {
 				case 'votes':
 					console.log('点击投票');
+					// 发送一个投票消息
+					let votes_content = {
+						type: 'votes',
+						data: {
+							// 跳转的地址
+							url: '/pageBook?id=1002',
+							// 标题
+							title: '# 孙晓华发起投票',
+							// 详细内容
+							detail: '针对四川凉山处理结果的投票',
+							// 封面
+							cover: '/static/easy-chat/other/votes@2x.png'
+						}
+					};
+					_self.$store.dispatch('initNim/nimSendCustomMsg', {
+						scene: 'p2p',
+						to: '137',
+						content: JSON.stringify(votes_content)
+					});
+					break;
+				case 'msgCard':
+					// 发送一个卡片消息
+					let msgCard_content = {
+						type: 'msgCard',
+						data: {
+							// 跳转的地址
+							url: '/pageBook?id=1001',
+							// 标题
+							title: '四川凉山西昌发生森林大火是什么原因引起的呢？',
+							// 详细内容
+							detail: '一大早就看到弹出新闻一大早就看到弹 出新闻一大早就看到弹出新闻一大早就 看到弹出新闻…',
+							// 封面
+							appName: '防火码'
+						}
+					};
+					_self.$store.dispatch('initNim/nimSendCustomMsg', {
+						scene: 'p2p',
+						to: '137',
+						content: JSON.stringify(msgCard_content)
+					});
+					break;
+				case 'album':
+					console.log('点击照片');
+					uni.chooseImage({
+						count: 3, //默认9
+						sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
+						sourceType: ['album', 'camera'], //从相册选择
+						success: function(res) {
+							console.log('从相册选择', res);
+						},
+						fail: err => {
+							console.log('选择相册失败', err);
+						}
+					});
+					break;
+				case 'shooting':
+					console.log('点击视频');
+					uni.chooseVideo({
+						count: 1,
+						maxDuration: 60,
+						sourceType: ['camera', 'album'],
+						success: function(res) {
+							console.log('视频选择', res);
+						},
+						fail: (err) => {
+							console.log('选择视频失败', err);
+						}
+					});
 					break;
 			}
-		}
+		}, 500)
 	},
 	computed: {
 		main_menuList() {
