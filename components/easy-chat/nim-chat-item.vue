@@ -10,6 +10,8 @@
 				<nim-chat-wrapper :flow="msg.flow" :type="msg.type">
 					<!-- 普通文本消息 -->
 					<text v-if="msg.type === 'text'" class="text" style="max-width: 450rpx;min-width:210rpx;word-wrap: break-word;word-break: break-all;">{{ msg.text }}</text>
+					<!-- 图片消息 -->
+					<chat-item-image v-else-if="msg.type === 'image'" :msg="msg"></chat-item-image>
 					<!-- 自定义消息 -->
 					<template v-else-if="msg.type === 'custom'">
 						<!-- 跳转消息类型 -->
@@ -39,6 +41,7 @@ import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
 import nimChatWrapper from '@/components/easy-chat/nim-chat-wrapper.vue'
 import chatItemNavigate from '@/components/easy-chat/chat-item-navigate.vue'
 import chatItemMsgcard from '@/components/easy-chat/chat-item-msgcard.vue'
+import chatItemImage from '@/components/easy-chat/chat-item-image.vue'
 
 export default {
 	props: {
@@ -53,7 +56,8 @@ export default {
 		nimAvatar,
 		nimChatWrapper,
 		chatItemNavigate,
-		chatItemMsgcard
+		chatItemMsgcard,
+		chatItemImage
 	},
 	computed: {
 		// 控制消息左右显示

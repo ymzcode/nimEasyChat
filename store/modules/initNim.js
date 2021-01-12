@@ -489,6 +489,48 @@ export default {
 			
 		},
 		
+		// 发送文件消息（先预览 再发送）
+		nimSendFile({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'previewFile',
+					options: {
+						type: options.type,
+						filePath: options.filePath,
+						done: (error, file) => {
+							console.log('预览文件完成', error, file)
+							if (error) {
+								reject(error)
+							} else {
+								// 发送文件消息
+								dispatch('delegateNimFunction', {
+									functionName: 'sendFile',
+									options: {
+										scene: options.scene,
+										to: options.to,
+										type: options.type,
+										// 文件对象, 开发者可以通过预览文件拿到文件对象
+										file: file,
+										cc: true,
+										done: (error, msg) => {
+											console.log('发送文件完成', error, msg)
+											if (error) {
+												reject(error)
+											} else {
+												commit('saveMsg', msg)
+												resolve('')
+											}
+										}
+									}
+								})
+							}
+						}
+					}
+				})
+			})
+		},
+		
+		
 		// 发送自定义消息
 		nimSendCustomMsg({dispatch, commit}, options) {
 			return new Promise((resolve, reject) => {

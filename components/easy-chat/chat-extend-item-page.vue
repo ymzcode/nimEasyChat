@@ -139,8 +139,18 @@ export default {
 						count: 3, //默认9
 						sizeType: ['original', 'compressed'], //可以指定是原图还是压缩图，默认二者都有
 						sourceType: ['album', 'camera'], //从相册选择
-						success: function(res) {
+						success: res => {
 							console.log('从相册选择', res);
+							if (res.tempFilePaths) {
+								res.tempFilePaths.map(item => {
+									_self.$store.dispatch('initNim/nimSendFile', {
+										type: 'image',
+										filePath: item,
+										scene: _self.currentSessionId.split('-')[0],
+										to: _self.currentSessionId.split('-')[1]
+									});
+								})
+							}
 						},
 						fail: err => {
 							console.log('选择相册失败', err);
@@ -156,7 +166,7 @@ export default {
 						success: function(res) {
 							console.log('视频选择', res);
 						},
-						fail: (err) => {
+						fail: err => {
 							console.log('选择视频失败', err);
 						}
 					});
@@ -172,6 +182,10 @@ export default {
 			}
 			// console.log(newArr);
 			return newArr;
+		},
+		// 当前会话的id
+		currentSessionId() {
+			return this.$store.getters['initNim/currentSessionId']
 		}
 	}
 };
