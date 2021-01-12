@@ -68,6 +68,22 @@ export default {
 			switch(lastMsg.type) {
 				case 'text':
 					text = lastMsg.text
+					break;
+				case 'image':
+					text = '图片消息'
+					break;
+				case 'audio':
+					text = '音频消息'
+					break;
+				case 'video':
+					text = '视频消息'
+					break;
+				case 'file':
+					text = '文件消息'
+					break;
+				case 'custom':
+					text = '自定义消息'
+					break;
 			}
 			return text
 		}
