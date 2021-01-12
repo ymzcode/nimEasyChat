@@ -292,3 +292,14 @@
 .im-bottom-menu-box {
 	height: 480rpx;
 }
+
+/* 定位 */
+.im-position-relative {
+	position: relative;
+}
+.im-position-absolute {
+	position: absolute;
+}
+.im-position-fixed {
+	position: fixed;
+}
