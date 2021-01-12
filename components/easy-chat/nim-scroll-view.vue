@@ -26,9 +26,7 @@
 					<text
 						class="im-font-28"
 						style="transform:rotate(180deg);-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);-o-transform:rotate(180deg);"
-					>
-						加载中···
-					</text>
+					>加载中···</text>
 				</view>
 			</view>
 		</scroll-view>
