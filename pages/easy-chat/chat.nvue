@@ -4,8 +4,9 @@
 		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" @clickScrollView="clickScrollView"></nim-scroll-view>
 		<!-- 底部聊天框 -->
 		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 80rpx;max-height: 150rpx">
-			<image src="/static/easy-chat/chat/voice@2x.png" mode="aspectFill" class="im-icon-5"></image>
+			<image @tap="changeMode" :src="modeIcon" mode="aspectFill" class="im-icon-5"></image>
 			<textarea
+				v-if="mode === 'input'"
 				class="im-flex im-bg-white im-round-3 im-px-2 im-py-2 im-font-28"
 				style="min-height: 70rpx;width: 480rpx;max-height: 120rpx"
 				:auto-height="true"
@@ -20,6 +21,9 @@
 				@keyboardheightchange="keyboardheightchange"
 				@input="textareaInput"
 			/>
+			<view v-if="mode === 'audio'" class="im-flex" style="min-height: 70rpx;width: 480rpx;max-height: 120rpx">
+				<text>按住 说话</text>
+			</view>
 			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5" @tap="openEmoji"></image>
 			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5" @tap="opemMenu"></image>
 			<view v-if="textareaValue.length > 0" hover-class="im-bg-grey-3" class="im-bg-red-1 im-px-2 im-py-2 im-round-2" @tap="sendMsg"><text class="im-font-28 im-font-white">发送</text></view>
@@ -48,14 +52,25 @@ export default {
 			// 菜单相关数据
 			menuShow: false,
 			// 展示menu的类型，
-			menuType: ''
+			menuType: '',
+			
+			//输入模式 input 打字 audio 语音
+			mode: 'input'
 		};
 	},
 	components: {
 		nimScrollView,
 		nimChatExtendMenu
 	},
-	computed: {},
+	computed: {
+		modeIcon() {
+			if (this.mode === 'input') {
+				return '/static/easy-chat/chat/voice@2x.png'
+			} else {
+				return '/static/easy-chat/chat/wenzishuru@2x.png'
+			}
+		}
+	},
 	watch: {},
 	onLoad(event) {
 		console.log('页面接受的参数', event);
@@ -73,6 +88,13 @@ export default {
 		console.log('页面隐藏');
 	},
 	methods: {
+		// 切换模式
+		changeMode() {
+			this.mode === 'input' ? this.mode = 'audio' : this.mode = 'input'
+			if (this.mode === 'audio') {
+				this.clickScrollView()
+			}
+		},
 		// 打开扩展菜单
 		opemMenu() {
 			this.menuType = 'extend'
@@ -86,6 +108,7 @@ export default {
 		// 打开表情菜单
 		openEmoji() {
 			this.menuType = 'emoji'
+			this.mode = 'input'
 			if (!this.menuShow) {
 				this.clickScrollView()
 				this.$nextTick(() => {
