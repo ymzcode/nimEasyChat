@@ -23,7 +23,7 @@ export default {
 				}
 			});
 			url = newImageUrl
-			console.log(newImageUrl);
+			// console.log(newImageUrl);
 			return url;
 		},
 		imgSize() {
