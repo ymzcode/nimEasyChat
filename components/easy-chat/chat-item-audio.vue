@@ -1,6 +1,7 @@
 <template>
-	<view @tap="onClick" style="max-width: 450rpx;min-width:210rpx;">
-		<text class="im-font-30">语音，点我播放 {{ isPlay }} {{ dur | filterDur }}''</text>
+	<view class="im-flex im-align-center im-px-2" @tap="onClick" style="max-width: 450rpx;min-width:210rpx;">
+		<image :src="iconImg" mode="aspectFill" style="width: 50rpx;height: 50rpx;"></image>
+		<text class="im-font-30 im-font-black im-ml-1">{{ dur | filterDur }}''</text>
 	</view>
 </template>
 
@@ -17,6 +18,9 @@
 		computed: {
 			playAudioId() {
 				return this.$store.getters['initNim/playAudioId']
+			},
+			iconImg() {
+				return this.isPlay ? '/static/easy-chat/audio/play.gif' : '/static/easy-chat/audio/audio3.png'
 			}
 		},
 		watch: {
@@ -62,6 +66,8 @@
 				console.log('音频自然播放结束事件');
 				this.isPlay = false
 				this.$store.commit('initNim/removeAudioId')
+				this.tipAudio()
+				
 			})
 		},
 		methods: {
@@ -79,6 +85,17 @@
 						this.censusDur()
 					}
 				}, 500)
+			},
+			// 播放提示音
+			tipAudio() {
+				let inner2 = uni.createInnerAudioContext()
+				inner2.src = '/static/easy-chat/mp3/audio-end.wav'
+				inner2.autoplay = true
+				inner2.play()
+				inner2.onEnded(() => {
+					console.log('tishixin jieshu');
+					inner2.destroy()
+				})
 			}
 		},
 		beforeDestroy() {
