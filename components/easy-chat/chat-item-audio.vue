@@ -48,7 +48,7 @@
 		},
 		mounted() {
 			this.innerAudioContext.onPlay(() => {
-				console.log('开始播放');
+				// console.log('开始播放');
 				this.isPlay = true
 				this.censusDur()
 				this.$store.commit('initNim/setAudioId', this.$attrs.msg.idClient)
@@ -59,11 +59,11 @@
 				this.$store.commit('initNim/removeAudioId')
 			});
 			this.innerAudioContext.onStop(() => {
-				console.log('停止播放');
+				// console.log('停止播放');
 				this.isPlay = false
 			})
 			this.innerAudioContext.onEnded(() => {
-				console.log('音频自然播放结束事件');
+				// console.log('音频自然播放结束事件');
 				this.isPlay = false
 				this.$store.commit('initNim/removeAudioId')
 				this.tipAudio()
@@ -93,7 +93,7 @@
 				inner2.autoplay = true
 				inner2.play()
 				inner2.onEnded(() => {
-					console.log('tishixin jieshu');
+					// console.log('tishixin jieshu');
 					inner2.destroy()
 				})
 			}
