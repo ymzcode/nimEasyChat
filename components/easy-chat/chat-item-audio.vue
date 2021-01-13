@@ -25,7 +25,9 @@
 		},
 		watch: {
 			playAudioId(n) {
-				console.log('新数据', n);
+				// 这里有一个语音消息便会走一次
+				// 不能在这里写复杂数据处理逻辑
+				// console.log('新数据', n);
 				if (n != this.$attrs.msg.idClient) {
 					this.innerAudioContext.stop()
 				}
