@@ -9,7 +9,7 @@
 				<!-- 消息体 -->
 				<nim-chat-wrapper :flow="msg.flow" :type="msg.type">
 					<!-- 普通文本消息 -->
-					<text v-if="msg.type === 'text'" class="text" style="max-width: 450rpx;min-width:210rpx;word-wrap: break-word;word-break: break-all;">{{ msg.text }}</text>
+					<chat-item-text v-if="msg.type === 'text'" :msg="msg"></chat-item-text>
 					<!-- 图片消息 -->
 					<chat-item-image v-else-if="msg.type === 'image'" :msg="msg"></chat-item-image>
 					<!-- 视频消息 -->
@@ -48,6 +48,7 @@ import chatItemMsgcard from '@/components/easy-chat/chat-item-msgcard.vue'
 import chatItemImage from '@/components/easy-chat/chat-item-image.vue'
 import chatItemVideo from '@/components/easy-chat/chat-item-video.vue'
 import chatItemAudio from '@/components/easy-chat/chat-item-audio.vue'
+import chatItemText from '@/components/easy-chat/chat-item-text.vue'
 
 export default {
 	props: {
@@ -65,7 +66,8 @@ export default {
 		chatItemMsgcard,
 		chatItemImage,
 		chatItemVideo,
-		chatItemAudio
+		chatItemAudio,
+		chatItemText
 	},
 	computed: {
 		// 控制消息左右显示
@@ -104,14 +106,6 @@ export default {
 	padding: 0 20rpx;
 }
 
-.text {
-	flex-direction: row;
-	font-size: 30rpx;
-	flex: 1;
-	line-height: 42rpx;
-	flex-wrap: wrap;
-	overflow: hidden;
-}
 
 .leftDate,
 .rightDate {
