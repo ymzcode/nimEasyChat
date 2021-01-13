@@ -14,6 +14,8 @@
 					<chat-item-image v-else-if="msg.type === 'image'" :msg="msg"></chat-item-image>
 					<!-- 视频消息 -->
 					<chat-item-video v-else-if="msg.type === 'video'" :msg="msg"></chat-item-video>
+					<!-- 语音消息 -->
+					<chat-item-audio v-else-if="msg.type === 'audio'" :msg="msg"></chat-item-audio>
 					<!-- 自定义消息 -->
 					<template v-else-if="msg.type === 'custom'">
 						<!-- 跳转消息类型 -->
@@ -45,6 +47,7 @@ import chatItemNavigate from '@/components/easy-chat/chat-item-navigate.vue'
 import chatItemMsgcard from '@/components/easy-chat/chat-item-msgcard.vue'
 import chatItemImage from '@/components/easy-chat/chat-item-image.vue'
 import chatItemVideo from '@/components/easy-chat/chat-item-video.vue'
+import chatItemAudio from '@/components/easy-chat/chat-item-audio.vue'
 
 export default {
 	props: {
@@ -61,7 +64,8 @@ export default {
 		chatItemNavigate,
 		chatItemMsgcard,
 		chatItemImage,
-		chatItemVideo
+		chatItemVideo,
+		chatItemAudio
 	},
 	computed: {
 		// 控制消息左右显示
