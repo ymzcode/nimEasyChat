@@ -50,7 +50,9 @@
 					filePath: res.tempFilePath,
 					scene: _self.currentSessionId.split('-')[0],
 					to: _self.currentSessionId.split('-')[1]
-				});
+				}).then(res => {
+					_self.tipAudio()
+				})
 			});
 			// 注册录音错误事件
 			recorderManager.onError(function (error) {
@@ -58,6 +60,17 @@
 			})
 		},
 		methods: {
+			// 语音发送完成的提示音
+			tipAudio() {
+				let inner2 = uni.createInnerAudioContext()
+				inner2.src = '/static/easy-chat/mp3/audio-send.wav'
+				inner2.autoplay = true
+				inner2.play()
+				inner2.onEnded(() => {
+					console.log('tishixin jieshu');
+					inner2.destroy()
+				})
+			},
 			touchstart(e) {
 				console.log('touchstart', e);
 				this.isRecording = true
