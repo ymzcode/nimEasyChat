@@ -28,7 +28,7 @@
 		</view>
 
 		<!-- 扩展菜单 -->
-		<nim-chat-extend-menu :type="menuType" :show="menuShow"></nim-chat-extend-menu>
+		<nim-chat-extend-menu :type="menuType" :show="menuShow" :sendOk="textareaValue.length > 0" @deleteInput="deleteInput" @sendMsg="sendMsg" @addEmoji="addEmoji"></nim-chat-extend-menu>
 	</view>
 </template>
 
@@ -88,6 +88,22 @@ export default {
 		console.log('页面隐藏');
 	},
 	methods: {
+		// 点击表情扩展中的表情
+		addEmoji(emoji) {
+			this.textareaValue += emoji
+		},
+		// 点击表情扩展中的删除
+		deleteInput() {
+			let lastText = this.textareaValue.slice(-1)
+			if (lastText === ']') {
+				let left = this.textareaValue.lastIndexOf('[')
+				if (left > -1) {
+					this.textareaValue = this.textareaValue.slice(0, left)
+					return ;
+				}
+			}
+			this.textareaValue = this.textareaValue.slice(0, -1)
+		},
 		// 切换模式
 		changeMode() {
 			this.mode === 'input' ? this.mode = 'audio' : this.mode = 'input'
@@ -152,6 +168,14 @@ export default {
 		},
 		sendMsg() {
 			console.log('msg', this.textareaValue);
+			if (!this.textareaValue) {
+				uni.showToast({
+					title: '发送内容不能为空',
+					icon: 'none'
+				})
+				return ;
+			}
+			
 			this.$store
 				.dispatch('initNim/nimSendMsg', {
 					scene: this.scene,
