@@ -22,6 +22,9 @@ const ALLSTATE = {
 	msgArr: [],
 	// 会话列表的数组
 	sessionArr: [],
+	
+	// 当前正在播放的语音
+	playAudioId: '',
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -109,8 +112,13 @@ export default {
 		// 所有会话的 数组数据
 		sessionArr: state => {
 			return state.sessionArr
+		},
+		
+		// 正在播放的语音id
+		playAudioId: state => {
+			return state.playAudioId
 		}
-
+		
 	},
 	mutations: {
 		// 清空Nim state中的值
@@ -224,7 +232,17 @@ export default {
 		// 重置当前会话id
 		resetSessionId(state, data) {
 			state.currentSessionId = ''
+		},
+		
+		//设置正在播放的语音
+		setAudioId(state, id) {
+			state.playAudioId = id
+		},
+		// 移除正在播放的语音
+		removeAudioId(state) {
+			state.playAudioId = ''
 		}
+		
 	},
 	actions: {
 		initNimSDK({
