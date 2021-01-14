@@ -69,6 +69,12 @@ export default {
 			} else {
 				return '/static/easy-chat/chat/wenzishuru@2x.png'
 			}
+		},
+		teamObj() {
+			return this.$store.getters['initNim/teamObj']
+		},
+		userObj() {
+			return this.$store.getters['initNim/userObj']
 		}
 	},
 	watch: {},
@@ -80,6 +86,8 @@ export default {
 			this.scene = event.sessionId.split('-')[0];
 			this.to = event.sessionId.split('-')[1];
 		}
+		
+		this.setPageTitle()
 	},
 	onUnload() {
 		this.$store.dispatch('initNim/resetCurrentSession')
@@ -88,6 +96,20 @@ export default {
 		console.log('页面隐藏');
 	},
 	methods: {
+		// 设置标题
+		setPageTitle() {
+			let title = '聊天页面'
+			
+			if (this.scene === 'team' && this.teamObj[this.to]) {
+				title = this.teamObj[this.to].name
+			} else if (this.scene === 'p2p' && this.userObj[this.to]) {
+				title = this.userObj[this.to].nick
+			}
+			
+			uni.setNavigationBarTitle({
+				title: title
+			});
+		},
 		// 点击表情扩展中的表情
 		addEmoji(emoji) {
 			this.textareaValue += emoji
