@@ -41,6 +41,12 @@
 					"scrollIndicator": "none"
 				}
 			}
+		},
+		{
+			"path": "pages/easy-chat/chat-details",
+			"style": {
+				"navigationBarTitleText": "聊天详情"
+			}
 		}
 	],
 	"globalStyle": {

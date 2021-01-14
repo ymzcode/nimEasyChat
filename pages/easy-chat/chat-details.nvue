@@ -1,0 +1,65 @@
+<template>
+	<view class="im-flex-column im-bg-grey-1 im-flex-1">
+		<!-- 单聊展示框 -->
+		<template v-if="scene === 'p2p'">
+			<view class="im-flex im-align-center im-bg-white im-py-4 im-px-3">
+				<view class="im-flex-column im-align-center">
+					<nim-avatar :account="to"></nim-avatar>
+					<text class="im-font-28 im-font-light im-mt-1">{{ detailInfo.nick }}</text>
+				</view>
+				
+			</view>
+		</template>
+		
+		<!-- <team-avatar v-else-if="scene === 'team'" :teamId="to"></team-avatar> -->
+	</view>
+</template>
+
+<script>
+	import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
+	import teamAvatar from '@/components/easy-chat/team-avatar.vue'
+	
+	export default {
+		data() {
+			return {
+				scene: '',
+				to: ''
+			}
+		},
+		components: {
+			nimAvatar,
+			teamAvatar
+		},
+		computed: {
+			// 当前会话的id
+			currentSessionId() {
+				return this.$store.getters['initNim/currentSessionId']
+			},
+			// 用户对象数据结构
+			userObj() {
+				return this.$store.getters['initNim/userObj'] || {}
+			},
+			teamObj() {
+				return this.$store.getters['initNim/teamObj'] || {}
+			},
+			// 当前用户或者群的详细信息
+			detailInfo() {
+				if (this.scene === 'p2p' && this.userObj[this.to]) {
+					return this.userObj[this.to]
+				} else if (this.scene === 'team' && this.teamObj[this.to]) {
+					return this.teamObj[this.to]
+				}
+			}
+		},
+		onLoad() {
+			if (this.currentSessionId) {
+				this.scene = this.currentSessionId.split('-')[0];
+				this.to = this.currentSessionId.split('-')[1];
+			}
+		},
+	}
+</script>
+
+<style>
+
+</style>
