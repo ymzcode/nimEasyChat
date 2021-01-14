@@ -329,3 +329,9 @@
 .im-text-center {
 	text-align: center;
 }
+.im-text-right {
+	text-align: right;
+}
+.im-text-left {
+	text-align: left;
+}
