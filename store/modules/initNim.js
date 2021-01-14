@@ -22,6 +22,8 @@ const ALLSTATE = {
 	msgArr: [],
 	// 会话列表的数组
 	sessionArr: [],
+	// 群成员列表数据
+	teamMembersArr: [],
 	
 	// 当前正在播放的语音
 	playAudioId: '',
@@ -115,6 +117,20 @@ export default {
 		// 所有会话的 数组数据
 		sessionArr: state => {
 			return state.sessionArr
+		},
+		// 所有群成员 数组数据
+		teamMembersArr: state => {
+			return state.teamMembersArr
+		},
+		// 所有群成员 对象数据
+		teamMembersObj: state => {
+			let obj = {}
+			if (state.teamMembersArr.length > 0) {
+				state.teamMembersArr.map(item => {
+					obj[item.teamId] = item
+				})
+			}
+			return obj
 		},
 		
 		// 正在播放的语音id
@@ -226,6 +242,18 @@ export default {
 				
 				
 				console.log('合并会话数据完成', state.sessionArr)
+			} catch (e) {
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		},
+		// 保存群成员列表
+		saveTeamMembersData(state, data) {
+			try {
+				const nim = state.nim
+				state.teamMembersArr = nim.mergeMsgs(state.teamMembersArr, data)
+				console.log('合并群成员完成', state.teamMembersArr)
 			} catch (e) {
 				//TODO handle the exception
 				console.error(e);
@@ -686,6 +714,27 @@ export default {
 			})
 		},
 		
+		// 获取群成员
+		nimGetTeamMembers({state,getters,dispatch,commit}, teamId) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'getTeamMembers',
+					options: {
+						teamId: String(teamId),
+						done: (error, obj) => {
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else if (obj) {
+								commit('saveTeamMembersData', obj)
+								console.log('获取群成员', error, obj);
+								resolve(obj)
+							}
+						}
+					}
+				});
+			})
+		},
 		
 		// 登出app
 		logOut({
