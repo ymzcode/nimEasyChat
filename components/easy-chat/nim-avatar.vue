@@ -1,5 +1,5 @@
 <template>
-	<view class="" @tap="searchUser"><image :src="main_img" mode="aspectFill" class="easy-chat-img" @error="imageError" lazy-load></image></view>
+	<image @tap="searchUser" :src="main_img" mode="aspectFill" class="easy-chat-img" @error="imageError" lazy-load></image>
 </template>
 
 <script>
