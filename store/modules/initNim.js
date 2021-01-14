@@ -304,6 +304,10 @@ export default {
 					// 同步群列表的回调, 会传入群数组teams
 					// teams的属性invalid包含退出的群
 					onteams: nimHandle.onteams,
+					/*
+						不再推荐使用
+						onteammembers: nimHandle.onteammembers,
+					*/
 					// 群成员信息更新后的回调, 会传入群成员对象, 不过此时的信息是不完整的, 只会包括被更新的字段。当前登录帐号在其它端修改自己在群里面的昵称时也会收到此回调。
 					onupdateteammember: nimHandle.onupdateteammember,
 					// 创建群的回调, 此方法接收一个参数, 包含群信息和群主信息
