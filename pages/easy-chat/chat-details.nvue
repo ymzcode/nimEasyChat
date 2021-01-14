@@ -4,31 +4,67 @@
 		<template v-if="scene === 'p2p'">
 			<view class="im-flex im-align-center im-bg-white im-py-4 im-px-3">
 				<view class="im-flex-column im-align-center">
-					<nim-avatar :account="to"></nim-avatar>
-					<text class="im-font-28 im-font-light im-mt-1">{{ detailInfo.nick }}</text>
+					<nim-avatar :account="to" style="height: 72rpx;width: 72rpx;"></nim-avatar>
+					<text class="im-font-28 im-font-light im-mt-2">{{ detailInfo.nick }}</text>
 				</view>
-				
+				<view class="im-flex-column im-align-center im-ml-3" @tap="createTeam">
+					<image src="/static/easy-chat/details/create-team@2x.png" mode="aspectFill" style="width: 72rpx;height: 72rpx;"></image>
+					<text class="im-font-28 im-font-light im-mt-2">创建群聊</text>
+				</view>
 			</view>
 		</template>
+		<!-- 群聊展示框 -->
+		<template v-if="scene === 'team'">
+			<view class="im-flex-column im-bg-white im-align-center im-justify-center im-pt-2 im-pb-4">
+				<team-avatar :teamId="to" class="im-round-2" style="width: 144rpx;height: 144rpx;"></team-avatar>
+				<text class="im-text-ellipsis im-font-32 im-font-black im-mt-3 im-pb-3 im-text-center" style="width: 500rpx;">{{ detailInfo.name }}</text>
+			</view>
+			
+			<nim-team-member :detailInfo="detailInfo"></nim-team-member>
+			
+		</template>
 		
-		<!-- <team-avatar v-else-if="scene === 'team'" :teamId="to"></team-avatar> -->
+		<!-- 查找聊天内容 -->
+		<nim-search-history></nim-search-history>
+		
+		<!-- 设置扩展项 -->
+		<view class="im-flex-column im-bg-white im-mt-3 im-px-3">
+			<view class="im-flex im-align-center im-justify-between im-border-bottom im-py-3">
+				<text class="im-font-32 im-font-black">名称</text>
+				<text class="im-font-25 im-font-light im-text-right im-text-ellipsis" style="width: 400rpx;">{{ detailInfo.nick || detailInfo.name }}</text>
+			</view>
+			
+			<view class="im-flex im-align-center im-justify-between im-py-3">
+				<text class="im-font-32 im-font-black">置顶聊天</text>
+				<switch :checked="isTop" color="#00BCAB" @change="isTopChange" />
+			</view>
+			
+		</view>
+		
+		
 	</view>
 </template>
 
 <script>
 	import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
 	import teamAvatar from '@/components/easy-chat/team-avatar.vue'
+	import nimSearchHistory from '@/components/easy-chat/nim-search-history.vue'
+	import nimTeamMember from '@/components/easy-chat/nim-team-member.vue'
 	
 	export default {
 		data() {
 			return {
 				scene: '',
-				to: ''
+				to: '',
+				// 判断当前会话是否置顶
+				isTop: false
 			}
 		},
 		components: {
 			nimAvatar,
-			teamAvatar
+			teamAvatar,
+			nimSearchHistory,
+			nimTeamMember
 		},
 		computed: {
 			// 当前会话的id
@@ -49,7 +85,8 @@
 				} else if (this.scene === 'team' && this.teamObj[this.to]) {
 					return this.teamObj[this.to]
 				}
-			}
+			},
+			
 		},
 		onLoad() {
 			if (this.currentSessionId) {
@@ -57,6 +94,14 @@
 				this.to = this.currentSessionId.split('-')[1];
 			}
 		},
+		methods: {
+			createTeam() {
+				console.log('创建群聊');
+			},
+			isTopChange() {
+				this.isTop = !this.isTop
+			}
+		}
 	}
 </script>
 
