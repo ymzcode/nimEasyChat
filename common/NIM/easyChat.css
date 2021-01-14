@@ -324,3 +324,8 @@
 .im-right-0 {
 	right: 0;
 }
+
+/* 文字居中 */
+.im-text-center {
+	text-align: center;
+}
