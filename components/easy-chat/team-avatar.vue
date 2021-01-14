@@ -46,7 +46,7 @@ export default {
 		}
 	},
 	mounted() {
-		console.log('当前传入的账号id', this.teamId);
+		// console.log('当前传入的账号id', this.teamId);
 	},
 	methods: {
 		imageError(e) {
