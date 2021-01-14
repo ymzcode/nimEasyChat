@@ -735,6 +735,51 @@ export default {
 				});
 			})
 		},
+		// 新增会话置顶
+		nimAddStickTopSession({state,getters,dispatch,commit}, data) {
+			return new Promise((resolve, reject) => {
+				console.log(data);
+				dispatch('delegateNimFunction', {
+					functionName: 'addStickTopSession',
+					options: {
+						id: data.id,
+						// 会话置顶的扩展字段
+						topCustom: data.topCustom,
+						done: (error, obj) => {
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								console.error(error);
+								reject(error)
+							} else if (obj) {
+								console.log('新增会话置顶', error, obj);
+								resolve(obj)
+							}
+						}
+					}
+				});
+			})
+		},
+		// 取消会话置顶
+		nimDeleteStickTopSession({state,getters,dispatch,commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'deleteStickTopSession',
+					options: {
+						id: options.id,
+						done: (error, obj) => {
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								console.error(error);
+								reject(error)
+							} else if (obj) {
+								console.log('取消会话置顶', error, obj);
+								resolve(obj)
+							}
+						}
+					}
+				});
+			})
+		},
 		
 		// 登出app
 		logOut({

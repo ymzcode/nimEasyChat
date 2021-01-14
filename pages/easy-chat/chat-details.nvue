@@ -98,8 +98,16 @@
 			createTeam() {
 				console.log('创建群聊');
 			},
-			isTopChange() {
-				this.isTop = !this.isTop
+			isTopChange(e) {
+				// console.log(e);
+				this.isTop = e.detail.value
+				this.isTop ? this.$store.dispatch('initNim/nimAddStickTopSession', {
+					id: this.currentSessionId,
+					// 会话置顶的扩展字段
+					topCustom: ''
+				}) : this.$store.dispatch('initNim/nimDeleteStickTopSession', {
+					id: this.currentSessionId
+				})
 			}
 		}
 	}
