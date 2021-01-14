@@ -25,6 +25,9 @@ const ALLSTATE = {
 	
 	// 当前正在播放的语音
 	playAudioId: '',
+	
+	// 当前网络的类型
+	networkType: '',
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -117,15 +120,19 @@ export default {
 		// 正在播放的语音id
 		playAudioId: state => {
 			return state.playAudioId
+		},
+		
+		// networkType
+		networkType: state => {
+			return state.networkType
 		}
 		
 	},
 	mutations: {
 		// 清空Nim state中的值
 		clearInitNimState(state) {
-			// for (let key in state) {
-			// 	state[key] = null
-			// }
+			// 这里手动清空nim
+			state.nim = null
 			console.log('清空state中的值')
 		},
 		initNimSDK(state, data) {
@@ -241,6 +248,16 @@ export default {
 		// 移除正在播放的语音
 		removeAudioId(state) {
 			state.playAudioId = ''
+		},
+		// 改变当前网络的类型
+		changeNetworkType(state, type) {
+			state.networkType = type
+			if (type === 'none') {
+				uni.showToast({
+					title: '当前处于无网络状态，请连接网络后重试！',
+					icon: 'none'
+				})
+			}
 		}
 		
 	},
@@ -268,6 +285,7 @@ export default {
 					account: loginData.account,
 					token: 'e10adc3949ba59abbe56e057f20f883e',
 					onconnect: nimHandle.onConnect,
+					onwillreconnect: nimHandle.onwillreconnect,
 					// 用户名片
 					onmyinfo: nimHandle.onMyInfo,
 					onupdatemyinfo: nimHandle.onUpdateMyInfo,
@@ -392,7 +410,7 @@ export default {
 					// 调用标记系统通知已读来标记系统通知和自定义系统通知为已读状态
 					autoMarkRead: false,
 					// SDK尝试重连的最大次数，超过后则不再尝试重连，并触发ondisconnect回调
-					reconnectionAttempts: 3,
+					reconnectionAttempts: 5,
 					// 是否开启快速自动重连，只有当needReconnect=true时该配置才有效
 					quickReconnect: true,
 					// 是否将动态图片缩略为静态图片，默认将动态图片缩略为静态图片
@@ -419,6 +437,20 @@ export default {
 				commit('initNimSDK', {
 					NIM: nim
 				})
+				
+				// 获取当前网络类型
+				uni.getNetworkType({
+					success: function (res) {
+						// console.log(res);
+						commit('changeNetworkType', res.networkType)
+					}
+				});
+				// 注册监听网络改变事件
+				uni.onNetworkStatusChange(function (res) {
+					// console.log(res);
+					commit('changeNetworkType', res.networkType)
+				});
+				
 			} catch (e) {
 				console.error(e);
 				state.errCommon.uploadInfo(e)
@@ -469,6 +501,15 @@ export default {
 				functionName: 'setCurrSession',
 				options: data
 			})
+			
+			let scene = data.split('-')[0];
+			let to = data.split('-')[1];
+			
+			// 开始查询这个人
+			if (scene === 'p2p') {
+				dispatch('nimGetUser', to)
+			}
+			
 			commit('setSessionId', data)
 		},
 		// 重置当前会话
@@ -648,16 +689,17 @@ export default {
 			commit
 		}) {
 			// state.nim && state.nim.disconnect()
-			// 清除实例
-			state.nim && state.nim.destroy({
-				done: function(err) {
-					console.log('实例已被完全清除', err)
-					commit('clearInitNimState')
-					uni.reLaunch({
-						url: '/pages/login/login'
-					})
-				}
+			return new Promise((resolve, reject) => {
+				// 清除实例
+				state.nim && state.nim.destroy({
+					done: function(err) {
+						console.log('实例已被完全清除', err)
+						resolve('')
+					}
+				})
+				commit('clearInitNimState')
 			})
+			
 		}
 	}
 }
