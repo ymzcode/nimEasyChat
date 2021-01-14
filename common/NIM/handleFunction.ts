@@ -168,6 +168,23 @@ class NimHandle {
 	
 	/*
 	*
+	* 	即将重连的回调
+
+		此时说明 SDK 已经断开连接, 请开发者在界面上提示用户连接已断开, 而且正在重新建立连接
+		此回调会收到一个对象, 包含额外的信息, 有以下字段
+		duration: 距离下次重连的时间
+		retryCount: 重连尝试的次数
+	*/
+	onwillreconnect(data) :void {
+		console.log('------- onwillreconnect', data)
+		uni.showToast({
+			title: `当前正在进行第${data.retryCount}次重连！`,
+			icon: 'none'
+		})
+	}
+	
+	/*
+	*
 	* 接收会话列表
 	*/
 	onsessions(data) :void {
@@ -406,6 +423,11 @@ class NimHandle {
 				store.state.initNim.errCommon.successInfo('退出登录成功')
 				break;
 			default:
+				uni.showToast({
+					title: '连接超时，IM已断开连接',
+					icon: 'none'
+				})
+				store.dispatch('initNim/logOut');
 				break;
 		}
 	}
