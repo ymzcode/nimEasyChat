@@ -27,7 +27,10 @@
 		{
 			"path": "pages/easy-chat/chat",
 			"style": {
-				"navigationBarTitleText": "聊天页面"
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
 			}
 		},
 		{
