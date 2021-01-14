@@ -5,6 +5,9 @@
 			<view class="im-flex-column">
 				<text class="im-font-34 im-font-black im-text-ellipsis" style="max-width: 400rpx">{{ pageTitle }}</text>
 			</view>
+			<view slot="right" class="im-flex" @tap="clickMore">
+				<image src="/static/easy-chat/chat/more.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
+			</view>
 		</nim-chat-navigation>
 		<!-- 聊天滚动区域 -->
 		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" @clickScrollView="clickScrollView"></nim-scroll-view>
@@ -115,6 +118,10 @@ export default {
 		console.log('页面隐藏');
 	},
 	methods: {
+		// 前往设置页面
+		clickMore() {
+			console.log('设置页面');
+		},
 		// 点击表情扩展中的表情
 		addEmoji(emoji) {
 			this.textareaValue += emoji

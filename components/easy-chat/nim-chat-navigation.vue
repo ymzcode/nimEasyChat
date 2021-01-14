@@ -7,7 +7,10 @@
 		<!-- 左 -->
 		<view class="">
 			<slot name="left">
-				<text class="im-font-28 im-font-black im-py-2 im-pr-2" @tap="back">返回</text>
+				<view class="im-flex im-align-center" @tap="back">
+					<image src="/static/easy-chat/chat/back.png" mode="aspectFill" style="width: 30rpx;height: 30rpx;"></image>
+					<text class="im-font-28 im-font-black im-py-2 im-ml-1">返回</text>
+				</view>
 			</slot>
 		</view>
 		<!-- 右 -->
