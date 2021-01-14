@@ -8,7 +8,7 @@
 			<textarea
 				v-if="mode === 'input'"
 				class="im-flex im-bg-white im-round-3 im-px-2 im-py-2 im-font-28"
-				style="min-height: 70rpx;width: 480rpx;max-height: 120rpx"
+				style="min-height: 70rpx;width: 470rpx;max-height: 120rpx"
 				:auto-height="true"
 				:cursor-spacing="10"
 				confirm-type="send"

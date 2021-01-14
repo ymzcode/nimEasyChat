@@ -8,7 +8,7 @@
 			</cell>
 			
 			<cell>
-				<view style="padding: 20rpx;border-radius: 10rpx;margin-top: 10rpx;flex: 1;margin-right: -15rpx;background-color: #BAE3FE;">
+				<view style="padding: 20rpx;border-radius: 10rpx;margin-top: 10rpx;margin-right: -15rpx;background-color: #BAE3FE;">
 					<view class="im-flex im-flex-wrap" style="max-width: 450rpx;">
 						<view v-for="(textVal, textIndex) in textNode" :key="textIndex">
 							<image v-if="textVal.type === 'img'" :src="textVal.src" mode="aspectFill" style="width:20px;height:20px;"></image>
