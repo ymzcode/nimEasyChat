@@ -1,8 +1,12 @@
 <template>
-	<view class="im-flex im-align-center im-px-2" @tap="onClick" style="max-width: 450rpx;min-width:210rpx;">
-		<image :src="iconImg" mode="aspectFill" style="width: 50rpx;height: 50rpx;"></image>
-		<text class="im-font-30 im-font-black im-ml-1">{{ dur | filterDur }}''</text>
+	<view class="im-flex im-align-center">
+		<view class="im-flex im-align-center im-px-2" @tap="onClick" style="max-width: 450rpx;min-width:210rpx;">
+			<image :src="iconImg" mode="aspectFill" style="width: 50rpx;height: 50rpx;"></image>
+			<text class="im-font-30 im-font-black im-ml-1">{{ dur | filterDur }}''</text>
+		</view>
+		<loading-indicator v-if="isLoading && !isPlay" style="width: 30rpx;height: 30rpx;" :animating="true"></loading-indicator>
 	</view>
+	
 </template>
 
 <script>
@@ -12,7 +16,8 @@
 				innerAudioContext : uni.createInnerAudioContext(),
 				// 判断是否播放中
 				isPlay: false,
-				dur: this.$attrs.msg.file.dur
+				dur: this.$attrs.msg.file.dur,
+				isLoading: false
 			}
 		},
 		computed: {
@@ -35,6 +40,7 @@
 			isPlay(n) {
 				if (!n) {
 					this.dur = this.$attrs.msg.file.dur
+					this.isLoading = false
 				}
 			}
 		},
@@ -77,6 +83,7 @@
 				this.innerAudioContext.stop()
 				this.innerAudioContext.src = this.$attrs.msg.file.url
 				
+				this.isLoading = true
 				this.innerAudioContext.play()
 			},
 			// 计算时间
