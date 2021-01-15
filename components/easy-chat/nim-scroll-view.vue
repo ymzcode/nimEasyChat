@@ -18,7 +18,7 @@
 					style="direction: ltr;transform:rotate(180deg);-ms-transform:rotate(180deg);-moz-transform:rotate(180deg);-webkit-transform:rotate(180deg);-o-transform:rotate(180deg);"
 				>
 					
-					<nim-chat-nim :msg="item"></nim-chat-nim>
+					<nim-chat-nim :msg="item" @longpress="longpress"></nim-chat-nim>
 					
 				</view>
 				<!-- loading加载 -->
@@ -30,6 +30,28 @@
 				</view>
 			</view>
 		</scroll-view>
+		
+		<!-- 弹出框 -->
+		<template v-if="isShowLongModel">
+			<view class="im-position-fixed im-flex im-justify-center im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;">
+				<view class="im-bg-black-1 im-justify-center im-flex-column im-flex-wrap im-round-2 im-p-1 im-py-2 im-position-relative">
+					<!-- 里面的每一项 -->
+					<view class="im-flex im-align-center">
+						<view v-for="item in 6" :key="item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
+							<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
+							<text class="im-font-23 im-font-white">DING</text>
+						</view>
+					</view>
+					<view class="im-flex im-align-center">
+						<view v-for="item in 6" :key="'a' + item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
+							<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
+							<text class="im-font-23 im-font-white">DING</text>
+						</view>
+					</view>
+				</view>
+				<image class="im-position-absolute" :src="longpressModelObj.icon" :style="longpressModelObj.iconStyle" mode="aspectFill" style="width: 30rpx;height: 30rpx;"></image>
+			</view>
+		</template>
 	</view>
 </template>
 
@@ -43,7 +65,25 @@ export default {
 				top: 0,
 				oldTop: 0
 			},
-			pageSize: 0
+			pageSize: 0,
+			isShowLongModel: false,
+			longpressSize: {
+				width: 0,
+				height: 0,
+				top: 0,
+				bottom: 0,
+				left: 0,
+				right: 0
+			},
+			// 是否拦截touchend
+			stopTouchend: false,
+			// 长按选中的消息
+			longpressMsg: {},
+			// 弹出框的箭头图片
+			longpressModelObj: {
+				icon: '/static/easy-chat/chat/arrow-down.png',
+				iconStyle: 'bottom:0'
+			}
 		};
 	},
 	components: {
@@ -63,6 +103,35 @@ export default {
 				}).slice(0, this.pageSize);
 			}
 			return [];
+		},
+		// 长按弹出框的样式
+		longModelStyle() {
+			let style = ''
+			// 偏移的距离
+			let offleft = (290 - this.longpressSize.width) / 2
+			// 消息中间的位置
+			let msgCenterPoint = this.longpressSize.left
+			// 判断上下
+			if (this.longpressSize.top > 150) {
+				style += `top: ${this.longpressSize.top - 105}px;`
+				// 设置箭头
+				this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-down.png'
+				this.longpressModelObj.iconStyle = `bottom: 0;`
+			} else {
+				style += `top: ${this.longpressSize.top + this.longpressSize.height + 20}px;`
+				// 设置箭头
+				this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-up.png'
+				this.longpressModelObj.iconStyle = `top: 0;`
+			}
+			// 判断左右
+			if (offleft > 30) {
+				this.longpressMsg.flow === 'out' ? style += `right: 20px` : style += `left: 20px`
+			} else {
+				this.longpressMsg.flow === 'out' ? style += `right:${this.longpressSize.left - offleft}px;` : style += `left:${this.longpressSize.left - offleft}px;`
+			}
+			
+			return style
+			
 		}
 	},
 	mounted() {
@@ -79,8 +148,13 @@ export default {
 			});
 		},
 		clickScrollView(e) {
-			this.$emit('clickScrollView');
 			e.stopPropagation();
+			if (this.stopTouchend) {
+				this.stopTouchend = false
+				return ;
+			}
+			this.$emit('clickScrollView');
+			this.isShowLongModel = false
 		},
 		loadMore() {
 			this.isLoadMore = true;
@@ -102,6 +176,16 @@ export default {
 					console.error(err);
 					this.isLoadMore = false;
 				});
+		},
+		longpress(e) {
+			console.log('元素', e);
+			this.isShowLongModel = true
+			this.longpressMsg = Object.assign({}, e.msg)
+			this.longpressSize = Object.assign({}, e.getComponentRect.size)
+			for(let i in this.longpressSize) {
+				this.longpressSize[i] = parseInt(this.longpressSize[i])
+			}
+			this.stopTouchend = true
 		}
 	}
 };

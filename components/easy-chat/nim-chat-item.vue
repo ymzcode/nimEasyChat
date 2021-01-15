@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="im-position-relative">
 		<!-- 整体消息结构 -->
 		<view class="im-flex cell" :style="msgBoxStyle">
 			<!-- 对方的头像 -->
@@ -7,7 +7,7 @@
 			<!-- 消息盒子 -->
 			<view class="im-flex-column im-align-start">
 				<!-- 消息体 -->
-				<nim-chat-wrapper :flow="msg.flow" :type="msg.type">
+				<nim-chat-wrapper :flow="msg.flow" :type="msg.type" :msg="msg" v-on="$listeners">
 					<!-- 普通文本消息 -->
 					<chat-item-text v-if="msg.type === 'text'" :msg="msg"></chat-item-text>
 					<!-- 图片消息 -->
@@ -59,6 +59,10 @@ export default {
 			}
 		}
 	},
+	data() {
+		return {
+		}
+	},
 	components: {
 		nimAvatar,
 		nimChatWrapper,
@@ -96,6 +100,8 @@ export default {
 				return dayjs(n).format('YYYY/MM/DD HH:mm')
 			}
 		}
+	},
+	methods: {
 	}
 }
 </script>
