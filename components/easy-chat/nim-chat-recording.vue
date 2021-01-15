@@ -3,7 +3,7 @@
 		<text class="im-font-30 im-font-black">{{ tipText }}</text>
 		
 		<!-- 提示框 悬浮于整体之外 -->
-		<view v-if="isRecording" class="im-position-fixed im-flex im-justify-center im-w-100" style="top: 400rpx;">
+		<view v-if="isRecording" class="im-position-fixed im-flex im-justify-center im-w-100" style="top: 500rpx;">
 			<view class="im-flex-column im-align-center im-px-2 im-py-4 im-round-2" :class="boxBg">
 				<image :src="iconImg" mode="aspectFit" style="width: 100rpx;height: 100rpx;"></image>
 				<text class="im-font-white im-font-28 im-mt-3">{{ toastText }}</text>
