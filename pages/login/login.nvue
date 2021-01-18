@@ -8,6 +8,7 @@
 			<text>手机号：{{nimUserInfo.tel || ''}}</text>
 			<input class="im-border" type="text" @input="inputText" :value="account" />
 			<nim-avatar :account="nimUserInfo.account" ></nim-avatar>
+			<text @tap="sendCustom">发送系统通知</text>
 		</view>
 	</div>
 </template>
@@ -30,6 +31,28 @@
 			}
 		},
 		methods: {
+			sendCustom() {
+				let content = {
+					// 提示系统消息
+					type: 'tipSysMsg',
+					// 是否需要缓存
+					isCatch: true,
+					data: {
+						title: '系统通知标题',
+						detail: '新功能上线，查看查看~',
+						url: '/page/teat/app',
+						openType: 'navigateTo',
+						buttonText: '查看详情'
+					}
+				}
+				
+				this.$store.dispatch('initNim/nimSendCustomMsg', {
+					scene: 'p2p',
+					to: 137,
+					content: JSON.stringify(content),
+					sendToOnlineUsersOnly: false
+				})
+			},
 			inputText(event) {
 				this.account = event.detail.value
 			},
