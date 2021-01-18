@@ -31,32 +31,17 @@
 			</view>
 		</scroll-view>
 		
-		<!-- 弹出框 -->
+		<!-- 长按消息弹出框 -->
 		<template v-if="isShowLongModel">
-			<view class="im-position-fixed im-flex-column im-align-center im-border im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;height: 300rpx;">
-				<view class="im-bg-black-1 im-flex-column im-round-2 im-p-1 im-py-2 im-position-relative">
-					<!-- 里面的每一项 -->
-					<view class="im-flex im-align-center">
-						<view v-for="item in 6" :key="item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
-							<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
-							<text class="im-font-23 im-font-white">DING</text>
-						</view>
-					</view>
-					<view class="im-flex im-align-center">
-						<view v-for="item in 6" :key="'a' + item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
-							<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
-							<text class="im-font-23 im-font-white">DD{{item}}</text>
-						</view>
-					</view>
-				</view>
-				<image class="im-position-absolute" :src="longpressModelObj.icon" :style="longpressModelObj.iconStyle" mode="aspectFill" style="width: 30rpx;height: 30rpx;"></image>
-			</view>
+			<chat-longpress-model :longpressSize="longpressSize" :longpressMsg="longpressMsg"></chat-longpress-model>
 		</template>
 	</view>
 </template>
 
 <script>
 import nimChatNim from '@/components/easy-chat/nim-chat-item.vue'
+import chatLongpressModel from '@/components/easy-chat/chat-longpress-model.vue'
+
 export default {
 	data() {
 		return {
@@ -79,15 +64,11 @@ export default {
 			stopTouchend: false,
 			// 长按选中的消息
 			longpressMsg: {},
-			// 弹出框的箭头图片
-			longpressModelObj: {
-				icon: '/static/easy-chat/chat/arrow-down.png',
-				iconStyle: 'bottom:0'
-			}
 		};
 	},
 	components: {
-		nimChatNim
+		nimChatNim,
+		chatLongpressModel
 	},
 	computed: {
 		currentSessionMsg() {
@@ -103,37 +84,6 @@ export default {
 				}).slice(0, this.pageSize);
 			}
 			return [];
-		},
-		// 长按弹出框的样式
-		longModelStyle() {
-			let style = ''
-			// 偏移的距离
-			let offleft = (290 - this.longpressSize.width) / 2
-			// 消息中间的位置
-			let msgCenterPoint = this.longpressSize.left
-			// 判断上下
-			if (this.longpressSize.top > 150) {
-				style += `top: ${this.longpressSize.top - 140}px;`
-				style += `justify-content:flex-end;`
-				// 设置箭头
-				this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-down.png'
-				this.longpressModelObj.iconStyle = `bottom: 0;`
-			} else {
-				style += `top: ${this.longpressSize.top + this.longpressSize.height + 20}px;`
-				style += `justify-content:flex-start;`
-				// 设置箭头
-				this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-up.png'
-				this.longpressModelObj.iconStyle = `top: 0;`
-			}
-			// 判断左右
-			if (offleft > 30) {
-				this.longpressMsg.flow === 'out' ? style += `right: 20px` : style += `left: 20px`
-			} else {
-				this.longpressMsg.flow === 'out' ? style += `right:${this.longpressSize.left - offleft}px;` : style += `left:${this.longpressSize.left - offleft}px;`
-			}
-			
-			return style
-			
 		}
 	},
 	mounted() {
