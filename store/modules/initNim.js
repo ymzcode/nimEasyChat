@@ -34,6 +34,9 @@ const ALLSTATE = {
 	// 当前正在输入的会话,使用数组形式存储正在输入的会话。
 	writngSessionId: [],
 	
+	// 所有的系统消息
+	systemMsgArr: [],
+	
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -149,8 +152,11 @@ export default {
 		// 正在输入的会话
 		writngSessionId: state => {
 			return state.writngSessionId
+		},
+		// 系统消息
+		systemMsgArr: state => {
+			return state.systemMsgArr
 		}
-		
 	},
 	mutations: {
 		// 清空Nim state中的值
@@ -262,6 +268,29 @@ export default {
 				const nim = state.nim
 				state.teamMembersArr = nim.mergeMsgs(state.teamMembersArr, data)
 				console.log('合并群成员完成', state.teamMembersArr)
+			} catch (e) {
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		},
+		// 保存系统消息
+		saveSystemMsgArr(state, data) {
+			try {
+				const nim = state.nim
+				
+				let arr = []
+				if (!Array.isArray(data)) {
+					arr = [data]
+				}
+				
+				// 计算系统消息的未读数
+				let unread = uni.getStorageSync('systemUnreadNum') || 0
+				unread = unread + arr.length
+				uni.setStorageSync('systemUnreadNum', unread)
+				
+				state.systemMsgArr = nim.mergeSysMsgs(state.systemMsgArr, arr)
+				console.log('合并系统通知完成', state.systemMsgArr)
 			} catch (e) {
 				//TODO handle the exception
 				console.error(e);
