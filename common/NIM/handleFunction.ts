@@ -362,6 +362,20 @@ class NimHandle {
 	*/
 	oncustomsysmsg(data): void {
 		console.log('------- oncustomsysmsg', data);
+		// 找到type
+		let content = JSON.parse(data.content) || {}
+		let type = content.type || null
+		
+		switch(type) {
+			case 'writingSysMsg':
+				let sessionId = `${data.scene}-${data.from}`
+				// console.log("store.getters['initNim/currentSessionId']", store.getters['initNim/currentSessionId'])
+				if (sessionId === store.getters['initNim/currentSessionId']) {
+					store.commit('initNim/changeWritingSession', sessionId)
+				}
+				break;
+		}
+		
 	}
 	
 	/*
