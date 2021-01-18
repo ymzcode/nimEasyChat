@@ -232,6 +232,9 @@
 .im-font-red {
 	color: #F07A4E;
 }
+.im-font-blue {
+	color: #487CF1;
+}
 
 /* 行高 */
 .im-line-height-45 {
@@ -337,4 +340,15 @@
 }
 .im-text-left {
 	text-align: left;
+}
+
+/* 字体粗细 */
+.im-weight-400 {
+	font-weight: 400;
+}
+.im-weight-500 {
+	font-weight: 500;
+}
+.im-weight-bold {
+	font-weight: bold;
 }
