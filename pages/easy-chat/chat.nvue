@@ -2,8 +2,12 @@
 	<view class="im-flex-column im-flex-1 im-bg-grey-1">
 		<!-- 顶部导航栏 -->
 		<nim-chat-navigation>
-			<view class="im-flex-column">
-				<text class="im-font-34 im-font-black im-text-ellipsis" style="max-width: 400rpx">{{ pageTitle }}</text>
+			<view class="im-flex-column im-align-center">
+				<view class="im-flex im-flex-nowrap im-align-center">
+					<text class="im-font-34 im-font-black im-text-ellipsis" style="max-width: 350rpx" @tap="showWriting">{{ pageTitle }}</text>
+					<text v-if="isShowWriting" class="im-font-light im-font-28 im-ml-1">正在输入···</text>
+				</view>
+				
 			</view>
 			<view slot="right" class="im-flex" @tap="clickMore">
 				<image src="/static/easy-chat/chat/more.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
@@ -47,6 +51,10 @@ import nimChatExtendMenu from '@/components/easy-chat/nim-chat-extend-menu.vue'
 import nimChatRecording from '@/components/easy-chat/nim-chat-recording.vue'
 import nimChatNavigation from '@/components/easy-chat/nim-chat-navigation.vue'
 
+// 正在输入的计时器 , 3秒后移除显示
+let WritingTimeOut = null
+let _self = null
+
 export default {
 	data() {
 		return {
@@ -64,7 +72,10 @@ export default {
 			menuType: '',
 			
 			//输入模式 input 打字 audio 语音
-			mode: 'input'
+			mode: 'input',
+			
+			//是否显示正在输入
+			isShowWriting: false
 		};
 	},
 	components: {
@@ -103,7 +114,9 @@ export default {
 	watch: {},
 	onLoad(event) {
 		console.log('页面接受的参数', event);
-
+		
+		_self = this
+		
 		if (event.sessionId) {
 			this.$store.dispatch('initNim/setCurrentSessionId', event.sessionId);
 			this.scene = event.sessionId.split('-')[0];
@@ -118,6 +131,37 @@ export default {
 		console.log('页面隐藏');
 	},
 	methods: {
+		// 在p2p情况下 发送正在输入的自定义系统通知
+		sendWritingSysMsg: getApp().globalData.throttle(() => {
+			if (_self.scene != 'p2p') {
+				return ;
+			}
+			
+			console.log('调用发送自定义通知');
+			let content = {
+				type: 'writingSysMsg',
+				// 是否需要缓存
+				isCatch: false,
+				data: {
+					scene: _self.scene,
+					to: _self.to
+				}
+			}
+			_self.$store.dispatch('initNim/nimSendCustomMsg', {
+				scene: _self.scene,
+				to: _self.to,
+				content: JSON.stringify(content),
+				sendToOnlineUsersOnly: true
+			})
+		}, 1000),
+		// 显示正在输入
+		showWriting() {
+			clearTimeout(WritingTimeOut)
+			this.isShowWriting = true
+			WritingTimeOut = setTimeout(() => {
+				this.isShowWriting = false
+			}, 3000)
+		},
 		// 前往设置页面
 		clickMore() {
 			console.log('设置页面');
@@ -190,6 +234,9 @@ export default {
 		textareaInput(e) {
 			console.log(e);
 			this.textareaValue = e.detail.value;
+			if (this.scene === 'p2p') {
+				this.sendWritingSysMsg()
+			}
 		},
 		keyboardheightchange(e) {
 			console.log(e);
