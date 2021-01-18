@@ -1,5 +1,5 @@
 <template>
-	<navigator :url="`/pages/easy-chat/chat-system`">
+	<navigator :url="`/pages/easy-chat/chat-system`" @tap="onClick">
 		<view class="im-flex im-border-bottom im-py-2 im-pl-2">
 			<!-- 头像展示 -->
 			<image src="/static/easy-chat/sys/sys-icon@2x.png" mode="aspectFill" style="width: 90rpx;height: 90rpx;"></image>
@@ -36,8 +36,6 @@
 			newMsg() {
 				let sysmsg = this.systemMsgArr[0]
 				if (sysmsg) {
-					sysmsg = Object.assign({}, sysmsg)
-					sysmsg.content = JSON.parse(sysmsg.content)
 					return sysmsg
 				} else {
 					return {}
@@ -69,6 +67,10 @@
 			}
 		},
 		methods: {
+			onClick() {
+				this.systemUnreadNum = 0
+				uni.setStorageSync('systemUnreadNum', 0)
+			},
 			updateSystemUnreadNum() {
 				console.log('更新系统消息的未读数');
 				this.systemUnreadNum = uni.getStorageSync('systemUnreadNum') || 0
