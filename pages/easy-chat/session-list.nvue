@@ -12,19 +12,6 @@
 				<navigator url="/pages/easy-chat/chat?sessionId=p2p-137"><text>聊天页面</text></navigator>
 			</cell>
 			
-			<cell>
-				<view style="padding: 20rpx;border-radius: 10rpx;margin-top: 10rpx;margin-right: -15rpx;background-color: #BAE3FE;">
-					<view class="im-flex im-flex-wrap" style="max-width: 450rpx;">
-						<view v-for="(textVal, textIndex) in textNode" :key="textIndex">
-							<image v-if="textVal.type === 'img'" :src="textVal.src" mode="aspectFill" style="width:20px;height:20px;"></image>
-							<text v-else-if="textVal.type === 'text'" class="im-font-30 " style="max-width: 450rpx; word-wrap: break-word;word-break: break-all;">{{ textVal.text }}</text>
-						</view>
-						<!-- 不解析表情的文本样式 -->
-						<!-- <text class="im-font-30 im-flex-1" style="max-width: 450rpx;min-width:210rpx;word-wrap: break-word;word-break: break-all;">{{ $attrs.msg.text }}</text> -->
-					</view>
-				</view>
-				
-			</cell>
 			
 		</list>
 	</div>
@@ -37,37 +24,6 @@ import sessionSys from '@/components/easy-chat/session-sys.vue'
 export default {
 	data() {
 		return {
-			textNode: [{
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_13.png"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_19.png"
-			}, {
-				"type": "text",
-				"text": "两手空空"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_26.png"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_21.png"
-			}, {
-				"type": "text",
-				"text": "坨寺路口巨龙路途遥远天龙女图咯就退了潘家口景区\n\n情侣空间"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_21.png"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_15.png"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_09.png"
-			}, {
-				"type": "img",
-				"src": "https://yx-web.nosdn.127.net/webdoc/h5/emoji/emoji/emoji_14.png"
-			}]
 		}
 	},
 	components: {
