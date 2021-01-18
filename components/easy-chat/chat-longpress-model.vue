@@ -1,5 +1,5 @@
 <template>
-	<view class="im-position-fixed im-flex-column im-align-center im-border im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;height: 300rpx;">
+	<view class="im-position-fixed im-flex-column im-align-center im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;height: 300rpx;">
 		<view class="im-bg-black-1 im-flex-column im-round-2 im-p-1 im-py-2 im-position-relative">
 			<!-- 里面的每一项 -->
 			<view class="im-flex im-align-center">
