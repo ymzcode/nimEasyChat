@@ -661,6 +661,34 @@ export default {
 			
 		},
 		
+		// 发送自定义系统通知
+		nimSendCustomMsg({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'sendCustomSysMsg',
+					options: {
+						scene: options.scene,
+						to: options.to,
+						content: options.content,
+						// 是否只发送给在线用户
+						// true时只发送给在线用户, 如果接收方不在线, 这条通知将被丢弃
+						// false时假如接收方在线, 那么会立即收到该通知,假如接收方不在线, 会在其上线后推送过去。
+						sendToOnlineUsersOnly: options.sendToOnlineUsersOnly,
+						cc: true,
+						done: (error, msg) => {
+							console.log('发送自定义通知完成', error, msg)
+							if (error) {
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 获取云端的历史纪录
 		nimGetHistoryMsgs({state,dispatch, commit}, data) {
 			return new Promise((resolve, reject) => {
