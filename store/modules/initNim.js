@@ -155,7 +155,19 @@ export default {
 		},
 		// 系统消息
 		systemMsgArr: state => {
-			return state.systemMsgArr
+			// 判断是否是自定义系统通知 
+			// 如果是 过滤content
+			let arr = [].concat(state.systemMsgArr)
+			// 这里有一个隐患！！！！！
+			// 可能在修改原数组的数据
+			// 需要改进
+			return arr.map(item => {
+				if (item.type === 'custom' && typeof item.content === 'string') {
+					item.content = JSON.parse(item.content)
+				}
+				return item
+			})
+			
 		}
 	},
 	mutations: {
