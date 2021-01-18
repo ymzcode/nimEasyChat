@@ -110,8 +110,16 @@ export default {
 			
 			return title
 		},
+		// 正在输入的会话
+		writngSessionId() {
+			return this.$store.getters['initNim/writngSessionId']
+		}
 	},
-	watch: {},
+	watch: {
+		writngSessionId(n) {
+			this.showWriting()
+		}
+	},
 	onLoad(event) {
 		console.log('页面接受的参数', event);
 		

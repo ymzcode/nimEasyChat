@@ -30,6 +30,10 @@ const ALLSTATE = {
 	
 	// 当前网络的类型
 	networkType: '',
+	
+	// 当前正在输入的会话,使用数组形式存储正在输入的会话。
+	writngSessionId: [],
+	
 
 	// 实例化错误处理方法, 单一实例
 	errCommon: new errorTrapping()
@@ -141,6 +145,10 @@ export default {
 		// networkType
 		networkType: state => {
 			return state.networkType
+		},
+		// 正在输入的会话
+		writngSessionId: state => {
+			return state.writngSessionId
 		}
 		
 	},
@@ -286,6 +294,16 @@ export default {
 					icon: 'none'
 				})
 			}
+		},
+		// 更改正在输入的会话列表（没有做清理）
+		changeWritingSession(state, session) {
+			console.log('更改正在输入的会话列表', session);
+			// 重新赋值更改，触发组件数据中的对应监听
+			let arr = state.writngSessionId.slice(0)
+			if (arr.indexOf(session) === -1) {
+				arr.push(session)
+			}
+			state.writngSessionId = [...arr]
 		}
 		
 	},
