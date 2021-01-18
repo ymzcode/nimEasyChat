@@ -1,5 +1,5 @@
 <template>
-	<navigator :url="``">
+	<navigator :url="`/pages/easy-chat/chat-system`">
 		<view class="im-flex im-border-bottom im-py-2 im-pl-2">
 			<!-- 头像展示 -->
 			<image src="/static/easy-chat/sys/sys-icon@2x.png" mode="aspectFill" style="width: 90rpx;height: 90rpx;"></image>

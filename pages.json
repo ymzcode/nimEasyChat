@@ -47,6 +47,12 @@
 			"style": {
 				"navigationBarTitleText": "聊天详情"
 			}
+		},
+		{
+			"path": "pages/easy-chat/chat-system",
+			"style": {
+				"navigationBarTitleText": "系统消息"
+			}
 		}
 	],
 	"globalStyle": {
