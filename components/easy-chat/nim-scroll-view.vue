@@ -33,8 +33,8 @@
 		
 		<!-- 弹出框 -->
 		<template v-if="isShowLongModel">
-			<view class="im-position-fixed im-flex im-justify-center im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;">
-				<view class="im-bg-black-1 im-justify-center im-flex-column im-flex-wrap im-round-2 im-p-1 im-py-2 im-position-relative">
+			<view class="im-position-fixed im-flex-column im-align-center im-border im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;height: 300rpx;">
+				<view class="im-bg-black-1 im-flex-column im-round-2 im-p-1 im-py-2 im-position-relative">
 					<!-- 里面的每一项 -->
 					<view class="im-flex im-align-center">
 						<view v-for="item in 6" :key="item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
@@ -45,7 +45,7 @@
 					<view class="im-flex im-align-center">
 						<view v-for="item in 6" :key="'a' + item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
 							<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
-							<text class="im-font-23 im-font-white">DING</text>
+							<text class="im-font-23 im-font-white">DD{{item}}</text>
 						</view>
 					</view>
 				</view>
@@ -113,12 +113,14 @@ export default {
 			let msgCenterPoint = this.longpressSize.left
 			// 判断上下
 			if (this.longpressSize.top > 150) {
-				style += `top: ${this.longpressSize.top - 105}px;`
+				style += `top: ${this.longpressSize.top - 140}px;`
+				style += `justify-content:flex-end;`
 				// 设置箭头
 				this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-down.png'
 				this.longpressModelObj.iconStyle = `bottom: 0;`
 			} else {
 				style += `top: ${this.longpressSize.top + this.longpressSize.height + 20}px;`
+				style += `justify-content:flex-start;`
 				// 设置箭头
 				this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-up.png'
 				this.longpressModelObj.iconStyle = `top: 0;`
