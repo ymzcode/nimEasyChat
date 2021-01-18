@@ -24,12 +24,8 @@
 <script>
 import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
 import teamAvatar from '@/components/easy-chat/team-avatar.vue'
+import useDayjs from '@/common/NIM/useDayjs.js'
 
-// 引入dayjs 过滤时间
-const dayjs = require('dayjs')
-const relativeTime = require('dayjs/plugin/relativeTime')
-dayjs.extend(relativeTime)
-require('dayjs/locale/zh-cn')
 
 export default {
 	props: {
@@ -90,11 +86,7 @@ export default {
 	},
 	filters: {
 		formatTime(n) {
-			if (dayjs(n).isAfter(dayjs().subtract(24, 'hour'))) {
-				return dayjs(n).locale('zh-cn').fromNow()
-			} else {
-				return dayjs(n).format('YYYY/MM/DD HH:mm')
-			}
+			return useDayjs.formatRelative24(n)
 		}
 	},
 	methods: {

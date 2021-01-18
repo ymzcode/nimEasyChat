@@ -35,12 +35,6 @@
 </template>
 
 <script>
-// 引入dayjs 过滤时间
-const dayjs = require('dayjs')
-const relativeTime = require('dayjs/plugin/relativeTime')
-dayjs.extend(relativeTime)
-require('dayjs/locale/zh-cn')
-
 import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
 import nimChatWrapper from '@/components/easy-chat/nim-chat-wrapper.vue'
 import chatItemNavigate from '@/components/easy-chat/chat-item-navigate.vue'
@@ -49,6 +43,8 @@ import chatItemImage from '@/components/easy-chat/chat-item-image.vue'
 import chatItemVideo from '@/components/easy-chat/chat-item-video.vue'
 import chatItemAudio from '@/components/easy-chat/chat-item-audio.vue'
 import chatItemText from '@/components/easy-chat/chat-item-text.vue'
+
+import useDayjs from '@/common/NIM/useDayjs.js'
 
 export default {
 	props: {
@@ -94,11 +90,7 @@ export default {
 	},
 	filters: {
 		formatTime(n) {
-			if (dayjs(n).isAfter(dayjs().subtract(24, 'hour'))) {
-				return dayjs(n).locale('zh-cn').fromNow()
-			} else {
-				return dayjs(n).format('YYYY/MM/DD HH:mm')
-			}
+			return useDayjs.formatRelative24(n)
 		}
 	},
 	methods: {
