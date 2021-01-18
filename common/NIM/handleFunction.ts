@@ -374,6 +374,9 @@ class NimHandle {
 					store.commit('initNim/changeWritingSession', sessionId)
 				}
 				break;
+			case 'tipSysMsg':
+				store.commit('initNim/saveSystemMsgArr', data)
+				break;
 		}
 		
 	}
