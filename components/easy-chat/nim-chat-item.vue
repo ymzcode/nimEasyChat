@@ -25,8 +25,14 @@
 					</template>
 					
 				</nim-chat-wrapper>
-				<!-- 消息的时间 -->
-				<text :class="msg.flow === 'in' ? 'leftDate' : 'rightDate' ">{{msg.time | formatTime}}</text>
+				<!-- 消息体下方显示栏 -->
+				<view class="im-flex im-align-center im-mt-1">
+					<!-- 单聊消息的已读未读状态显示 -->
+					<text v-if="msg.flow === 'out'" class="im-font-23 im-font-light">{{$attrs.nowSessionInfo.msgReceiptTime && $attrs.nowSessionInfo.msgReceiptTime > msg.time ? '已读' : '未读' }}</text>
+					<!-- 消息的时间 -->
+					<text :class="msg.flow === 'in' ? 'leftDate' : 'rightDate' ">{{msg.time | formatTime}}</text>
+				</view>
+				
 			</view>
 			<!-- 自己的头像 -->
 			<nim-avatar v-if="msg.flow === 'out'" :account="msg.from"></nim-avatar>
@@ -109,7 +115,6 @@ export default {
 .rightDate {
 	font-size: 24rpx;
 	color: #999;
-	margin-top: 10rpx;
 }
 
 .leftDate {

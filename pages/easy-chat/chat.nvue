@@ -14,7 +14,7 @@
 			</view>
 		</nim-chat-navigation>
 		<!-- 聊天滚动区域 -->
-		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" @clickScrollView="clickScrollView"></nim-scroll-view>
+		<nim-scroll-view :scene="scene" :to="to" :focus="inputFocus" :nowSessionInfo="nowSessionInfo" @clickScrollView="clickScrollView"></nim-scroll-view>
 		<!-- 底部聊天框 -->
 		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 85rpx;max-height: 150rpx">
 			<image @tap="changeMode" :src="modeIcon" mode="aspectFill" class="im-icon-5"></image>
@@ -92,6 +92,9 @@ export default {
 				return '/static/easy-chat/chat/wenzishuru@2x.png'
 			}
 		},
+		sessionObj() {
+			return this.$store.getters['initNim/sessionObj']
+		},
 		teamObj() {
 			return this.$store.getters['initNim/teamObj']
 		},
@@ -113,6 +116,10 @@ export default {
 		// 正在输入的会话
 		writngSessionId() {
 			return this.$store.getters['initNim/writngSessionId']
+		},
+		// 当前会话的session信息
+		nowSessionInfo() {
+			return this.sessionObj[`${this.scene}-${this.to}`]
 		}
 	},
 	watch: {
@@ -130,6 +137,11 @@ export default {
 			this.scene = event.sessionId.split('-')[0];
 			this.to = event.sessionId.split('-')[1];
 		}
+		
+		// 发送单聊已读回执
+		this.$store.dispatch('initNim/nimSendCustomMsg', {
+			msg: this.nowSessionInfo.lastMsg
+		})
 		
 	},
 	onUnload() {

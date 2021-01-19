@@ -3,7 +3,7 @@
 		<!-- 左箭头 -->
 		<image v-if="flow === 'in'" :src="arrowImg" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
 		<!-- 插入的消息主体 -->
-		<view :class="msgWrapperClass"><slot></slot></view>
+		<view :class="msgWrapperClass" class="im-flex"><slot></slot></view>
 		<!-- 右箭头 -->
 		<image v-if="flow === 'out'" :src="arrowImg" style="width: 40rpx;height: 40rpx;margin-top: 25rpx;" mode="aspectFill"></image>
 	</view>
