@@ -139,7 +139,7 @@ export default {
 		}
 		
 		// 发送单聊已读回执
-		this.$store.dispatch('initNim/nimSendCustomMsg', {
+		this.$store.dispatch('initNim/nimSendMsgReceipt', {
 			msg: this.nowSessionInfo.lastMsg
 		})
 		
@@ -167,7 +167,7 @@ export default {
 					to: _self.to
 				}
 			}
-			_self.$store.dispatch('initNim/nimSendCustomMsg', {
+			_self.$store.dispatch('initNim/nimSendCustomSysMsg', {
 				scene: _self.scene,
 				to: _self.to,
 				content: JSON.stringify(content),

@@ -250,7 +250,7 @@ class NimHandle {
 		// 判断收到消息时是否在会话页面中, 如果在标记已读
 		if (currentSessionId) {
 			// 发送单聊已读回执
-			store.dispatch('initNim/nimSendCustomMsg', {
+			store.dispatch('initNim/nimSendMsgReceipt', {
 				msg: store.getters['initNim/sessionObj'][currentSessionId].lastMsg
 			})
 		}

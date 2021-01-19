@@ -46,7 +46,7 @@
 					}
 				}
 				
-				this.$store.dispatch('initNim/nimSendCustomMsg', {
+				this.$store.dispatch('initNim/nimSendCustomSysMsg', {
 					scene: 'p2p',
 					to: 137,
 					content: JSON.stringify(content),

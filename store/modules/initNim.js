@@ -721,7 +721,7 @@ export default {
 		},
 		
 		// 发送自定义系统通知
-		nimSendCustomMsg({dispatch, commit}, options) {
+		nimSendCustomSysMsg({dispatch, commit}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'sendCustomSysMsg',
@@ -749,7 +749,7 @@ export default {
 		},
 		
 		// 发送已读回执
-		nimSendCustomMsg({dispatch, commit}, options) {
+		nimSendMsgReceipt({dispatch, commit}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'sendMsgReceipt',
