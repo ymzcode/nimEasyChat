@@ -245,6 +245,15 @@ class NimHandle {
 	onmsg(data): void {
 		console.log('------- onmsg', data);
 		store.commit('initNim/saveMsg', data)
+		// 播放收到消息的提示音
+		let inner2 = uni.createInnerAudioContext()
+		inner2.src = '/static/easy-chat/mp3/get-msg.wav'
+		inner2.autoplay = true
+		inner2.play()
+		inner2.onEnded(() => {
+			console.log('收到');
+			inner2.destroy()
+		})
 	}
 	
 	/*
