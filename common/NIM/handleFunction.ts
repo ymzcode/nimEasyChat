@@ -251,9 +251,13 @@ class NimHandle {
 		inner2.autoplay = true
 		inner2.play()
 		inner2.onEnded(() => {
-			console.log('收到');
 			inner2.destroy()
 		})
+		// 添加震动 iOS上只有长震动，没有短震动  iOS上需要手机设置“打开响铃时震动”或“静音时震动”，否则无法震动
+		uni.vibrateLong({
+		    success: function () {
+		    }
+		});
 	}
 	
 	/*
