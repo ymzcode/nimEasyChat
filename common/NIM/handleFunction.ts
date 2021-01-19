@@ -245,6 +245,16 @@ class NimHandle {
 	onmsg(data): void {
 		console.log('------- onmsg', data);
 		store.commit('initNim/saveMsg', data)
+		
+		let currentSessionId = store.state.initNim.currentSessionId
+		// 判断收到消息时是否在会话页面中, 如果在标记已读
+		if (currentSessionId) {
+			// 发送单聊已读回执
+			store.dispatch('initNim/nimSendCustomMsg', {
+				msg: store.getters['initNim/sessionObj'][currentSessionId].lastMsg
+			})
+		}
+		
 		// 播放收到消息的提示音
 		let inner2 = uni.createInnerAudioContext()
 		inner2.src = '/static/easy-chat/mp3/get-msg.wav'
