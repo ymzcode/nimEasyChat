@@ -748,6 +748,27 @@ export default {
 			
 		},
 		
+		// 发送已读回执
+		nimSendCustomMsg({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'sendMsgReceipt',
+					options: {
+						msg: options.msg,
+						done: (error, msg) => {
+							console.log('发送已读回执完成', error, msg)
+							if (error) {
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 获取云端的历史纪录
 		nimGetHistoryMsgs({state,dispatch, commit}, data) {
 			return new Promise((resolve, reject) => {
