@@ -1,10 +1,22 @@
 <template>
 	<view class="">
-		通讯录
+		<button type="default" @tap="createTeam"> 创建普通群聊</button>
 	</view>
 </template>
 
 <script>
+	export default {
+		methods: {
+			createTeam() {
+				console.log('创建普通群聊');
+				this.$store.dispatch('initNim/nimCreateNormalTeam', {
+					name: '普通群' + new Date().getTime(),
+					avatar: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-group.png',
+					accounts: ['125', '128', '138', '139']
+				})
+			}
+		}
+	}
 </script>
 
 <style>

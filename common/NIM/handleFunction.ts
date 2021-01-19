@@ -93,6 +93,7 @@ class NimHandle {
 	*/
 	onCreateTeam(data): void {
 		console.log('------- onCreateTeam', data);
+		store.commit('initNim/saveTeamData', data)
 	}
 	
 	/*

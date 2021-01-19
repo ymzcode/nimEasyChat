@@ -769,6 +769,31 @@ export default {
 			
 		},
 		
+		// 创建普通群
+		nimCreateNormalTeam({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'createTeam',
+					options: {
+						type: 'normal',
+						name: options.name,
+						avatar: options.avatar,
+						accounts: options.accounts,
+						ps: '我建了一个普通群',
+						done: (error, msg) => {
+							console.log('创建普通群完成', error, msg)
+							if (error) {
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 获取云端的历史纪录
 		nimGetHistoryMsgs({state,dispatch, commit}, data) {
 			return new Promise((resolve, reject) => {
