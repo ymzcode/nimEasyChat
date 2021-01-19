@@ -81,6 +81,12 @@ export default {
 	},
 	onLaunch: function() {
 		console.log('App Launch');
+		uni.onTabBarMidButtonTap(() => {
+			console.log('监听中间按钮点击事件');
+			uni.navigateTo({
+				url: '/pages/address/address-list'
+			})
+		})
 	},
 	onShow: function() {
 		console.log('App Show');
