@@ -235,6 +235,11 @@ class NimHandle {
 	*/
 	onofflinemsgs(data): void {
 		console.log('------- onofflinemsgs', data);
+		
+		// 将消息标记为 已收到状态
+		store.dispatch('initNim/nimMarkMsgRead', {
+			msgs: data
+		})
 	}
 	
 	/*
@@ -246,6 +251,11 @@ class NimHandle {
 	onmsg(data): void {
 		console.log('------- onmsg', data);
 		store.commit('initNim/saveMsg', data)
+		
+		// 先将消息标记为 已收到状态 和已读不同
+		store.dispatch('initNim/nimMarkMsgRead', {
+			msgs: data
+		})
 		
 		let currentSessionId = store.state.initNim.currentSessionId
 		// 判断收到消息时是否在会话页面中, 如果在标记已读
@@ -377,6 +387,11 @@ class NimHandle {
 	*/
 	onofflinecustomsysmsgs(data): void {
 		console.log('------- onofflinecustomsysmsgs', data);
+		
+		// 将其标记为已收到
+		store.dispatch('initNim/nimMarkSysMsgRead', {
+			sysMsgs: data
+		})
 	}
 	
 	/*
@@ -386,6 +401,12 @@ class NimHandle {
 	*/
 	oncustomsysmsg(data): void {
 		console.log('------- oncustomsysmsg', data);
+		
+		// 将其标记为已收到
+		store.dispatch('initNim/nimMarkSysMsgRead', {
+			sysMsgs: data
+		})
+		
 		// 找到type
 		let content = JSON.parse(data.content) || {}
 		let type = content.type || null
