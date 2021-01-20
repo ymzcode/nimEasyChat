@@ -794,6 +794,33 @@ export default {
 			
 		},
 		
+		// 创建高级(会商)群
+		nimCreateAdvancedTeam({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'createTeam',
+					options: {
+						type: 'advanced',
+						name: options.name,
+						avatar: options.avatar,
+						accounts: options.accounts,
+						intro: '群简介',
+						announcement: '群公告',
+						ps: '我建了一个普通群',
+						done: (error, msg) => {
+							console.log('创建普通群完成', error, msg)
+							if (error) {
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 标记系统通知为 已读
 		nimMarkSysMsgRead({dispatch, commit}, options) {
 			return new Promise((resolve, reject) => {
