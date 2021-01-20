@@ -370,7 +370,7 @@ export default {
 					db: config.USEDb,
 					appKey: config.APPKEY,
 					account: loginData.account,
-					token: 'e10adc3949ba59abbe56e057f20f883e',
+					token: loginData.userSig,
 					onconnect: nimHandle.onConnect,
 					onwillreconnect: nimHandle.onwillreconnect,
 					// 用户名片
