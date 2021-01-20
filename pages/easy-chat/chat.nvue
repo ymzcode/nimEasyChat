@@ -119,7 +119,7 @@ export default {
 		},
 		// 当前会话的session信息
 		nowSessionInfo() {
-			return this.sessionObj[`${this.scene}-${this.to}`]
+			return this.sessionObj[`${this.scene}-${this.to}`] || {}
 		}
 	},
 	watch: {
