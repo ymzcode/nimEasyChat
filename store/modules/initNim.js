@@ -794,6 +794,48 @@ export default {
 			
 		},
 		
+		// 标记系统通知为 已读
+		nimMarkSysMsgRead({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'markSysMsgRead',
+					options: {
+						sysMsgs: options.sysMsgs,
+						done: (error, obj) => {
+							console.log('标记系统通知为已收到', error, obj)
+							if (error) {
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
+		// 标记消息为 已收到  (和发送已读回执不同 , 标记后不会再从离线消息中收到)
+		nimMarkMsgRead({dispatch, commit}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'markMsgRead',
+					options: {
+						msgs: options.msgs,
+						done: (error, obj) => {
+							console.log('标记消息 为已收到', error, obj)
+							if (error) {
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 获取云端的历史纪录
 		nimGetHistoryMsgs({state,dispatch, commit}, data) {
 			return new Promise((resolve, reject) => {
