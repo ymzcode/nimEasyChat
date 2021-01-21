@@ -9,6 +9,7 @@
 			<input class="im-border" type="text" @input="inputText" :value="account" />
 			<nim-avatar :account="nimUserInfo.account" ></nim-avatar>
 			<text @tap="sendCustom">发送系统通知</text>
+			<text @tap="sendCustom2">发送审批通知</text>
 		</view>
 	</div>
 </template>
@@ -31,6 +32,31 @@
 			}
 		},
 		methods: {
+			sendCustom2() {
+				let content = {
+					// 提示系统消息
+					type: 'tipSysMsg',
+					// 是否需要缓存
+					isCatch: true,
+					data: {
+						title: '审批提醒标题',
+						icon: '/static/easy-chat/sys/remind-icon@2x.png',
+						subtitle: '审批提醒',
+						detail: '您好，您有新的组织结构申请，请审批',
+						url: '/page/teat/app',
+						openType: 'navigateTo',
+						buttonText: '查看详情'
+					}
+				}
+				
+				this.$store.dispatch('initNim/nimSendCustomSysMsg', {
+					scene: 'p2p',
+					to: 137,
+					content: JSON.stringify(content),
+					sendToOnlineUsersOnly: false
+				})
+				
+			},
 			sendCustom() {
 				let content = {
 					// 提示系统消息
@@ -39,6 +65,8 @@
 					isCatch: true,
 					data: {
 						title: '系统通知标题',
+						icon: '/static/easy-chat/sys/sys-icon-2@2x.png',
+						subtitle: '系统通知',
 						detail: '新功能上线，查看查看~',
 						url: '/page/teat/app',
 						openType: 'navigateTo',
