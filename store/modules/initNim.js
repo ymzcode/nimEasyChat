@@ -45,7 +45,8 @@ const ALLSTATE = {
 
 export default {
 	namespaced: true,
-	state: ALLSTATE,
+	// 这里不能直接赋值 保持ALLSTATE 的独立性 方便后续 清空state中的值类型判断是对的
+	state: Object.assign({}, ALLSTATE),
 	getters: {
 		nimUserInfo: state => {
 			return state.nimUserInfo
@@ -173,9 +174,32 @@ export default {
 	mutations: {
 		// 清空Nim state中的值
 		clearInitNimState(state) {
-			// 这里手动清空nim
-			state.nim = null
-			console.log('清空state中的值')
+			try {
+				// 将手动清空改为自动清空 (需注意清空后的变量类型) (错误处理函数不能清空)
+				for(let key in ALLSTATE){
+					if (key === 'errCommon') {
+						continue;
+					}
+					// console.log('key', key, 'ALLSTATE[key].constructor', ALLSTATE[key] && ALLSTATE[key].constructor)
+					
+					if (ALLSTATE[key] === null) {
+						state[key] = null
+					} else if (Array.isArray(ALLSTATE[key])) {
+						state[key] = new Array();
+						// console.log('数组走了')
+					} else if (ALLSTATE[key].constructor === Object) {
+						state[key] = {}
+					} else if (ALLSTATE[key].constructor === Number) {
+						state[key] = 0
+					} else if (ALLSTATE[key].constructor === String) {
+						state[key] = ''
+					}
+				}
+				console.log('清空state中的值', state)
+			} catch (e) {
+				state.errCommon.uploadInfo(e);
+				console.error('清空state 中的值出现错误', e);
+			}
 		},
 		initNimSDK(state, data) {
 			// console.log('initnimSDK', data)
@@ -808,7 +832,7 @@ export default {
 		},
 		
 		// 撤回消息 
-		nimDeleteMsg({dispatch, commit, state}, options) {
+		nimDeleteMsg({dispatch, commit, state, getters}, options) {
 			
 			let date = new Date().getTime() - 1000 * 60 * 5
 			
@@ -831,7 +855,32 @@ export default {
 								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
-								resolve('')
+								try{
+									commit('deleteMsg', options.msg)
+									// 获取当前会话的信息 准备发送提醒消息
+									let scene = getters.currentSessionId.split('-')[0]
+									let to = getters.currentSessionId.split('-')[1]
+									
+									// 给提醒消息设置类型
+									let tipContent = {
+										// 撤回消息
+										type: 'deleteMsg',
+										data: {
+											oldMsg: options.msg
+										}
+									}
+									dispatch('nimSendTipMsg', {
+										scene: scene,
+										to: to,
+										tip: JSON.stringify(tipContent)
+									})
+									resolve('')
+								} catch(e) {
+									//TODO handle the exception
+									state.errCommon.uploadInfo(e);
+									console.error(e)
+									reject(e)
+								}
 							}
 						}
 					}
@@ -853,6 +902,34 @@ export default {
 								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
+								commit('deleteMsg', options.msg)
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
+		// 发送提醒消息 提醒消息用于会话内的状态提醒，如进入会话时出现的欢迎消息，或者会话命中敏感词后的提示消息等等.
+		nimSendTipMsg({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'sendTipMsg',
+					options: {
+						scene: options.scene,
+						to: options.to,
+						tip: options.tip,
+						cc: true,
+						isLocal: options.isLocal || false,
+						done: (error, msg) => {
+							console.log('提醒消息', error, msg)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								commit('saveMsg', msg)
 								resolve('')
 							}
 						}
@@ -1092,10 +1169,10 @@ export default {
 				state.nim && state.nim.destroy({
 					done: function(err) {
 						console.log('实例已被完全清除', err)
+						commit('clearInitNimState')
 						resolve('')
 					}
 				})
-				commit('clearInitNimState')
 			})
 			
 		}
