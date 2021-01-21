@@ -4,19 +4,8 @@
 			
 			<cell v-for="item in formatSysMsgArr" :key="item.idServer">
 				<template v-if="item.type === 'custom'">
-					<view class="im-flex im-mt-5 im-pl-3 im-pr-5">
-						<image src="/static/easy-chat/sys/sys-icon-2@2x.png" mode="aspectFill" style="width: 80rpx;height: 80rpx;"></image>
-						<view class="im-flex-column im-flex-1 im-ml-2">
-							<text class="im-font-28 im-font-light">系统通知</text>
-							<view class="im-border im-round-2 im-py-2 im-px-1 im-bg-white im-mt-1">
-								<text class="im-font-32 im-font-black im-weight-500">{{ item.content.data.title }}</text>
-								<text class="im-font-30 im-font-black im-weight-400 im-mt-2">{{ item.content.data.detail }}</text>
-								<view @tap="onClick(item)" class="im-flex im-flex-1 im-justify-center im-align-center im-border-top im-mt-3">
-									<text class="im-font-36 im-font-blue im-pt-2">{{ item.content.data.buttonText }}</text>
-								</view>
-							</view>
-						</view>
-					</view>
+					<!-- 系统提示消息 -->
+					<sys-item-tipsysmsg v-if="item.content.type === 'tipSysMsg'" :sysmsg="item"></sys-item-tipsysmsg>
 				</template>
 			</cell>
 			
@@ -28,11 +17,15 @@
 </template>
 
 <script>
+	import sysItemTipsysmsg from '@/components/easy-chat/sys-item-tipSysMsg.vue'
 	export default {
 		data() {
 			return {
 				pageSize: 0
 			}
+		},
+		components: {
+			sysItemTipsysmsg
 		},
 		onLoad() {
 			this.pageSize += 15
@@ -49,21 +42,6 @@
 			}
 		},
 		methods: {
-			onClick(item) {
-				console.log('消息', item);
-				// 判断是自定义通知
-				if (item.type === 'custom') {
-					switch(item.content.type) {
-						case 'tipSysMsg':
-							uni.showToast({
-								title: item.content.data.url,
-								icon: 'none'
-							})
-							break;
-					}
-				}
-				
-			}
 		}
 	}
 </script>
