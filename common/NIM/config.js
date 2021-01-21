@@ -5,7 +5,7 @@ const config = {
 	// secure 模式下会通过 https 协议跟服务器建立连接, 非 secure 模式下会通过 http 协议跟服务器建立连接, 默认 true
 	ISSECURE: true,
 	// 在云信管理后台查看应用的 appKey
-	APPKEY: 'fa52793da28cb2cedf86577c46a022de',
+	APPKEY: '',
 	// 是否使用数据库
 	USEDb: false,
 	// 默认用户头像
