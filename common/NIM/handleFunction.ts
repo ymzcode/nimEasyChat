@@ -481,10 +481,16 @@ class NimHandle {
 			// 账号或者密码错误, 请跳转到登录页面并提示错误
 			case 302:
 				store.state.initNim.errCommon.uploadInfo(data.message)
+				store.dispatch('initNim/logOut');
 				break;
 			// 重复登录, 当前账号已经在其它端登录了
 			case 417:
 				store.state.initNim.errCommon.uploadInfo('重复登录, 当前账号已经在其它端登录了')
+				break;
+			// 账号被禁用
+			case 422:
+				store.state.initNim.errCommon.uploadInfo(data.message)
+				store.dispatch('initNim/logOut');
 				break;
 			// 被踢, 请提示错误后跳转到登录页面
 			case 'kicked':
