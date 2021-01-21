@@ -324,6 +324,12 @@ class NimHandle {
 	*/
 	onsysmsg(data): void {
 		console.log('------- onsysmsg', data);
+		switch (data.type) {
+			case 'deleteMsg' :
+				console.log('收到撤回消息的系统通知')
+				store.commit('initNim/deleteMsg', data.msg)
+				break;
+		}
 	}
 	
 	/*
