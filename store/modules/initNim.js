@@ -807,6 +807,39 @@ export default {
 			
 		},
 		
+		// 撤回消息 
+		nimDeleteMsg({dispatch, commit, state}, options) {
+			
+			let date = new Date().getTime() - 1000 * 60 * 5
+			
+			if (options.msg.time < date) {
+				uni.showToast({
+					title: '不能撤回发送时间超过5分钟的消息',
+					icon: 'none'
+				})
+				return ;
+			}
+			
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'deleteMsg',
+					options: {
+						msg: options.msg,
+						done: (error, obj) => {
+							console.log('撤回消息', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 单向删除消息 不同与直接删除消息，单向删除消息后，自己看不到删除的消息，但对方仍能看到，也就是仅删除自己这侧的消息
 		nimDeleteMsgSelf({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {

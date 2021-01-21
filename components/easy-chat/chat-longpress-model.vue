@@ -4,7 +4,7 @@
 			<!-- 里面的每一项 -->
 			<view v-for="(item, index) in menuItem" :key="index" class="im-flex im-align-center">
 				<view v-for="item2 in item" :key="item2.id" class="im-flex-column im-align-center im-mx-2 im-mt-1" @tap="onClick(item2, $event)">
-					<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
+					<image :src="item2.icon" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
 					<text class="im-font-23 im-font-white">{{item2.text}}</text>
 				</view>
 			</view>
@@ -55,6 +55,12 @@
 					url: this.longpressMsg.file.url
 				})
 			},
+			withdraw() {
+				console.log('撤回');
+				this.$store.dispatch('initNim/nimDeleteMsg', {
+					msg: this.longpressMsg
+				})
+			},
 			onClick(item, event) {
 				console.log('点击菜单项', item);
 				this.$emit('clickScrollView', event)
@@ -70,6 +76,9 @@
 						break;
 					case 'voiceToText':
 						this.voiceToText()
+						break;
+					case 'withdraw':
+						this.withdraw()
 						break;
 				}
 			}
@@ -98,6 +107,14 @@
 						text: '转文字',
 						icon: '/static/logo.png',
 						id: 'voiceToText'
+					})
+				}
+				
+				if (this.longpressMsg.flow === 'out') {
+					arr.push({
+						text: '撤回',
+						icon: '/static/logo.png',
+						id: 'withdraw'
 					})
 				}
 				
