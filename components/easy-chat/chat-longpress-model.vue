@@ -36,13 +36,18 @@
 				        });
 				    }
 				});
-				console.log('复制成功');
+				console.log('复制');
 			},
 			translate() {
-				console.log('翻译成功');
+				console.log('翻译');
 			},
 			delete() {
-				console.log('删除成功');
+				console.log('删除');
+				this.$store.commit('initNim/deleteMsg', this.longpressMsg)
+				
+				this.$store.dispatch('initNim/nimDeleteMsgSelf', {
+					msg: this.longpressMsg
+				})
 			},
 			voiceToText() {
 				console.log('语音转文字');

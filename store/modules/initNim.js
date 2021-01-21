@@ -309,6 +309,16 @@ export default {
 				state.errCommon.uploadInfo(e)
 			}
 		},
+		// 删除某个消息(只删除state中的缓存值) 传递消息对象
+		deleteMsg(state, msg) {
+			for (let i = 0; i <= state.msgArr.length; i++) {
+				if (state.msgArr[i].idClient === msg.idClient) {
+					state.msgArr.splice(i, 1)
+					break;
+				}
+			}
+			console.log('删除state中消息完成');
+		},
 		// 设置当前会话的id
 		setSessionId(state, data) {
 			state.currentSessionId = data
@@ -784,6 +794,28 @@ export default {
 						url: options.url,
 						done: (error, obj) => {
 							console.log('语音转文字', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
+		// 单向删除消息 不同与直接删除消息，单向删除消息后，自己看不到删除的消息，但对方仍能看到，也就是仅删除自己这侧的消息
+		nimDeleteMsgSelf({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'deleteMsgSelf',
+					options: {
+						msg: options.msg,
+						done: (error, obj) => {
+							console.log('单向删除消息', error, obj)
 							if (error) {
 								state.errCommon.uploadInfo(error);
 								reject(error)
