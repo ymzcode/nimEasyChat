@@ -26,9 +26,38 @@
 			}
 		},
 		methods: {
+			copy() {
+				uni.setClipboardData({
+				    data: this.longpressMsg.text,
+				    success: () => {
+				        uni.showToast({
+				            title: '复制成功',
+				            icon: 'none'
+				        });
+				    }
+				});
+				console.log('复制成功');
+			},
+			translate() {
+				console.log('翻译成功');
+			},
+			delete() {
+				console.log('删除成功');
+			},
 			onClick(item, event) {
 				console.log('点击菜单项', item);
 				this.$emit('clickScrollView', event)
+				switch(item.id) {
+					case 'copy':
+						this.copy()
+						break;
+					case 'translate':
+						this.translate()
+						break;
+					case 'delete':
+						this.delete()
+						break;
+				}
 			}
 		},
 		computed: {
@@ -41,6 +70,11 @@
 						text: '复制',
 						icon: '/static/logo.png',
 						id: 'copy'
+					})
+					arr.push({
+						text: '翻译',
+						icon: '/static/logo.png',
+						id: 'translate'
 					})
 				}
 				
