@@ -614,7 +614,7 @@ export default {
 		},
 		
 		// 发送消息
-		nimSendMsg({dispatch, commit}, options) {
+		nimSendMsg({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'sendText',
@@ -627,6 +627,7 @@ export default {
 						done: (error, msg) => {
 							console.log('发送完成', error, msg)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								commit('saveMsg', msg)
@@ -640,7 +641,7 @@ export default {
 		},
 		
 		// 发送文件消息（先预览 再发送）
-		nimSendFile({dispatch, commit}, options) {
+		nimSendFile({dispatch, commit, state}, options) {
 			uni.hideLoading()
 			uni.showLoading({
 				mask: true,
@@ -657,6 +658,7 @@ export default {
 								console.log('预览文件完成', error, file)
 								uni.hideLoading()
 								if (error) {
+									state.errCommon.uploadInfo(error);
 									reject(error)
 								} else {
 									// 发送文件消息
@@ -672,6 +674,7 @@ export default {
 											done: (error, msg) => {
 												console.log('发送文件完成', error, msg)
 												if (error) {
+													state.errCommon.uploadInfo(error);
 													reject(error)
 												} else {
 													commit('saveMsg', msg)
@@ -695,7 +698,7 @@ export default {
 		
 		
 		// 发送自定义消息
-		nimSendCustomMsg({dispatch, commit}, options) {
+		nimSendCustomMsg({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'sendCustomMsg',
@@ -708,6 +711,7 @@ export default {
 						done: (error, msg) => {
 							console.log('发送完成', error, msg)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								commit('saveMsg', msg)
@@ -721,7 +725,7 @@ export default {
 		},
 		
 		// 发送自定义系统通知
-		nimSendCustomSysMsg({dispatch, commit}, options) {
+		nimSendCustomSysMsg({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'sendCustomSysMsg',
@@ -737,6 +741,7 @@ export default {
 						done: (error, msg) => {
 							console.log('发送自定义通知完成', error, msg)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								resolve('')
@@ -749,7 +754,7 @@ export default {
 		},
 		
 		// 发送已读回执
-		nimSendMsgReceipt({dispatch, commit}, options) {
+		nimSendMsgReceipt({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'sendMsgReceipt',
@@ -758,6 +763,29 @@ export default {
 						done: (error, msg) => {
 							console.log('发送已读回执完成', error, msg)
 							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
+		// 语音转文字 仅支持通过预览文件或者发送文件消息拿到的音频 url, 或者收到的音频消息的 url
+		nimAudioToText({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'audioToText',
+					options: {
+						url: options.url,
+						done: (error, obj) => {
+							console.log('语音转文字', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								resolve('')
@@ -770,7 +798,7 @@ export default {
 		},
 		
 		// 创建普通群
-		nimCreateNormalTeam({dispatch, commit}, options) {
+		nimCreateNormalTeam({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'createTeam',
@@ -783,6 +811,7 @@ export default {
 						done: (error, msg) => {
 							console.log('创建普通群完成', error, msg)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								resolve('')
@@ -795,7 +824,7 @@ export default {
 		},
 		
 		// 创建高级(会商)群
-		nimCreateAdvancedTeam({dispatch, commit}, options) {
+		nimCreateAdvancedTeam({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'createTeam',
@@ -810,6 +839,7 @@ export default {
 						done: (error, msg) => {
 							console.log('创建普通群完成', error, msg)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								resolve('')
@@ -822,7 +852,7 @@ export default {
 		},
 		
 		// 标记系统通知为 已读
-		nimMarkSysMsgRead({dispatch, commit}, options) {
+		nimMarkSysMsgRead({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'markSysMsgRead',
@@ -831,6 +861,7 @@ export default {
 						done: (error, obj) => {
 							console.log('标记系统通知为已收到', error, obj)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								resolve('')
@@ -843,7 +874,7 @@ export default {
 		},
 		
 		// 标记消息为 已收到  (和发送已读回执不同 , 标记后不会再从离线消息中收到)
-		nimMarkMsgRead({dispatch, commit}, options) {
+		nimMarkMsgRead({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'markMsgRead',
@@ -852,6 +883,7 @@ export default {
 						done: (error, obj) => {
 							console.log('标记消息 为已收到', error, obj)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								resolve('')
@@ -878,6 +910,7 @@ export default {
 						done: (error, allData) => {
 							console.log('获取完成', error, allData)
 							if (error) {
+								state.errCommon.uploadInfo(error);
 								reject(error)
 							} else {
 								commit('saveMsg', allData.msgs)
