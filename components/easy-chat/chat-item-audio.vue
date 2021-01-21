@@ -79,12 +79,13 @@
 			})
 		},
 		methods: {
-			onClick() {
+			onClick(e) {
 				this.innerAudioContext.stop()
 				this.innerAudioContext.src = this.$attrs.msg.file.url
 				
 				this.isLoading = true
 				this.innerAudioContext.play()
+				e.stopPropagation()
 			},
 			// 计算时间
 			censusDur() {
