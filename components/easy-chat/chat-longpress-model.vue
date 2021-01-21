@@ -44,6 +44,12 @@
 			delete() {
 				console.log('删除成功');
 			},
+			voiceToText() {
+				console.log('语音转文字');
+				this.$store.dispatch('initNim/nimAudioToText', {
+					url: this.longpressMsg.file.url
+				})
+			},
 			onClick(item, event) {
 				console.log('点击菜单项', item);
 				this.$emit('clickScrollView', event)
@@ -57,6 +63,9 @@
 					case 'delete':
 						this.delete()
 						break;
+					case 'voiceToText':
+						this.voiceToText()
+						break;
 				}
 			}
 		},
@@ -64,8 +73,9 @@
 			// 弹出的菜单项
 			menuItem() {
 				let arr = []
+				let type = this.longpressMsg.type
 				
-				if (this.longpressMsg.type === 'text') {
+				if (type === 'text') {
 					arr.push({
 						text: '复制',
 						icon: '/static/logo.png',
@@ -75,6 +85,14 @@
 						text: '翻译',
 						icon: '/static/logo.png',
 						id: 'translate'
+					})
+				}
+				
+				if (type === 'audio') {
+					arr.push({
+						text: '转文字',
+						icon: '/static/logo.png',
+						id: 'voiceToText'
 					})
 				}
 				
