@@ -2,16 +2,10 @@
 	<view class="im-position-fixed im-flex-column im-align-center im-py-2" :style="longModelStyle" style="opacity: 0.95;width: 580rpx;height: 300rpx;">
 		<view class="im-bg-black-1 im-flex-column im-round-2 im-p-1 im-py-2 im-position-relative">
 			<!-- 里面的每一项 -->
-			<view class="im-flex im-align-center">
-				<view v-for="item in 6" :key="item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
+			<view v-for="(item, index) in menuItem" :key="index" class="im-flex im-align-center">
+				<view v-for="item2 in item" :key="item2.id" class="im-flex-column im-align-center im-mx-2 im-mt-1" @tap="onClick(item2, $event)">
 					<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
-					<text class="im-font-23 im-font-white">DING</text>
-				</view>
-			</view>
-			<view class="im-flex im-align-center">
-				<view v-for="item in 6" :key="'a' + item" class="im-flex-column im-align-center im-mx-2 im-mt-1">
-					<image src="/static/logo.png" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
-					<text class="im-font-23 im-font-white">DD{{item}}</text>
+					<text class="im-font-23 im-font-white">{{item2.text}}</text>
 				</view>
 			</view>
 		</view>
@@ -31,7 +25,40 @@
 				}
 			}
 		},
+		methods: {
+			onClick(item, event) {
+				console.log('点击菜单项', item);
+				this.$emit('clickScrollView', event)
+			}
+		},
 		computed: {
+			// 弹出的菜单项
+			menuItem() {
+				let arr = []
+				
+				if (this.longpressMsg.type === 'text') {
+					arr.push({
+						text: '复制',
+						icon: '/static/logo.png',
+						id: 'copy'
+					})
+				}
+				
+				arr.push({
+					text: '删除',
+					icon: '/static/logo.png',
+					id: 'delete'
+				})
+				
+				let dataList = [];
+				// 切割数组为二维数组 每行6个
+				for(let i = 0; i < arr.length; i+=6) {
+					dataList.push(arr.slice(i,i+6))
+				}
+				console.log('最后的数组', dataList);
+				
+				return dataList
+			},
 			longpressMsg() {
 				return this.$attrs.longpressMsg
 			},
@@ -48,13 +75,13 @@
 				// 判断上下
 				if (this.longpressSize.top > 150) {
 					style += `top: ${this.longpressSize.top - 140}px;`
-					style += `justify-content:flex-end;`
+					style += `justify-content:flex-end;`;
 					// 设置箭头
 					this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-down.png'
 					this.longpressModelObj.iconStyle = `bottom: 0;`
 				} else {
 					style += `top: ${this.longpressSize.top + this.longpressSize.height + 20}px;`
-					style += `justify-content:flex-start;`
+					style += `justify-content:flex-start;`;
 					// 设置箭头
 					this.longpressModelObj.icon = '/static/easy-chat/chat/arrow-up.png'
 					this.longpressModelObj.iconStyle = `top: 0;`
