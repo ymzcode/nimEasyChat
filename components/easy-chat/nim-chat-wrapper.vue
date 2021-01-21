@@ -62,13 +62,13 @@ export default {
 	},
 	methods: {
 		longpress(e) {
-			console.log('消息长按事件', e);
+			// console.log('消息长按事件', e);
 			let data = {
 				msg: this.msg,
 				getComponentRect: null
 			}
 			const result = dom.getComponentRect(this.$refs.chatWrapper, option => {
-				console.log('getComponentRect:', option);
+				// console.log('getComponentRect:', option);
 				data.getComponentRect = option
 				this.$emit('longpress', data)
 			});

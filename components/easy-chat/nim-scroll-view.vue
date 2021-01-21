@@ -33,7 +33,7 @@
 		
 		<!-- 长按消息弹出框 -->
 		<template v-if="isShowLongModel">
-			<chat-longpress-model :longpressSize="longpressSize" :longpressMsg="longpressMsg"></chat-longpress-model>
+			<chat-longpress-model :longpressSize="longpressSize" :longpressMsg="longpressMsg" @clickScrollView="clickScrollView"></chat-longpress-model>
 		</template>
 	</view>
 </template>
@@ -130,7 +130,7 @@ export default {
 				});
 		},
 		longpress(e) {
-			console.log('元素', e);
+			console.log('长按的消息', e);
 			this.isShowLongModel = true
 			this.longpressMsg = Object.assign({}, e.msg)
 			this.longpressSize = Object.assign({}, e.getComponentRect.size)
