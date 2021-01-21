@@ -43,8 +43,6 @@
 			},
 			delete() {
 				console.log('删除');
-				this.$store.commit('initNim/deleteMsg', this.longpressMsg)
-				
 				this.$store.dispatch('initNim/nimDeleteMsgSelf', {
 					msg: this.longpressMsg
 				})
