@@ -10,6 +10,20 @@
 
 <script>
 	export default {
+		onLoad() {
+			uni.$on('selectContactOk', (data) => {
+				this.$nextTick(function(){
+					uni.showToast({
+						title: '发送成功',
+						icon:'none'
+					})
+				})
+				console.log('selectContactOk', data)
+			})
+		},
+		onUnload() {
+			uni.$off('selectContactOk')
+		},
 		methods: {
 			createTeam() {
 				console.log('创建普通群聊');
