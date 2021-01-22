@@ -11,7 +11,7 @@
 <script>
 	export default {
 		onLoad() {
-			uni.$on('selectContactOk', (data) => {
+			uni.$on('im-selectContactOk', (data) => {
 				this.$nextTick(function(){
 					uni.showToast({
 						title: '发送成功',
@@ -22,7 +22,7 @@
 			})
 		},
 		onUnload() {
-			uni.$off('selectContactOk')
+			uni.$off('im-selectContactOk')
 		},
 		methods: {
 			createTeam() {
