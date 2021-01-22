@@ -1,0 +1,55 @@
+<template>
+	<list class="im-flex-column im-flex-1">
+		<cell>
+			<view class="im-flex im-align-center im-bg-grey-5 im-mx-3 im-round-1 im-py-2 im-px-2"><text class="im-font-28 im-font-light">搜索</text></view>
+
+			<view class="im-line-1 im-mt-2"></view>
+		</cell>
+		<cell>
+			<view class="im-flex-column im-px-3">
+				<text class="im-font-28 im-font-black im-py-3">选择通讯录人员</text>
+				<view class="im-line-1"></view>
+			</view>
+			<view class="im-flex-column im-px-3"><text class="im-font-28 im-font-black im-py-3">选择一个群</text></view>
+		</cell>
+		<cell>
+			<view class="im-bg-grey-6 im-flex im-align-center im-px-4 im-py-1"><text class="im-font-25 im-font-light">最近聊天</text></view>
+		</cell>
+		<cell v-for="(item, index) in sessionArr" :key="item.id">
+			<session-contact-item :session="item" @itemClick="itemClick"></session-contact-item>
+		</cell>
+		<cell><view class="im-list-bottom"></view></cell>
+	</list>
+</template>
+
+<script>
+import sessionContactItem from '@/components/easy-chat/session-contact-item.vue';
+export default {
+	components: {
+		sessionContactItem
+	},
+	computed: {
+		sessionArr() {
+			return this.$store.getters['initNim/sessionArr'];
+		}
+	},
+	methods: {
+		itemClick(item) {
+			console.log(item);
+			uni.showModal({
+				title: '确定发给:',
+				content: item.name,
+				success: function(res) {
+					if (res.confirm) {
+						console.log('用户点击确定');
+					} else if (res.cancel) {
+						console.log('用户点击取消');
+					}
+				}
+			});
+		}
+	}
+};
+</script>
+
+<style scoped></style>

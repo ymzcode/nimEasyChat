@@ -10,6 +10,7 @@
 
 			<cell>
 				<navigator url="/pages/easy-chat/chat?sessionId=p2p-137"><text>聊天页面</text></navigator>
+				<navigator url="/pages/easy-chat/select-contact"><text>选择联系人页面</text></navigator>
 			</cell>
 			
 			

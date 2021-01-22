@@ -59,6 +59,12 @@
 			"style": {
 				"navigationBarTitleText": "通讯录"
 			}
+		},
+		{
+			"path": "pages/easy-chat/select-contact",
+			"style": {
+				"navigationBarTitleText": "选择联系人"
+			}
 		}
 	],
 	"globalStyle": {
