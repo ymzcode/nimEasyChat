@@ -7,11 +7,6 @@
 			<cell v-for="item in sessionArr" :key="item.id">
 				<session-item :session="item"></session-item>
 			</cell>
-
-			<cell>
-				<navigator url="/pages/easy-chat/chat?sessionId=p2p-137"><text>聊天页面</text></navigator>
-				<navigator url="/pages/easy-chat/select-contact"><text>选择联系人页面</text></navigator>
-			</cell>
 			
 			
 		</list>

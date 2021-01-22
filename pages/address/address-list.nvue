@@ -2,6 +2,9 @@
 	<view class="">
 		<button type="default" @tap="createTeam"> 创建普通群聊</button>
 		<button type="default" @tap="createTeam2"> 创建会商群聊</button>
+		
+		<navigator url="/pages/easy-chat/chat?sessionId=p2p-137"><text>聊天页面</text></navigator>
+		<navigator url="/pages/easy-chat/select-contact"><text>选择联系人页面</text></navigator>
 	</view>
 </template>
 
