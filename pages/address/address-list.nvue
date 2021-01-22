@@ -19,8 +19,8 @@
 			createTeam2() {
 				console.log('创建高级群');
 				this.$store.dispatch('initNim/nimCreateAdvancedTeam', {
-					name: '普通群' + new Date().getTime(),
-					avatar: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-group.png',
+					name: '高级群' + new Date().getTime(),
+					avatar: 'http://yx-web.nos.netease.com/webdoc/h5/im/default-advanced.png',
 					accounts: ['125', '128', '138', '139']
 				})
 			}
