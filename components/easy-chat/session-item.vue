@@ -80,6 +80,9 @@ export default {
 				case 'custom':
 					text = '自定义消息'
 					break;
+				case 'tip':
+					text = '提醒消息'
+					break;
 			}
 			return text
 		}
