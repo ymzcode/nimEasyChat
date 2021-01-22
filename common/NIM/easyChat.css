@@ -199,6 +199,12 @@
 .im-bg-grey-4 {
 	background-color: #f2f3f8;
 }
+.im-bg-grey-5 {
+	background-color: #eaebed;
+}
+.im-bg-grey-6 {
+	background-color: #f2f1f6;
+}
 .im-bg-blue-1 {
 	background-color: #487CF1;
 }
@@ -284,6 +290,13 @@
   border-left-color: #dee2e6;
 }
 
+.im-line-1 {
+	flex-direction: row;
+	flex: 1;
+	height: 1px;
+	background-color: #dee2e6;
+}
+
 /* 图标大小 */
 .im-icon-1 {
 	width: 10rpx;
@@ -354,4 +367,9 @@
 }
 .im-weight-bold {
 	font-weight: bold;
+}
+
+/* 留底 为滚动区域底部保留一部分空间 */
+.im-list-bottom {
+	height: 150rpx;
 }
