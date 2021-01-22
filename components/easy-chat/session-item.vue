@@ -2,12 +2,11 @@
 	<navigator :url="`/pages/easy-chat/chat?sessionId=${session.id}`">
 		<view class="im-flex im-border-bottom im-py-2 im-pl-2">
 			<!-- 头像展示 -->
-			<nim-avatar v-if="session.scene === 'p2p'" :account="session.to"></nim-avatar>
-			<team-avatar v-else :teamId="session.to"></team-avatar>
+			<session-item-avatar :scene="session.scene" :to="session.to"></session-item-avatar>
 			<!-- 会话信息 -->
 			<view class="im-flex-column im-flex-1 im-px-2">
 				<view class="im-flex im-flex-1 im-justify-between im-align-center">
-					<text class="im-font-32">{{sessionName}}</text>
+					<text class="im-font-32 im-text-ellipsis" style="max-width: 440rpx;">{{sessionName}}</text>
 					<text class="im-font-25 im-font-light">{{session.updateTime | formatTime}}</text>
 				</view>
 				<view class="im-flex im-flex-1 im-justify-between im-align-center">
@@ -22,8 +21,7 @@
 </template>
 
 <script>
-import nimAvatar from '@/components/easy-chat/nim-avatar.vue'
-import teamAvatar from '@/components/easy-chat/team-avatar.vue'
+import sessionItemAvatar from '@/components/easy-chat/session-item-avatar.vue'
 import useDayjs from '@/common/NIM/useDayjs.js'
 
 
@@ -37,8 +35,7 @@ export default {
 		}
 	},
 	components: {
-		nimAvatar,
-		teamAvatar
+		sessionItemAvatar
 	},
 	data() {
 		return {}
