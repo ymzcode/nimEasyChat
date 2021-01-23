@@ -287,6 +287,10 @@ export default {
 						  index: config.tabBarUnreadIndex,
 						  text: allUnreadNum >= 99 ? '99+' : String(allUnreadNum)
 						})
+					} else {
+						uni.removeTabBarBadge({
+							index: config.tabBarUnreadIndex
+						})
 					}
 				}
 				
