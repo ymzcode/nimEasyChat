@@ -238,8 +238,14 @@
 .im-font-black {
 	color: #323234;
 }
+.im-font-black-2 {
+	color: #303133;
+}
 .im-font-red {
 	color: #F07A4E;
+}
+.im-font-red-2 {
+	color: #F75252;
 }
 .im-font-blue {
 	color: #487CF1;
