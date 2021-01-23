@@ -33,7 +33,7 @@
 				</view>
 			</cell>
 			<cell v-for="(item, index) in sessionArr" :key="item.id">
-				<session-contact-item :session="item" @itemClick="itemClick"></session-contact-item>
+				<session-contact-item :session="item" @itemClick="itemClick" :showIcon="true"></session-contact-item>
 			</cell>
 			<cell><view class="im-list-bottom"></view></cell>
 		</list>
