@@ -13,20 +13,24 @@
 		</nim-chat-navigation>
 		
 		<list class="im-flex-column im-flex-1">
-			<cell>
+			<!-- <cell>
 				<view class="im-flex im-align-center im-bg-grey-5 im-mx-3 im-round-1 im-py-2 im-px-2 im-mt-2"><text class="im-font-28 im-font-light">搜索</text></view>
 		
 				<view class="im-line-1 im-mt-2"></view>
-			</cell>
+			</cell> -->
 			<cell>
-				<view class="im-flex-column im-px-3">
-					<text class="im-font-28 im-font-black im-py-3">选择通讯录人员</text>
-					<view class="im-line-1"></view>
+				<view class="im-flex im-align-center im-justify-between im-px-3">
+					<text class="im-font-32 im-font-black-2 im-py-3">选择通讯录人员</text>
+					<image src="/static/easy-chat/chat/arrow-right.png" mode="aspectFill" style="width: 24rpx;height: 24rpx;"></image>
 				</view>
-				<view class="im-flex-column im-px-3"><text class="im-font-28 im-font-black im-py-3">选择一个群</text></view>
 			</cell>
 			<cell>
-				<view class="im-bg-grey-6 im-flex im-align-center im-px-4 im-py-1"><text class="im-font-25 im-font-light">最近聊天</text></view>
+				<view class="im-bg-grey-1 im-flex im-align-center im-pb-2"></view>
+			</cell>
+			<cell>
+				<view class="im-flex-column im-px-3 im-py-3 im-border-bottom">
+					<text class="im-font-38 im-font-black-2">最近聊天</text>
+				</view>
 			</cell>
 			<cell v-for="(item, index) in sessionArr" :key="item.id">
 				<session-contact-item :session="item" @itemClick="itemClick"></session-contact-item>
