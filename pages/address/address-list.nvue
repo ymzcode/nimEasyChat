@@ -15,7 +15,7 @@
 				this.$nextTick(function(){
 					uni.showToast({
 						title: '发送成功',
-						icon:'none'
+						icon:'success'
 					})
 				})
 				console.log('selectContactOk', data)
