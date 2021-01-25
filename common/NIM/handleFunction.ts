@@ -378,6 +378,14 @@ class NimHandle {
 	*/
 	onupdatesysmsg(data): void {
 		console.log('------- onupdatesysmsg', data);
+		
+		// 不处理 deleteMsg的通知
+		if (data.type === 'deleteMsg') {
+			return ;
+		}
+		
+		store.commit('initNim/updateSystemMsgArr', data)
+		
 	}
 	
 	/*

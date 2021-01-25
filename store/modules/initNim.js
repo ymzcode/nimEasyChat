@@ -337,6 +337,30 @@ export default {
 				state.errCommon.uploadInfo(e)
 			}
 		},
+		// 更新系统通知的内容
+		updateSystemMsgArr(state, data) {
+			try{
+				const nim = state.nim
+				
+				let sysObj = nim.findSysMsg(state.systemMsgArr, {
+					keyPath: 'idServer',
+					value: data.idServer
+				})
+				
+				if (sysObj) {
+					sysObj.state = data.state
+					state.systemMsgArr = nim.mergeSysMsgs(state.systemMsgArr, sysObj)
+					console.log('更新 系统通知完成', state.systemMsgArr)
+				} else {
+					console.log('不存在此系统通知, 不做处理')
+				}
+				
+			}catch(e){
+				//TODO handle the exception
+				console.error(e);
+				state.errCommon.uploadInfo(e)
+			}
+		},
 		// 删除某个消息(只删除state中的缓存值) 传递消息对象
 		deleteMsg(state, msg) {
 			for (let i = 0; i <= state.msgArr.length; i++) {
@@ -1025,6 +1049,31 @@ export default {
 				dispatch('delegateNimFunction', {
 					functionName: 'markMsgRead',
 					options: options.msgs
+				})
+			})
+			
+		},
+		
+		
+		// 接受入群邀请
+		nimAcceptTeamInvite({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'acceptTeamInvite',
+					options: {
+						idServer: options.idServer,
+						teamId: options.teamId,
+						from: options.from,
+						done: (error, obj) => {
+							console.log('接受入群邀请', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve(obj)
+							}
+						}
+					}
 				})
 			})
 			
