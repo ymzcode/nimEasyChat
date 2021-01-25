@@ -29,6 +29,13 @@
 			}
 		},
 		computed: {
+			userObj() {
+				return this.$store.getters['initNim/userObj'] || {}
+			},
+			// 来信人信息
+			userInfo() {
+				return this.userObj[this.newMsg.from] || {}
+			},
 			systemMsgArr() {
 				this.updateSystemUnreadNum()
 				return this.$store.getters['initNim/systemMsgArr']
@@ -44,13 +51,13 @@
 			// 要展示的详情内容
 			detailInfo() {
 				let text = '暂无系统消息'
-				if (this.newMsg.content) {
-					let content = this.newMsg.content
-					switch(content.type) {
-						case 'tipSysMsg':
-							text = content.data.detail
-							break;
-					}
+				switch (this.newMsg.type) {
+					case 'custom':
+						text = this.handleCustom()
+						break;
+					case 'teamInvite':
+						text = `${this.userInfo.nick}邀请你加入群 ${this.newMsg.attach.team.name}`
+						break;
 				}
 				return text
 			}
@@ -74,6 +81,18 @@
 			updateSystemUnreadNum() {
 				console.log('更新系统消息的未读数');
 				this.systemUnreadNum = uni.getStorageSync('systemUnreadNum') || 0
+			},
+			handleCustom() {
+				let text = '自定义系统通知'
+				if (this.newMsg.content) {
+					let content = this.newMsg.content
+					switch(content.type) {
+						case 'tipSysMsg':
+							text = content.data.detail
+							break;
+					}
+				}
+				return text
 			}
 		}
 	}
