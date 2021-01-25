@@ -80,6 +80,9 @@ export default {
 				case 'tip':
 					text = '提醒消息'
 					break;
+				case 'notification':
+					text = `${this.userObj[lastMsg.attach.account] && this.userObj[lastMsg.attach.account].nick} 邀请 ${lastMsg.fromNick} 加入本群`
+					break;
 			}
 			return text
 		}
