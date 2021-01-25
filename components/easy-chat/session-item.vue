@@ -81,7 +81,14 @@ export default {
 					text = '提醒消息'
 					break;
 				case 'notification':
-					text = `${this.userObj[lastMsg.attach.account] && this.userObj[lastMsg.attach.account].nick} 邀请 ${lastMsg.fromNick} 加入本群`
+					text = '群通知消息'
+					let attach = lastMsg.attach
+					let type = attach.type
+					switch (type) {
+						case 'acceptTeamInvite':
+							text = `${lastMsg.fromNick} 加入了本群`
+							break;
+					}
 					break;
 			}
 			return text
