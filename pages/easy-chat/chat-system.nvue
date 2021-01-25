@@ -1,13 +1,22 @@
 <template>
 	<view class="im-flex-column im-flex-1 im-bg-grey-1">
 		<list>
+			<template v-if="formatSysMsgArr.length === 0">
+				<cell>
+					<view class="im-align-center im-flex im-justify-center im-my-4">
+						<text class="im-font-30 im-font-light">暂无系统消息</text>
+					</view>
+				</cell>
+			</template>
 			
-			<cell v-for="item in formatSysMsgArr" :key="item.idServer">
-				<template v-if="item.type === 'custom'">
-					<!-- 系统提示消息 -->
-					<sys-item-tipsysmsg v-if="item.content.type === 'tipSysMsg'" :sysmsg="item"></sys-item-tipsysmsg>
-				</template>
-			</cell>
+			<template v-else>
+				<cell v-for="item in formatSysMsgArr" :key="item.idServer">
+					<template v-if="item.type === 'custom'">
+						<!-- 系统提示消息 -->
+						<sys-item-tipsysmsg v-if="item.content.type === 'tipSysMsg'" :sysmsg="item"></sys-item-tipsysmsg>
+					</template>
+				</cell>
+			</template>
 			
 			<cell>
 				<view style="height: 150rpx;"></view>
