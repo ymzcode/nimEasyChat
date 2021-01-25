@@ -15,6 +15,9 @@
 						<!-- 系统提示消息 -->
 						<sys-item-tipsysmsg v-if="item.content.type === 'tipSysMsg'" :sysmsg="item"></sys-item-tipsysmsg>
 					</template>
+					<template v-else>
+						<sys-item-team-invite v-if="item.type === 'teamInvite'" :sysmsg="item"></sys-item-team-invite>
+					</template>
 				</cell>
 			</template>
 			
@@ -27,6 +30,8 @@
 
 <script>
 	import sysItemTipsysmsg from '@/components/easy-chat/sys-item-tipSysMsg.vue'
+	import sysItemTeamInvite from '@/components/easy-chat/sys-item-teamInvite.vue'
+	
 	export default {
 		data() {
 			return {
@@ -34,7 +39,8 @@
 			}
 		},
 		components: {
-			sysItemTipsysmsg
+			sysItemTipsysmsg,
+			sysItemTeamInvite
 		},
 		onLoad() {
 			this.pageSize += 15
