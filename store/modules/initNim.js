@@ -52,7 +52,7 @@ export default {
 			return state.nimUserInfo
 		},
 		userUID: state => {
-			return state.userUID
+			return String(state.userUID)
 		},
 		nim: state => {
 			return state.nim
@@ -210,8 +210,9 @@ export default {
 			state.userArr = state.nim.mergeUsers(state.userArr, data)
 			console.log('存储成功', data)
 		},
-		setNimId(state, data) {
-			state.userUID = data.id
+		setNimId(state, id) {
+			console.log('设置当前登录用户id', id);
+			state.userUID = String(id)
 		},
 		// 保存群数组的数据
 		saveTeamData(state, data) {
@@ -590,6 +591,8 @@ export default {
 				commit('initNimSDK', {
 					NIM: nim
 				})
+				
+				commit('setNimId', loginData.account)
 				
 				// 获取当前网络类型
 				uni.getNetworkType({
