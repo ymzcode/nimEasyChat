@@ -238,7 +238,7 @@ class NimHandle {
 		
 		// 将消息标记为 已收到状态
 		store.dispatch('initNim/nimMarkMsgRead', {
-			msgs: data
+			msgs: data.msgs
 		})
 	}
 	
