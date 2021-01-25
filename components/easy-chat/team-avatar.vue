@@ -59,7 +59,7 @@ export default {
 
 <style scoped>
 .easy-chat-img {
-	width: 80rpx;
-	height: 80rpx;
+	width: 90rpx;
+	height: 90rpx;
 }
 </style>
