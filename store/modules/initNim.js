@@ -340,12 +340,12 @@ export default {
 		// 删除某个消息(只删除state中的缓存值) 传递消息对象
 		deleteMsg(state, msg) {
 			for (let i = 0; i <= state.msgArr.length; i++) {
-				if (state.msgArr[i].idClient === msg.idClient) {
+				if (state.msgArr[i] && state.msgArr[i].idClient === msg.idClient) {
 					state.msgArr.splice(i, 1)
+					console.log('删除state中消息完成');
 					break;
 				}
 			}
-			console.log('删除state中消息完成');
 		},
 		// 设置当前会话的id
 		setSessionId(state, data) {
@@ -1024,18 +1024,7 @@ export default {
 			return new Promise((resolve, reject) => {
 				dispatch('delegateNimFunction', {
 					functionName: 'markMsgRead',
-					options: {
-						msgs: options.msgs,
-						done: (error, obj) => {
-							console.log('标记消息 为已收到', error, obj)
-							if (error) {
-								state.errCommon.uploadInfo(error);
-								reject(error)
-							} else {
-								resolve('')
-							}
-						}
-					}
+					options: options.msgs
 				})
 			})
 			
