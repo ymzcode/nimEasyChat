@@ -5,6 +5,11 @@
 			<chat-item-tipmsg :msg="msg"></chat-item-tipmsg>
 		</template>
 		
+		<!-- 展示群通知消息 -->
+		<template v-else-if="msg.type === 'notification'">
+			<chat-item-notification :msg="msg"></chat-item-notification>
+		</template>
+		
 		<template v-else>
 			<!-- 整体消息结构 -->
 			<view class="im-flex cell" :style="msgBoxStyle">
@@ -58,6 +63,7 @@ import chatItemVideo from '@/components/easy-chat/chat-item-video.vue'
 import chatItemAudio from '@/components/easy-chat/chat-item-audio.vue'
 import chatItemText from '@/components/easy-chat/chat-item-text.vue'
 import chatItemTipmsg from '@/components/easy-chat/chat-item-tipMsg.vue'
+import chatItemNotification from '@/components/easy-chat/chat-item-notification.vue'
 
 import useDayjs from '@/common/NIM/useDayjs.js'
 
@@ -83,7 +89,8 @@ export default {
 		chatItemVideo,
 		chatItemAudio,
 		chatItemText,
-		chatItemTipmsg
+		chatItemTipmsg,
+		chatItemNotification
 	},
 	computed: {
 		// 控制消息左右显示
