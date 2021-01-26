@@ -16,6 +16,9 @@
 					case 'acceptTeamInvite':
 						text = `${msg.fromNick} 加入了本群`
 						break;
+					case 'leaveTeam':
+						text = `${msg.fromNick} 退出了本群`
+						break;
 				}
 				return text
 			}

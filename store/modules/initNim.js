@@ -1024,6 +1024,50 @@ export default {
 			
 		},
 		
+		// 解散群 解散群后, 所有群成员会收到一条类型为'dismissTeam'的群通知消息。此类群通知消息的from字段为解散群的人的帐号, to字段的值为被对应的群ID。
+		nimDismissTeam({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'dismissTeam',
+					options: {
+						teamId: options.teamId,
+						done: (error, obj) => {
+							console.log('解散群', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
+		// 主动退群 
+		nimLeaveTeam({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'leaveTeam',
+					options: {
+						teamId: options.teamId,
+						done: (error, obj) => {
+							console.log('主动退群', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 标记系统通知为 已读
 		nimMarkSysMsgRead({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {

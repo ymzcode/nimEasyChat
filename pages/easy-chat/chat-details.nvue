@@ -147,6 +147,18 @@
 			},
 			teamQuit() {
 				console.log('退出');
+				if (this.isOwner) {
+					// 解散群
+					this.$store.dispatch('initNim/nimDismissTeam', {
+						teamId: this.detailInfo.teamId
+					})
+				} else {
+					// 退出群
+					this.$store.dispatch('initNim/nimLeaveTeam', {
+						teamId: this.detailInfo.teamId
+					})
+				}
+				
 				this.teamQuitPopup.show = false
 			},
 			isTopChange(e) {
