@@ -88,6 +88,9 @@ export default {
 						case 'acceptTeamInvite':
 							text = `${lastMsg.fromNick} 加入了本群`
 							break;
+						case 'leaveTeam':
+							text = `${lastMsg.fromNick} 退出了本群`
+							break;
 					}
 					break;
 			}
