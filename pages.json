@@ -45,10 +45,7 @@
 		{
 			"path": "pages/easy-chat/chat-details",
 			"style": {
-				"app-plus": {
-					"titleNView": false,
-					"scrollIndicator": "none"
-				},
+				"navigationStyle":"custom",
 				"navigationBarTitleText": "聊天详情"
 			}
 		},
