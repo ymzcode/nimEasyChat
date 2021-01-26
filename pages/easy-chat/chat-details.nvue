@@ -1,5 +1,14 @@
 <template>
 	<view class="im-flex-column im-bg-grey-1 im-flex-1">
+		<!-- 顶部导航栏 -->
+		<nim-chat-navigation>
+			<view class="im-flex-column im-align-center">
+				<view class="im-flex im-flex-nowrap im-align-center">
+					<text class="im-font-38 im-font-black-2">聊天详情</text>
+				</view>
+			</view>
+		</nim-chat-navigation>
+		
 		<list :show-scrollbar="false">
 			<cell>
 				<!-- 单聊展示框 -->
@@ -82,6 +91,7 @@
 	import nimSearchHistory from '@/components/easy-chat/nim-search-history.vue'
 	import nimTeamMember from '@/components/easy-chat/nim-team-member.vue'
 	import nimPopupBottom from '@/components/easy-chat/nim-popup-bottom.vue'
+	import nimChatNavigation from '@/components/easy-chat/nim-chat-navigation.vue'
 	
 	export default {
 		data() {
@@ -101,7 +111,8 @@
 			teamAvatar,
 			nimSearchHistory,
 			nimTeamMember,
-			nimPopupBottom
+			nimPopupBottom,
+			nimChatNavigation
 		},
 		computed: {
 			userUID() {

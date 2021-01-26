@@ -1,5 +1,5 @@
 <template>
-	<view class="im-flex im-align-center im-justify-between im-px-3 im-position-relative im-border-bottom" style="height: 44px;" :style="{ marginTop: statusBarHeight }">
+	<view class="im-flex im-align-center im-bg-white im-justify-between im-px-3 im-position-relative im-border-bottom" style="height: 44px;" :style="{ marginTop: statusBarHeight }">
 		<!-- 中 -->
 		<view class="im-position-absolute im-flex-1 im-top-0 im-bottom-0 im-left-0 im-right-0 im-justify-center im-align-center">
 			<slot></slot>
