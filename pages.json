@@ -70,6 +70,12 @@
 				},
 				"navigationBarTitleText": "选择联系人"
 			}
+		},
+		{
+			"path": "pages/contacts/select",
+			"style": {
+				"navigationBarTitleText": "通讯录"
+			}
 		}
 	],
 	"globalStyle": {
