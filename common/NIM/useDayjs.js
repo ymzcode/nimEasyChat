@@ -22,7 +22,22 @@ let useDayjs = {
 			return null
 		}
 		return dayjs(time).format('YYYY/MM/DD HH:mm')
+	},
+	// 聊天使用的格式格式化时间
+	// 60秒内的时间不显示日期, 超过60秒 但小于24小时  显示3分钟前格式  超过24小时 显示完整的日期
+	formatChatItemTime(time) {
+		if (!time) {
+			return null
+		}
+		
+		if (dayjs(time).isAfter(dayjs().subtract(1, 'minute'))) {
+			return ''
+		} else {
+			return this.formatRelative24(time)
+		}
+		
 	}
+	
 }
 
 export default useDayjs

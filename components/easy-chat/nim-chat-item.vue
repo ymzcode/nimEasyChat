@@ -113,7 +113,7 @@ export default {
 	},
 	filters: {
 		formatTime(n) {
-			return useDayjs.formatRelative24(n)
+			return useDayjs.formatChatItemTime(n)
 		}
 	},
 	methods: {
