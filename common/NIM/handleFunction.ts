@@ -307,6 +307,11 @@ class NimHandle {
 	onofflinesysmsgs(data): void {
 		console.log('------- onofflinesysmsgs', data);
 		
+		// 将其标记为已收到
+		store.dispatch('initNim/nimMarkSysMsgRead', {
+			sysMsgs: data
+		})
+		
 		data.map(item => {
 			switch (item.type) {
 				case 'deleteMsg' :
@@ -347,6 +352,12 @@ class NimHandle {
 	*/
 	onsysmsg(data): void {
 		console.log('------- onsysmsg', data);
+		
+		// 将其标记为已收到
+		store.dispatch('initNim/nimMarkSysMsgRead', {
+			sysMsgs: data
+		})
+		
 		switch (data.type) {
 			case 'deleteMsg' :
 				console.log('收到撤回消息的系统通知')
