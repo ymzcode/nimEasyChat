@@ -331,18 +331,14 @@ class NimHandle {
 	*
 	* 	
 		同步漫游系统通知的回调, 会传入系统通知数组
-		
-		如果同一个会话既有离线消息，又有漫游消息，离线消息的优先级高于漫游消息，优先下发离线消息，如果离线消息数小于 100 条，才下发漫游消息。
-		漫游消息是已读消息，不会触发未读数变化。离线消息中才可能包含未读消息。
 	*/
 	onroamingsysmsgs(data): void {
 		console.log('------- onroamingsysmsgs', data);
-		
-		// 将其标记为已收到
-		store.dispatch('initNim/nimMarkSysMsgRead', {
-			sysMsgs: data
-		})
-		
+		console.log('当前暂未用到, 保留')
+		// // 将其标记为已收到
+		// store.dispatch('initNim/nimMarkSysMsgRead', {
+		// 	sysMsgs: data
+		// })
 	}
 	
 	/*
