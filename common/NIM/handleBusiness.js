@@ -29,4 +29,24 @@ handleBusiness.session = {
 	}
 }
 
+// im 群组相关
+handleBusiness.team = {
+	// 添加成员
+	addMember(teamId,accounts) {
+		let arr = []
+		if (!Array.isArray(accounts)) {
+			arr = [accounts]
+		}
+		
+		store.dispatch('initNim/nimAddTeamMembers', {
+			teamId: teamId,
+			accounts: arr
+		}).then(res => {
+			uni.showToast({
+				title: '发送邀请成功'
+			})
+		})
+	}
+}
+
 export default handleBusiness

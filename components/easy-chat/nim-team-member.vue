@@ -11,7 +11,7 @@
 			</view>
 			
 			<!-- 加号 -->
-			<image class="im-mx-1" src="/static/easy-chat/details/create-team@2x.png" mode="aspectFill" style="width: 72rpx;height: 72rpx;"></image>
+			<image class="im-mx-1" src="/static/easy-chat/details/create-team@2x.png" mode="aspectFill" style="width: 72rpx;height: 72rpx;" @tap="addMember"></image>
 		</view>
 	</view>
 </template>
@@ -39,8 +39,14 @@
 			this.$store.dispatch('initNim/nimGetTeamMembers', this.$attrs.detailInfo.teamId)
 		},
 		methods: {
-			onClick() {
+			onClick(e) {
 				console.log('点击群成员');
+				e.stopPropagation()
+			},
+			addMember(e) {
+				console.log('添加成员')
+				this.$emit('addMember')
+				e.stopPropagation()
 			}
 		}
 	}

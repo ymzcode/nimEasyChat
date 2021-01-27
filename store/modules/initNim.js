@@ -1050,6 +1050,32 @@ export default {
 			
 		},
 		
+		// 拉人入群 
+		nimAddTeamMembers({dispatch, commit, state}, options) {
+			return new Promise((resolve, reject) => {
+				dispatch('delegateNimFunction', {
+					functionName: 'addTeamMembers',
+					options: {
+						teamId: options.teamId,
+						accounts: options.accounts,
+						ps: '加入我们的群吧',
+						// 自定义扩展字段，选填，最长512字符，开发者也可以使用JSON格式的字符串来扩展此内容
+						custom: '',
+						done: (error, obj) => {
+							console.log('拉人入群', error, obj)
+							if (error) {
+								state.errCommon.uploadInfo(error);
+								reject(error)
+							} else {
+								resolve('')
+							}
+						}
+					}
+				})
+			})
+			
+		},
+		
 		// 主动退群 
 		nimLeaveTeam({dispatch, commit, state}, options) {
 			return new Promise((resolve, reject) => {
