@@ -43,42 +43,42 @@ export default {
 					icon: '',
 					identity: ''
 				},
-				{
-					id: 5,
-					name: '文件',
-					icon: '',
-					identity: ''
-				},
-				{
-					id: 6,
-					name: '阅后即焚',
-					icon: '',
-					identity: ''
-				},
-				{
-					id: 7,
-					name: '投票消息',
-					icon: '',
-					identity: 'votes'
-				},
-				{
-					id: 8,
-					name: '卡片消息',
-					icon: '',
-					identity: 'msgCard'
-				},
-				{
-					id: 9,
-					name: '投票消息',
-					icon: '',
-					identity: ''
-				},
-				{
-					id: 10,
-					name: '投票消息',
-					icon: '',
-					identity: ''
-				}
+				// {
+				// 	id: 5,
+				// 	name: '文件',
+				// 	icon: '',
+				// 	identity: ''
+				// },
+				// {
+				// 	id: 6,
+				// 	name: '阅后即焚',
+				// 	icon: '',
+				// 	identity: ''
+				// },
+				// {
+				// 	id: 7,
+				// 	name: '投票消息',
+				// 	icon: '',
+				// 	identity: 'votes'
+				// },
+				// {
+				// 	id: 8,
+				// 	name: '卡片消息',
+				// 	icon: '',
+				// 	identity: 'msgCard'
+				// },
+				// {
+				// 	id: 9,
+				// 	name: '投票消息',
+				// 	icon: '',
+				// 	identity: ''
+				// },
+				// {
+				// 	id: 10,
+				// 	name: '投票消息',
+				// 	icon: '',
+				// 	identity: ''
+				// }
 			]
 		};
 	},
