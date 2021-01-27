@@ -1008,9 +1008,9 @@ export default {
 						accounts: options.accounts,
 						intro: '群简介',
 						announcement: '群公告',
-						ps: '我建了一个普通群',
+						ps: '我建了一个高级群',
 						done: (error, msg) => {
-							console.log('创建普通群完成', error, msg)
+							console.log('创建高级群完成', error, msg)
 							if (error) {
 								state.errCommon.uploadInfo(error);
 								reject(error)
