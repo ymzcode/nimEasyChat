@@ -2,6 +2,7 @@ import config from '@/common/NIM/config.js'
 import errorTrapping from '@/common/NIM/errorTrapping.ts'
 import handleFunction from '@/common/NIM/handleFunction.ts'
 import Vue from 'vue'
+import handleBusiness from '@/common/NIM/handleBusiness.js'
 
 const SDK = require(`@/common/NIM/${config.NIMSDK}`)
 
@@ -294,6 +295,9 @@ export default {
 						})
 					}
 				}
+				
+				// 保存会话 方便后续读取历史会话
+				handleBusiness.session.saveHistory()
 				
 				
 				console.log('合并会话数据完成', state.sessionArr)

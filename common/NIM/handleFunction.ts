@@ -1,4 +1,5 @@
 import store from '@/store/index';
+import handleBusiness from '@/common/NIM/handleBusiness.js'
 
 class NimHandle {
 	constructor() {
@@ -499,6 +500,9 @@ class NimHandle {
 	*/
 	onsyncdone(data): void {
 		console.log('------- onsyncdone', data);
+		
+		// 读取历史会话
+		handleBusiness.session.readHistory()
 	}
 	
 
