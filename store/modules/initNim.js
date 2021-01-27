@@ -1010,6 +1010,16 @@ export default {
 						name: options.name,
 						avatar: options.avatar,
 						accounts: options.accounts,
+						// 群加入方式 'noVerify' (不需要验证) 'needVerify' (需要验证) 'rejectAll' (禁止任何人加入)
+						joinMode: options.joinMode || 'noVerify',
+						// 群被邀请模式 'needVerify' (需要邀请方同意) 'noVerify' (不需要邀请方同意)
+						beInviteMode: options.beInviteMode || 'noVerify',
+						// 群邀请模式 'manager' (只有管理员/群主可以邀请他人入群) 'all' (所有人可以邀请他人入群)
+						inviteMode: options.inviteMode || 'manager',
+						// 群信息修改权限 'manager' (只有管理员/群主可以修改) 'all' (所有人可以修改)
+						updateTeamMode: options.updateTeamMode || 'manager',
+						// 群信息自定义字段修改权限 'manager' (只有管理员/群主可以修改) 'all' (所有人可以修改)
+						updateCustomMode: options.updateCustomMode || 'manager',
 						intro: '群简介',
 						announcement: '群公告',
 						ps: '我建了一个高级群',
