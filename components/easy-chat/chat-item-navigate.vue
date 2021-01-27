@@ -49,9 +49,12 @@
 		},
 		methods: {
 			onClick(event) {
-				uni.showToast({
-					title: `当前传递的链接${this.url}`,
-					icon: 'none'
+				// uni.showToast({
+				// 	title: `当前传递的链接${this.url}`,
+				// 	icon: 'none'
+				// })
+				uni.navigateTo({
+					url: this.url
 				})
 				event.stopPropagation()
 			}
