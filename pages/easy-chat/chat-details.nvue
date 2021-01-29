@@ -34,7 +34,7 @@
 						<text class="im-text-ellipsis im-font-32 im-font-black im-mt-3 im-pb-3 im-text-center" style="width: 500rpx;">{{ detailInfo.name }}</text>
 					</view>
 					
-					<nim-team-member :detailInfo="detailInfo"></nim-team-member>
+					<nim-team-member :detailInfo="detailInfo" @addMember="addMember"></nim-team-member>
 					
 				</template>
 			</cell>
@@ -153,6 +153,11 @@
 			}
 		},
 		methods: {
+			addMember() {
+				uni.navigateTo({
+					url: '/pages/contacts/select?teamId=' + this.to
+				})
+			},
 			createTeam() {
 				console.log('创建群聊');
 			},
