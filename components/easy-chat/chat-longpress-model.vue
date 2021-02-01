@@ -5,7 +5,7 @@
 			<view v-for="(item, index) in menuItem" :key="index" class="im-flex im-align-center">
 				<view v-for="item2 in item" :key="item2.id" class="im-flex-column im-align-center im-mx-2 im-mt-1" @tap="onClick(item2, $event)">
 					<image :src="item2.icon" mode="aspectFill" style="width: 40rpx;height: 40rpx;"></image>
-					<text class="im-font-23 im-font-white">{{item2.text}}</text>
+					<text class="im-font-23 im-font-white im-mt-1">{{item2.text}}</text>
 				</view>
 			</view>
 		</view>
