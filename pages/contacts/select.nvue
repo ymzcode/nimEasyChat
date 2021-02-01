@@ -6,7 +6,8 @@
 </template>
 
 <script>
-	import handleBusiness from '@/common/NIM/handleBusiness.js'
+	import { Team } from '@/common/NIM/handleBusiness.js'
+	
 	export default {
 		data() {
 			return {
@@ -16,11 +17,14 @@
 		onLoad(event) {
 			console.log(event);
 			this.teamId = event.teamId
+			
+			// 初始化业务代码
 		},
 		methods: {
 			add() {
 				console.log('添加成员');
-				handleBusiness.team.addMember(this.teamId, '137')
+				const _TEAM = new Team(this.$store)
+				_TEAM.addMember()
 				uni.navigateBack()
 			}
 		}

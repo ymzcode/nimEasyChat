@@ -1,5 +1,5 @@
 import store from '@/store/index';
-import handleBusiness from '@/common/NIM/handleBusiness.js'
+import { Session } from '@/common/NIM/handleBusiness.js'
 
 class NimHandle {
 	constructor() {
@@ -175,6 +175,10 @@ class NimHandle {
 			store.dispatch('initNim/nimGetUser', data.to)
 		}
 		store.commit('initNim/saveSessionData', data)
+		
+		const _SESSION = new Session(store);
+		// 保存会话 方便后续读取历史会话
+		_SESSION.saveHistory()
 		
 	}
 	
@@ -500,9 +504,9 @@ class NimHandle {
 	*/
 	onsyncdone(data): void {
 		console.log('------- onsyncdone', data);
-		
+		const _SESSION = new Session(store);
 		// 读取历史会话
-		handleBusiness.session.readHistory()
+		_SESSION.readHistory()
 	}
 	
 

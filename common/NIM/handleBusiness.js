@@ -1,15 +1,19 @@
-// 业务代码
+// // 业务代码
+// // nvue 暂不支持使用ts 遂放弃 暂时改用js实现
 
-import store from '@/store/index.js'
+class HandleBusiness {
+	constructor(STORE) {
+		this._STORE = STORE
+	}
+}
 
-let handleBusiness = {}
-
-// im 会话相关
-handleBusiness.session = {
+class Session extends HandleBusiness {
+	constructor(STORE) { super(STORE); }
+	
 	// 保存历史会话
 	saveHistory() {
-		let arr = store.getters['initNim/sessionArr']
-		let userId = store.getters['initNim/userUID']
+		let arr = this._STORE.getters['initNim/sessionArr']
+		let userId = this._STORE.getters['initNim/userUID']
 		if (arr) {
 			uni.setStorage({
 			key: `historySession-${userId}`,
@@ -19,26 +23,28 @@ handleBusiness.session = {
 				}
 			});
 		}
-	},
-
+	}
+	
 	// 读取历史会话
 	readHistory() {
-		let userId = store.getters['initNim/userUID']
+		let userId = this._STORE.getters['initNim/userUID']
 		let sessionArr = uni.getStorageSync(`historySession-${userId}`) || []
-		store.commit('initNim/saveSessionData', sessionArr)
+		this._STORE.commit('initNim/saveSessionData', sessionArr)
 	}
+	
 }
 
-// im 群组相关
-handleBusiness.team = {
+class Team extends HandleBusiness {
+	constructor(STORE) { super(STORE); }
+	
 	// 添加成员
-	addMember(teamId,accounts) {
+	addMember(teamId, accounts) {
 		let arr = []
 		if (!Array.isArray(accounts)) {
 			arr = [accounts]
 		}
 		
-		store.dispatch('initNim/nimAddTeamMembers', {
+		this._STORE.dispatch('initNim/nimAddTeamMembers', {
 			teamId: teamId,
 			accounts: arr
 		}).then(res => {
@@ -47,6 +53,11 @@ handleBusiness.team = {
 			})
 		})
 	}
+	
 }
 
-export default handleBusiness
+
+export {
+	Session,
+	Team
+}
