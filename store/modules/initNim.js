@@ -705,6 +705,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -789,6 +792,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -818,6 +824,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -840,6 +849,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -862,6 +874,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -920,6 +935,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -943,6 +961,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -970,6 +991,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -996,6 +1020,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1034,6 +1061,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1056,6 +1086,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1082,6 +1115,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1104,6 +1140,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1126,6 +1165,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1137,6 +1179,9 @@ export default {
 					functionName: 'markMsgRead',
 					options: options.msgs
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1162,6 +1207,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		},
@@ -1190,6 +1238,9 @@ export default {
 						}
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 		},
 		
@@ -1217,6 +1268,9 @@ export default {
 						}
 					}
 				});
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 		},
 		
@@ -1239,6 +1293,9 @@ export default {
 						}
 					}
 				});
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 		},
 		// 新增会话置顶
@@ -1263,6 +1320,9 @@ export default {
 						}
 					}
 				});
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 		},
 		// 取消会话置顶
@@ -1284,6 +1344,9 @@ export default {
 						}
 					}
 				});
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 		},
 		
@@ -1302,6 +1365,9 @@ export default {
 						resolve('')
 					}
 				})
+			}).catch(error => {
+				console.error(error);
+				state.errCommon.uploadInfo(error);
 			})
 			
 		}
