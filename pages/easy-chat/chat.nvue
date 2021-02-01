@@ -26,7 +26,6 @@
 				:cursor-spacing="10"
 				confirm-type="send"
 				:maxlength="200"
-				:focus="inputFocus"
 				:show-confirm-bar="false"
 				:hold-keyboard="false"
 				:value="textareaValue"
@@ -268,7 +267,6 @@ export default {
 		},
 		textareaFocus(e) {
 			console.log(e);
-			this.menuShow = false;
 		},
 		sendMsg() {
 			console.log('msg', this.textareaValue);
