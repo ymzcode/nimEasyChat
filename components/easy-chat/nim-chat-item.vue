@@ -16,7 +16,7 @@
 				<!-- 对方的头像 -->
 				<nim-avatar v-if="msg.flow === 'in'" :account="msg.from"></nim-avatar>
 				<!-- 消息盒子 -->
-				<view class="im-flex-column im-align-start">
+				<view class="im-flex-column">
 					<!-- 消息体 -->
 					<nim-chat-wrapper :flow="msg.flow" :type="msg.type" :msg="msg" v-on="$listeners">
 						<!-- 普通文本消息 -->

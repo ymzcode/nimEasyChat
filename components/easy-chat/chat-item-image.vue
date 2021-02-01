@@ -46,9 +46,9 @@ export default {
 			let width = this.$attrs.msg.file.w
 			let height = this.$attrs.msg.file.h
 			let coe = 0
-			if (width > 450) {
-				coe = 450 / width
-				imgSize.width = 450
+			if (width > 280) {
+				coe = 280 / width
+				imgSize.width = 280
 				imgSize.height = Math.round(coe * height)
 			} else {
 				imgSize.width = width
