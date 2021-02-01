@@ -36,7 +36,6 @@
 			nimAvatar
 		},
 		mounted() {
-			this.$store.dispatch('initNim/nimGetTeamMembers', this.$attrs.detailInfo.teamId)
 		},
 		methods: {
 			onClick(e) {

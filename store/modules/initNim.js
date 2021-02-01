@@ -663,6 +663,9 @@ export default {
 			// 开始查询这个人
 			if (scene === 'p2p') {
 				dispatch('nimGetUser', to)
+			} else if(scene === 'team') {
+				// 查找/更新 群用户列表
+				dispatch('nimGetTeamMembers', to)
 			}
 			
 			commit('setSessionId', data)
