@@ -33,7 +33,7 @@
 				@keyboardheightchange="keyboardheightchange"
 				@input="textareaInput"
 			/>
-			<nim-chat-recording v-if="mode === 'audio'" style="height: 70rpx;width: 480rpx;"></nim-chat-recording>
+			<nim-chat-recording ref="nimScroolView" v-if="mode === 'audio'" style="height: 70rpx;width: 480rpx;"></nim-chat-recording>
 			<image src="/static/easy-chat/chat/emojo@2x.png" mode="aspectFill" class="im-icon-5" @tap="openEmoji"></image>
 			<image v-if="textareaValue.length === 0" src="/static/easy-chat/chat/add@2x.png" mode="aspectFill" class="im-icon-5" @tap="opemMenu"></image>
 			<view v-if="textareaValue.length > 0" hover-class="im-bg-grey-3" class="im-bg-blue-2 im-px-2 im-py-2 im-round-1" @tap="sendMsg"><text class="im-font-28 im-font-white">发送</text></view>
@@ -262,6 +262,7 @@ export default {
 			if (e.detail.height > 0) {
 				this.$nextTick(() => {
 					this.inputFocus = true;
+					this.$refs.nimScroolView.goTop()
 				})
 			}
 		},
