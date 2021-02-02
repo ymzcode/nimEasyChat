@@ -29,6 +29,14 @@ class Session extends HandleBusiness {
 	readHistory() {
 		let userId = this._STORE.getters['initNim/userUID']
 		let sessionArr = uni.getStorageSync(`historySession-${userId}`) || []
+		
+		sessionArr.map(item => {
+			// 查询这个会话的信息
+			if (item.scene === 'p2p') {
+				this._STORE.dispatch('initNim/nimGetUser', item.to)
+			}
+		})
+		
 		this._STORE.commit('initNim/saveSessionData', sessionArr)
 	}
 	
