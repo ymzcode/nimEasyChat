@@ -8,6 +8,8 @@
 		<navigator url="/pages/login/login">
 			<text>前往登录</text>
 		</navigator>
+		<image src="/static/easy-chat/msg-emoji/a.png" mode="aspectFill" class="im-icon-5"></image>
+		<image src="/static/easy-chat/msg-emoji/aini.png" mode="aspectFill" class="im-icon-5"></image>
 	</view>
 </template>
 
@@ -35,7 +37,6 @@
 
 <style>
 	.content {
-		display: flex;
 		flex-direction: column;
 		align-items: center;
 		justify-content: center;
@@ -45,13 +46,10 @@
 		height: 200rpx;
 		width: 200rpx;
 		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
 		margin-bottom: 50rpx;
 	}
 
 	.text-area {
-		display: flex;
 		justify-content: center;
 	}
 
