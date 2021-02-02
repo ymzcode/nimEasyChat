@@ -16,12 +16,12 @@
 		<!-- 聊天滚动区域 -->
 		<nim-scroll-view ref="nimScroolView" :scene="scene" :to="to" :focus="inputFocus" :nowSessionInfo="nowSessionInfo" @clickScrollView="clickScrollView"></nim-scroll-view>
 		<!-- 底部聊天框 -->
-		<view class="im-flex im-align-center im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 85rpx;max-height: 150rpx">
+		<view class="im-flex im-align-center im-position-relative im-justify-between im-bg-grey-1 im-px-2 im-py-2 im-border-top" style="min-height: 85rpx;max-height: 150rpx" :style="toolBottomStyle">
 			<image @tap="changeMode" :src="modeIcon" mode="aspectFill" class="im-icon-5"></image>
 			<textarea
 				v-if="mode === 'input'"
-				class="im-flex im-bg-white im-round-3 im-px-2 im-py-2 im-font-28"
-				style="min-height: 70rpx;width: 470rpx;max-height: 120rpx"
+				class="im-flex im-bg-white im-round-3 im-px-2 im-py-2 im-font-28 im-position-relative"
+				style="min-height: 70rpx;width: 470rpx;max-height: 120rpx;"
 				:auto-height="true"
 				:cursor-spacing="10"
 				confirm-type="send"
@@ -74,7 +74,10 @@ export default {
 			mode: 'input',
 			
 			//是否显示正在输入
-			isShowWriting: false
+			isShowWriting: false,
+			
+			// 判断键盘是否弹出
+			isKeyboardShow: false
 		};
 	},
 	components: {
@@ -119,6 +122,14 @@ export default {
 		// 当前会话的session信息
 		nowSessionInfo() {
 			return this.sessionObj[`${this.scene}-${this.to}`] || {}
+		},
+		// 优化底部输入框不紧贴键盘
+		toolBottomStyle() {
+			let style = ''
+			if (this.isKeyboardShow) {
+				style += 'margin-bottom: 20rpx'
+			}
+			return style
 		}
 	},
 	watch: {
@@ -263,7 +274,10 @@ export default {
 				this.$nextTick(() => {
 					this.inputFocus = true;
 					this.$refs.nimScroolView.goTop()
+					this.isKeyboardShow = true
 				})
+			} else {
+				this.isKeyboardShow = false
 			}
 		},
 		textareaFocus(e) {
