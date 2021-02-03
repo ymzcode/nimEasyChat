@@ -29,6 +29,9 @@
 					>加载中···</text>
 				</view>
 			</view>
+			
+			<view style="height: 80rpx;"></view>
+			
 		</scroll-view>
 		
 		<!-- 长按消息弹出框 -->
