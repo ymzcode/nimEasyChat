@@ -14,13 +14,9 @@
 		<!-- 第三层 按钮组 -->
 		<view class="im-flex-column im-position-absolute im-w-100 im-justify-center im-align-center" style="bottom: 100rpx;">
 			<easy-btn class="im-round-8 im-mb-5" style="width: 480rpx;" @onClick="startUse"><text class="im-font-white im-font-34 im-py-3">开始使用</text></easy-btn>
-
-			<!-- <view hover-class="im-bg-black-1" class="im-flex im-bg-black-2 im-align-center im-justify-center im-round-8 im-mb-5" style="width: 480rpx;" @tap="startUse">
-				<text class="im-font-white im-font-34 im-py-3">开始使用</text>
-			</view> -->
-			<view hover-class="im-bg-black-1" class="im-flex im-bg-white im-align-center im-justify-center im-round-8 im-mb-5" style="width: 480rpx;" @tap="useHelp">
-				<text class="im-font-black-2 im-font-34 im-py-3">使用帮助</text>
-			</view>
+			
+			<easy-btn class="im-round-8 im-mb-5 im-bg-white" style="width: 480rpx;" @onClick="useHelp"><text class="im-font-black-2 im-font-34 im-py-3">使用帮助</text></easy-btn>
+			
 		</view>
 
 		<!-- 第四层 底部登录卡片 -->
@@ -83,7 +79,7 @@ export default {
 					]
 				},
 				function(res) {
-					console.log(res);
+					// console.log(res);
 					if (res.state === 'end') {
 						if (res.deltaY > 100) {
 							_self.hideCardAn()
