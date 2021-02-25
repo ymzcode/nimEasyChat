@@ -41,10 +41,6 @@
 			</view>
 
 			<easy-btn class="im-round-8 im-mb-5 im-mt-7" style="width: 480rpx;" @onClick="loginApp"><text class="im-font-white im-font-34 im-py-3">登 录</text></easy-btn>
-
-			<!-- <view ref="loginBtn" hover-class="im-bg-black-1" class="im-flex im-mt-7 im-bg-black-2 im-align-center im-justify-center im-round-8 im-mb-5" style="width: 480rpx;transform: scaleX(0);" @tap="loginApp">
-				<text class="im-font-white im-font-34 im-py-3">登 录</text>
-			</view> -->
 		</view>
 	</view>
 </template>
@@ -71,7 +67,8 @@ export default {
 		this.loginBgMoveAn()
 	},
 	methods: {
-		cardTouchStart() {
+		cardTouchStart(e) {
+			e.stopPropagation()
 			let _self = this
 			let card_binding = Binding.bind(
 				{
@@ -157,26 +154,6 @@ export default {
 			}
 			start()
 		},
-		showLoginBtn() {
-			let _self = this;
-			_self.$nextTick(function() {
-				animation.transition(
-					_self.$refs.loginBtn,
-					{
-						styles: {
-							transform: 'scaleX(1)'
-						},
-						duration: ANTIME, //ms
-						timingFunction: 'ease',
-						needLayout: false,
-						delay: 0 //ms
-					},
-					function() {
-						// console.log('动画走完了');
-					}
-				);
-			});
-		},
 		showContentAn() {
 			let _self = this;
 			_self.$nextTick(function() {
@@ -214,7 +191,6 @@ export default {
 					},
 					function() {
 						// console.log('动画走完了');
-						_self.showLoginBtn();
 					}
 				);
 			});
