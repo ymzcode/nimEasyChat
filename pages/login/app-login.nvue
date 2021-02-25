@@ -1,8 +1,8 @@
 <template>
 	<view class="im-flex-column im-flex-1 im-position-relative">
 		<!-- 第一层 背景图 -->
-		<image src="/static/login/login-bg.png" mode="aspectFill" @tap="hideCardAn" class="im-flex-1 im-position-relative"></image>
-		
+		<image ref="loginBg" src="/static/login/login-bg.png" mode="aspectFill" @tap="hideCardAn" class="im-flex-1 im-position-relative"></image>
+
 		<!-- 第二层 文字说明层 -->
 		<view ref="loginContent" class="im-flex-column im-flex-1 im-position-fixed" style="top: 300rpx;left: 100rpx;transform: scaleX(0);">
 			<image src="/static/logo.png" mode="aspectFill" class="im-round-2" style="width: 100rpx;height: 100rpx;"></image>
@@ -10,13 +10,11 @@
 			<text class="im-font-white im-font-46">欢迎使用</text>
 			<text class="im-font-white im-font-38" style="max-width:400rpx;">欢迎使用啊实打实打算撒大苏打啊实打实的啊实打实</text>
 		</view>
-		
+
 		<!-- 第三层 按钮组 -->
 		<view class="im-flex-column im-position-absolute im-w-100 im-justify-center im-align-center" style="bottom: 100rpx;">
-			<easy-btn class="im-round-8 im-mb-5" style="width: 480rpx;" @onClick="startUse">
-				<text class="im-font-white im-font-34 im-py-3">开始使用</text>
-			</easy-btn>
-			
+			<easy-btn class="im-round-8 im-mb-5" style="width: 480rpx;" @onClick="startUse"><text class="im-font-white im-font-34 im-py-3">开始使用</text></easy-btn>
+
 			<!-- <view hover-class="im-bg-black-1" class="im-flex im-bg-black-2 im-align-center im-justify-center im-round-8 im-mb-5" style="width: 480rpx;" @tap="startUse">
 				<text class="im-font-white im-font-34 im-py-3">开始使用</text>
 			</view> -->
@@ -24,152 +22,236 @@
 				<text class="im-font-black-2 im-font-34 im-py-3">使用帮助</text>
 			</view>
 		</view>
-		
+
 		<!-- 第四层 底部登录卡片 -->
-		<view v-if="showCard" ref="loginCard" class="im-position-fixed im-w-100 im-bottom-0 im-bg-white im-align-center login-bottom-card im-py-3">
-			
+		<view v-if="showCard" ref="loginCard" class="im-position-fixed im-w-100 im-bottom-0 im-bg-white im-align-center login-bottom-card im-py-3" @touchstart="cardTouchStart">
 			<view class="im-flex-column im-justify-center im-align-center">
 				<view class="card-analog-button im-round-4"></view>
-				<text class="im-font-46 im-font-black-2 im-my-5 im-weight-bold">登  录</text>
+				<text class="im-font-46 im-font-black-2 im-my-5 im-weight-bold">登 录</text>
 			</view>
-			
-			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 card-input-wrapper" >
+
+			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 card-input-wrapper">
 				<image src="/static/logo.png" mode="aspectFill" style="width: 60rpx;height: 60rpx;"></image>
 				<input class="im-font-30 im-flex-1 im-ml-2" type="text" placeholder="账号" v-model="account" />
 			</view>
-			
-			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 im-mt-3 card-input-wrapper" >
+
+			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 im-mt-3 card-input-wrapper">
 				<image src="/static/logo.png" mode="aspectFill" style="width: 60rpx;height: 60rpx;"></image>
 				<input class="im-font-30 im-flex-1 im-ml-2" type="password" placeholder="密码" v-model="password" />
 			</view>
-			
-			<easy-btn class="im-round-8 im-mb-5 im-mt-7" style="width: 480rpx;" @onClick="loginApp">
-				<text class="im-font-white im-font-34 im-py-3">登 录</text>
-			</easy-btn>
-			
+
+			<easy-btn class="im-round-8 im-mb-5 im-mt-7" style="width: 480rpx;" @onClick="loginApp"><text class="im-font-white im-font-34 im-py-3">登 录</text></easy-btn>
+
 			<!-- <view ref="loginBtn" hover-class="im-bg-black-1" class="im-flex im-mt-7 im-bg-black-2 im-align-center im-justify-center im-round-8 im-mb-5" style="width: 480rpx;transform: scaleX(0);" @tap="loginApp">
 				<text class="im-font-white im-font-34 im-py-3">登 录</text>
 			</view> -->
-			
 		</view>
 	</view>
 </template>
 
 <script>
-	const animation = uni.requireNativePlugin('animation');
-	// 动画执行时间
-	const ANTIME = 250
-	
-	export default {
-		data() {
-			return {
-				account: '',
-				password: '',
-				showCard: false
+const animation = uni.requireNativePlugin('animation');
+// 动画执行时间
+const ANTIME = 250;
+
+const Binding = uni.requireNativePlugin('bindingx');
+
+export default {
+	data() {
+		return {
+			account: '',
+			password: '',
+			showCard: false
+		};
+	},
+	watch:{
+	},
+	onReady() {
+		this.showContentAn();
+		this.loginBgMoveAn()
+	},
+	methods: {
+		cardTouchStart() {
+			let _self = this
+			let card_binding = Binding.bind(
+				{
+					eventType: 'pan',
+					anchor: _self.getEl(_self.$refs.loginCard),
+					props: [
+						{
+							element: _self.getEl(_self.$refs.loginCard),
+							property: 'transform.translateY',
+							expression: 'y>0 && y+0'
+						}
+					]
+				},
+				function(res) {
+					console.log(res);
+					if (res.state === 'end') {
+						if (res.deltaY > 100) {
+							_self.hideCardAn()
+							Binding.unbind({
+								token: card_binding.token,
+								eventType: 'pan'
+							})
+						} else {
+							_self.showCardAn()
+						}
+					}
+				}
+			);
+			
+		},
+		useHelp() {
+			console.log('帮助');
+		},
+		startUse() {
+			console.log('使用');
+			this.showCard = true;
+			this.$nextTick(() => {
+				this.showCardAn();
+			});
+		},
+		loginApp(e) {
+			console.log('登录', this.account, this.password);
+			this.hideCardAn();
+			e.stopPropagation()
+		},
+		loginBgMoveAn() {
+			let _self = this;
+			let start = () => {
+				animation.transition(
+					_self.$refs.loginBg,
+					{
+						styles: {
+							transform: 'translateX(90px) scale(1.5)'
+						},
+						duration: 4000, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						// console.log('动画走完了');
+						end()
+					}
+				);
+			}
+			let end = () => {
+				animation.transition(
+					_self.$refs.loginBg,
+					{
+						styles: {
+							transform: 'translateX(-90px) scale(1.5)'
+						},
+						duration: 4000, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						// console.log('动画走完了');
+						start()
+					}
+				);
+			}
+			start()
+		},
+		showLoginBtn() {
+			let _self = this;
+			_self.$nextTick(function() {
+				animation.transition(
+					_self.$refs.loginBtn,
+					{
+						styles: {
+							transform: 'scaleX(1)'
+						},
+						duration: ANTIME, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						// console.log('动画走完了');
+					}
+				);
+			});
+		},
+		showContentAn() {
+			let _self = this;
+			_self.$nextTick(function() {
+				animation.transition(
+					_self.$refs.loginContent,
+					{
+						styles: {
+							transform: 'scaleX(1)'
+						},
+						duration: ANTIME, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						// console.log('动画走完了');
+					}
+				);
+			});
+			
+		},
+		showCardAn() {
+			let _self = this;
+			_self.$nextTick(function() {
+				animation.transition(
+					_self.$refs.loginCard,
+					{
+						styles: {
+							transform: 'translateY(0)'
+						},
+						duration: ANTIME, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						// console.log('动画走完了');
+						_self.showLoginBtn();
+					}
+				);
+			});
+
+			
+		},
+		getEl: function(el) {
+			if (typeof el === 'string' || typeof el === 'number') return el;
+			if (WXEnvironment) {
+				return el.ref;
+			} else {
+				return el instanceof HTMLElement ? el : el.$el;
 			}
 		},
-		onReady() {
-			this.showContentAn()
-		},
-		methods: {
-			useHelp() {
-				console.log('帮助');
-			},
-			startUse() {
-				console.log('使用');
-				this.showCard = true
-				this.$nextTick(() => {
-					this.showCardAn()
-				})
-			},
-			loginApp() {
-				console.log('登录', this.account, this.password);
-				this.hideCardAn()
-			},
-			showLoginBtn() {
-				let _self = this
-				_self.$nextTick(function(){
-					animation.transition(
-						_self.$refs.loginBtn,
-						{
-							styles: {
-								transform: 'scaleX(1)'
-							},
-							duration: ANTIME, //ms
-							timingFunction: 'ease',
-							needLayout: false,
-							delay: 0 //ms
+		hideCardAn() {
+			let _self = this;
+			_self.$nextTick(function() {
+				animation.transition(
+					_self.$refs.loginCard,
+					{
+						styles: {
+							transform: 'translateY(100%)'
 						},
-						function() {
-							// console.log('动画走完了');
-						}
-					);
-				})
-			},
-			showContentAn() {
-				let _self = this
-				_self.$nextTick(function(){
-					animation.transition(
-						_self.$refs.loginContent,
-						{
-							styles: {
-								transform: 'scaleX(1)'
-							},
-							duration: ANTIME, //ms
-							timingFunction: 'ease',
-							needLayout: false,
-							delay: 0 //ms
-						},
-						function() {
-							// console.log('动画走完了');
-						}
-					);
-				})
-			},
-			showCardAn() {
-				let _self = this
-				_self.$nextTick(function(){
-					animation.transition(
-						_self.$refs.loginCard,
-						{
-							styles: {
-								transform: 'translateY(0)'
-							},
-							duration: ANTIME, //ms
-							timingFunction: 'ease',
-							needLayout: false,
-							delay: 0 //ms
-						},
-						function() {
-							// console.log('动画走完了');
-							_self.showLoginBtn()
-						}
-					);
-				})
-			},
-			hideCardAn() {
-				let _self = this
-				_self.$nextTick(function(){
-					animation.transition(
-						_self.$refs.loginCard,
-						{
-							styles: {
-								transform: 'translateY(100%)'
-							},
-							duration: ANTIME, //ms
-							timingFunction: 'ease',
-							needLayout: false,
-							delay: 0 //ms
-						},
-						function() {
-							// console.log('动画走完了');
-							_self.showCard = false
-						}
-					);
-				})
-			}
+						duration: ANTIME, //ms
+						timingFunction: 'ease',
+						needLayout: false,
+						delay: 0 //ms
+					},
+					function() {
+						// console.log('动画走完了');
+						_self.showCard = false;
+					}
+				);
+			});
 		}
 	}
+};
 </script>
 
 <style scoped>
@@ -187,5 +269,4 @@
 .card-input-wrapper {
 	width: 550rpx;
 }
-
 </style>
