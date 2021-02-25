@@ -27,12 +27,13 @@
 			</view>
 
 			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 card-input-wrapper">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 60rpx;height: 60rpx;"></image>
+				<text class="iconfont im-font-54">&#xe6d4;</text>
 				<input class="im-font-30 im-flex-1 im-ml-2" type="text" placeholder="账号" v-model="account" />
 			</view>
 
 			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 im-mt-3 card-input-wrapper">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 60rpx;height: 60rpx;"></image>
+				<text class="iconfont im-font-54">&#xe6cf;</text>
+				<!-- <image src="/static/logo.png" mode="aspectFill" style="width: 60rpx;height: 60rpx;"></image> -->
 				<input class="im-font-30 im-flex-1 im-ml-2" type="password" placeholder="密码" v-model="password" />
 			</view>
 
