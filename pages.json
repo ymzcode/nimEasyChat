@@ -11,6 +11,16 @@
 			}
 		},
 		{
+			"path": "pages/login/use-help",
+			"style": {
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				},
+				"navigationBarTitleText": "使用帮助"
+			}
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": "uni-app"
