@@ -6,8 +6,8 @@
 		<!-- 第二层 文字说明层 -->
 		<view ref="loginContent" class="im-flex-column im-flex-1 im-position-fixed" style="top: 300rpx;left: 100rpx;transform: scaleX(0);">
 			<image src="/static/logo.png" mode="aspectFill" class="im-round-2" style="width: 100rpx;height: 100rpx;"></image>
-			<text class="im-font-white im-font-48">欢迎使用</text>
-			<text class="im-font-white im-font-46">欢迎使用</text>
+			<text class="im-font-white im-font-48">欢迎使用Easy Chat</text>
+			<text class="im-font-white im-font-46">了解</text>
 			<text class="im-font-white im-font-38" style="max-width:400rpx;">欢迎使用啊实打实打算撒大苏打啊实打实的啊实打实</text>
 		</view>
 
