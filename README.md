@@ -1,12 +1,12 @@
 # nimEasyChat
 整合nim的项目
-正在补充···
 
-// 会话置顶功能暂时搁置，因为需要联系商务开通
 
-- Todo
-// initNim promise错误捕获需要补充
-// 完善邀人入群 踢人出群
-// 群消息的已读未读
-// 阅后即焚消息
-// 聊天框聚焦
+
+## 鸣谢
+
+> 项目中所用的开源资源  在此会特别声明其作者。感谢！
+
+- [ProWeb Desarrollo ](https://dribbble.com/prowebdesarrollo) 
+- [竹頔](https://www.iconfont.cn/user/detail?spm=a313x.7781069.1998910419.d562d1f9f&uid=13644)
+
