@@ -87,6 +87,15 @@ export default {
 				url: '/pages/address/address-list'
 			})
 		})
+		
+		// 加载字体图标
+		
+		const dom = weex.requireModule('dom');
+		dom.addRule('fontFace', {
+		    fontFamily: 'iconfont',
+		    src: "url('https://at.alicdn.com/t/font_2387608_l365wnbndeg.ttf')"
+		});
+		
 	},
 	onShow: function() {
 		console.log('App Show');
@@ -103,4 +112,8 @@ export default {
 <style>
 /*每个页面公共css */
 @import './common/NIM/easyChat.css';
+
+.iconfont {
+    font-family: iconfont;
+}
 </style>
