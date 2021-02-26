@@ -1,0 +1,20 @@
+<template>
+	<div>
+		默认入口页
+	</div>
+</template>
+
+<script>
+	export default {
+		onLoad() {
+			console.log('页面加载');
+			uni.reLaunch({
+				url: '/pages/login/guide'
+			})
+		}
+	}
+</script>
+
+<style>
+
+</style>
