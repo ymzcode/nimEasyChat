@@ -2,8 +2,8 @@
     "name" : "EasyChat",
     "appid" : "__UNI__C1EB1A3",
     "description" : "集成聊天框架",
-    "versionName" : "1.0.0",
-    "versionCode" : "100",
+    "versionName" : "1.0.2",
+    "versionCode" : 102,
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
@@ -11,9 +11,9 @@
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
-            "waiting" : true,
-            "autoclose" : true,
+            "alwaysShowBeforeRender" : false,
+            "waiting" : false,
+            "autoclose" : false,
             "delay" : 0
         },
         /* 模块配置 */
@@ -83,6 +83,14 @@
                         "spotlight@2x" : "unpackage/res/icons/80x80.png",
                         "spotlight@3x" : "unpackage/res/icons/120x120.png"
                     }
+                }
+            },
+            "splashscreen" : {
+                "androidStyle" : "default",
+                "android" : {
+                    "hdpi" : "C:/Users/weitu/Downloads/logo.png",
+                    "xhdpi" : "C:/Users/weitu/Downloads/logo.png",
+                    "xxhdpi" : "C:/Users/weitu/Downloads/logo.png"
                 }
             }
         }
