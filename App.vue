@@ -81,21 +81,26 @@ export default {
 	},
 	onLaunch: function() {
 		console.log('App Launch');
+
+		//app关闭默认的启动 方法关闭启动图。但是这个时间不能太晚，6s 超时后依旧会主动关闭。
+		setTimeout(() => {
+			plus.navigator.closeSplashscreen();
+		}, 100);
+
 		uni.onTabBarMidButtonTap(() => {
 			console.log('监听中间按钮点击事件');
 			uni.navigateTo({
 				url: '/pages/address/address-list'
-			})
-		})
-		
+			});
+		});
+
 		// 加载字体图标
-		
+
 		const dom = weex.requireModule('dom');
 		dom.addRule('fontFace', {
-		    fontFamily: 'iconfont',
-		    src: "url('https://at.alicdn.com/t/font_2387608_l365wnbndeg.ttf')"
+			fontFamily: 'iconfont',
+			src: "url('https://at.alicdn.com/t/font_2387608_l365wnbndeg.ttf')"
 		});
-		
 	},
 	onShow: function() {
 		console.log('App Show');
@@ -114,6 +119,6 @@ export default {
 @import './common/NIM/easyChat.css';
 
 .iconfont {
-    font-family: iconfont;
+	font-family: iconfont;
 }
 </style>
