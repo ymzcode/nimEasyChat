@@ -34,7 +34,8 @@
 			<view class="im-flex im-align-center im-border-bottom im-py-2 im-px-1 im-mt-3 card-input-wrapper">
 				<text class="iconfont im-font-54">&#xe6cf;</text>
 				<!-- <image src="/static/logo.png" mode="aspectFill" style="width: 60rpx;height: 60rpx;"></image> -->
-				<input class="im-font-30 im-flex-1 im-ml-2" type="password" placeholder="密码" v-model="password" />
+				<input class="im-font-30 im-flex-1 im-ml-2" type="type" :password="!isShowPassword" placeholder="密码" v-model="password" />
+				<text class="im-font-54 iconfont" @tap="() => { isShowPassword = !isShowPassword }">{{ isShowPassword ? '&#xe6e2;' : '&#xe6d9;'}}</text>
 			</view>
 
 			<easy-btn class="im-round-8 im-mb-5 im-mt-7" style="width: 480rpx;" @onClick="loginApp"><text class="im-font-white im-font-34 im-py-3">登 录</text></easy-btn>
@@ -54,7 +55,8 @@ export default {
 		return {
 			account: '',
 			password: '',
-			showCard: false
+			showCard: false,
+			isShowPassword: false
 		};
 	},
 	watch:{
@@ -98,7 +100,8 @@ export default {
 		},
 		useHelp() {
 			uni.navigateTo({
-				url: '/pages/login/use-help'
+				url: '/pages/login/use-help',
+				animationType: 'slide-in-bottom'
 			})
 			console.log('帮助');
 		},
