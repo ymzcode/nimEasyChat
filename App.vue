@@ -28,6 +28,8 @@
 		}
 */
 
+import Common from '@/common/common.js'
+
 export default {
 	globalData: {
 		// 节流函数
@@ -86,6 +88,10 @@ export default {
 		setTimeout(() => {
 			plus.navigator.closeSplashscreen();
 		}, 100);
+		
+		const COMMON = new Common()
+		// 判断是否要进入引导页还是 首页
+		COMMON.isGuideOrIndex()
 
 		uni.onTabBarMidButtonTap(() => {
 			console.log('监听中间按钮点击事件');
