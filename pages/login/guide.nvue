@@ -1,12 +1,25 @@
 <template>
 	<div>
 		引导页
+		<button type="default" @tap="gotoPage">跳过</button>
 	</div>
 </template>
 
 <script>
+	import StorageAgent from '@/common/NIM/storage-agent.js'
+	
 	export default {
-		
+		onLoad() {
+			const agent = new StorageAgent()
+			agent.set('isGuide', true)
+		},
+		methods: {
+			gotoPage() {
+				uni.redirectTo({
+					url: '/pages/login/app-login'
+				})
+			}
+		}
 	}
 </script>
 
