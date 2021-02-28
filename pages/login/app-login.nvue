@@ -50,6 +50,8 @@ const ANTIME = 250;
 
 const Binding = uni.requireNativePlugin('bindingx');
 
+import { Login } from '@/common/NIM/handleBusiness.js'
+
 export default {
 	data() {
 		return {
@@ -115,6 +117,10 @@ export default {
 		loginApp(e) {
 			console.log('登录', this.account, this.password);
 			this.hideCardAn();
+			
+			const _Login = new Login(this.$store)
+			_Login.loginApp(this.account, this.password)
+			
 			e.stopPropagation()
 		},
 		loginBgMoveAn() {
