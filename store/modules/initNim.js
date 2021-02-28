@@ -608,7 +608,7 @@ export default {
 				
 			} catch (e) {
 				console.error(e);
-				state.errCommon.uploadInfo(e)
+				state.errCommon.uploadInfo(e.message || e)
 			}
 
 		},
