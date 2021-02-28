@@ -20,7 +20,7 @@ class NimErrorTrap {
 	private errTimeout: any = null;
 	
 	constructor(isShowTips: boolean = true) {
-		console.log(isShowTips);
+		// console.log(isShowTips);
 		this.isShowTips = isShowTips;
 	}
 	
