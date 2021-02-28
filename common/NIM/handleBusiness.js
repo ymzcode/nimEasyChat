@@ -64,8 +64,28 @@ class Team extends HandleBusiness {
 	
 }
 
+class Login extends HandleBusiness {
+	constructor(STORE) { super(STORE); }
+	
+	// 登录app
+	loginApp(account, password) {
+		this._STORE.dispatch('initNim/initNimSDK', {
+			account: account,
+			userSig: password
+		}).then(res => {
+			// console.log(res);
+			uni.reLaunch({
+				url: '/pages/index/index'
+			})
+		})
+		
+	}
+	
+}
+
 
 export {
 	Session,
-	Team
+	Team,
+	Login
 }
