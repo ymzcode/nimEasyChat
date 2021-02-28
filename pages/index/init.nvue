@@ -1,6 +1,6 @@
 <template>
 	<div>
-		默认入口页
+		<!-- 默认空白页  -->
 	</div>
 </template>
 
@@ -8,9 +8,6 @@
 	export default {
 		onLoad() {
 			console.log('页面加载');
-			uni.reLaunch({
-				url: '/pages/login/guide'
-			})
 		}
 	}
 </script>
