@@ -88,9 +88,9 @@
             "splashscreen" : {
                 "androidStyle" : "default",
                 "android" : {
-                    "hdpi" : "C:/Users/weitu/Downloads/logo.png",
-                    "xhdpi" : "C:/Users/weitu/Downloads/logo.png",
-                    "xxhdpi" : "C:/Users/weitu/Downloads/logo.png"
+                    "hdpi" : "static/logo.png",
+                    "xhdpi" : "static/logo.png",
+                    "xxhdpi" : "static/logo.png"
                 }
             }
         }
