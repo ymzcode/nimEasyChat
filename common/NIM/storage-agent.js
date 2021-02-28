@@ -22,6 +22,7 @@ class Storage {
 	// 存储storage的同步方法
 	setStorageSync(key, value) {
 		if (this.checkName(key)) {
+			// console.log('存储storage的同步方法', key, value);
 			uni.setStorageSync(key, value)
 		}
 	}
@@ -39,7 +40,8 @@ class Storage {
 	// 读取storage的同步方法
 	getStorageSync(key) {
 		if (this.checkName(key)) {
-			uni.getStorageSync(key)
+			// console.log('读取storage的同步方法', key, uni.getStorageSync(key));
+			return uni.getStorageSync(key)
 		}
 	}
 	
@@ -72,17 +74,18 @@ class StorageAgent {
 	set(key, value, isSync = true) {
 		if(isSync) {
 			this._storage.setStorageSync(key, value)
+			// console.log('创建缓存的方法', key, value);
 		} else {
-			this._storage.setStorage(key, value)
+			return this._storage.setStorage(key, value)
 		}
 	}
 	
 	// 获取缓存的方法
 	get(key, isSync = true) {
 		if(isSync) {
-			this._storage.getStorageSync(key)
+			return this._storage.getStorageSync(key)
 		} else {
-			this._storage.getStorage(key)
+			return this._storage.getStorage(key)
 		}
 	}
 	
