@@ -606,6 +606,8 @@ export default {
 					commit('changeNetworkType', res.networkType)
 				});
 				
+				return nim
+				
 			} catch (e) {
 				console.error(e);
 				state.errCommon.uploadInfo(e.message || e)
