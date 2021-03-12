@@ -69,7 +69,8 @@ export default {
 	},
 	methods: {
 		cardTouchStart(e) {
-			e.stopPropagation()
+			e && e.stopPropagation()
+			console.log(e);
 			let _self = this
 			let card_binding = Binding.bind(
 				{
@@ -79,7 +80,7 @@ export default {
 						{
 							element: _self.getEl(_self.$refs.loginCard),
 							property: 'transform.translateY',
-							expression: 'y>0 && y+0'
+							expression: 'y > 0 ? y+0 : 0'
 						}
 					]
 				},
@@ -200,6 +201,7 @@ export default {
 					},
 					function() {
 						// console.log('动画走完了');
+						_self.cardTouchStart()
 					}
 				);
 			});
