@@ -27,7 +27,7 @@
 				let style = ''
 				switch(this.animationMode) {
 					case 'scaleX':
-						style  = 'transform: scaleX(0);'
+						style  = `transform: scaleX(${this.scaleX});`
 						break;
 				}
 				
@@ -39,7 +39,8 @@
 				touchXY: {
 					pageX: 0,
 					pageY: 0
-				}
+				},
+				scaleX: 0
 			}
 		},
 		mounted() {
@@ -81,6 +82,7 @@
 						},
 						function() {
 							// console.log('动画走完了');
+							_self.scaleX = 1
 						}
 					);
 				})
