@@ -629,7 +629,7 @@ export default {
 
 			if (!nim) {
 				state.errCommon.uploadInfo('通讯还未初始化')
-				throw Error(`NIM还未初始化`)
+				throw new Error(`NIM还未初始化`)
 			}
 
 			if (functionName && nim[functionName] && typeof nim[functionName] === 'function') {
@@ -643,12 +643,12 @@ export default {
 				} catch (e) {
 					console.error('delegateNimFunction', e)
 					state.errCommon.uploadInfo(`调用NIM集成的函数 ${functionName} 出错：${e.message}`)
-					throw Error(`调用NIM集成的函数 '${functionName}' 时出错`)
+					throw new Error(`调用NIM集成的函数 '${functionName}' 时出错`)
 				}
 			} else {
 				state.errCommon.uploadInfo(
 					`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
-				throw Error(`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
+				throw new Error(`There is not property of '${functionName}' in nim or '${functionName}' is not a function`)
 			}
 		},
 		// 设置当前会话id
@@ -708,6 +708,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -795,6 +796,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -827,6 +829,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -852,6 +855,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -877,6 +881,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -938,6 +943,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -964,6 +970,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -994,6 +1001,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1023,6 +1031,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1064,6 +1073,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1089,6 +1099,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1118,6 +1129,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1143,6 +1155,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1168,6 +1181,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1182,6 +1196,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1210,6 +1225,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		},
@@ -1241,6 +1257,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 		},
 		
@@ -1271,6 +1288,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 		},
 		
@@ -1296,6 +1314,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 		},
 		// 新增会话置顶
@@ -1323,6 +1342,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 		},
 		// 取消会话置顶
@@ -1347,6 +1367,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 		},
 		
@@ -1368,6 +1389,7 @@ export default {
 			}).catch(error => {
 				console.error(error);
 				state.errCommon.uploadInfo(error);
+				throw new Error(error)
 			})
 			
 		}
